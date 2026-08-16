@@ -9,7 +9,7 @@ Repositório inicial do **TIME 17** para o componente curricular **Projeto Integ
 - **Nome do Projeto / Time:** PI-II-TIME17
 - **Componente Curricular:** Projeto Integrador II
 - **Curso:** Engenharia de Software
-- **Semestre / Ano:** 2º Semestre de 2026 (2026.2)
+- **Semestre / Ano:** 2º Semestre de 2026 (2026.2
 - **Professora Orientadora:** Prof.ª Dra. Renata Antonia Tadeu Arantes ([@RenataArantes](https://github.com/RenataArantes))
 
 ---
