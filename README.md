@@ -30,7 +30,7 @@ Repositório inicial do **TIME 17** para o componente curricular **Projeto Integ
 
 - [x] **Criação do repositório no GitHub** com o nome oficial informado no Canvas (`PI-II-TIME17`).
 - [ ] **Inclusão de todos os integrantes do grupo** como colaboradores no repositório.
-- [ ] **Inclusão da professora orientadora** ([@RenataArantes](https://github.com/RenataArantes)) no repositório.
-- [ ] **Configuração inicial do GitHub Projects**.
+- [x] **Inclusão da professora Renata** ([@RenataArantes](https://github.com/RenataArantes)) no repositório.
+- [x] **Configuração inicial do GitHub Projects**.
 - [x] **Criação e organização inicial do arquivo `README.md`**.
 - [ ] **Configuração e teste do ambiente Git/GitHub** por todos os integrantes (clone, branch, commit e push).
