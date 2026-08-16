@@ -20,7 +20,7 @@ Repositório inicial do **TIME 17** para o componente curricular **Projeto Integ
 | :--- | :---: | :---: |
 | **Enrico Locateli Costa** | 26003119 | [@imazz7](https://github.com/imazz7) |
 | **Felipe Dalan dos Passos** | 26002875 | [@felipepassos03](https://github.com/felipepassos03) |
-| **Gabriel Santucci de Novaes** | — | — |
+| **Gabriel Santucci de Novaes** | 26002102 | [@gbnvaes](https://github.com/gbnvaes) |
 | **Gabriela Amanda Pereira** | 26005884 | [@gapcipher](https://github.com/gapcipher) |
 | **Lucas Rodrigues Xavier** | 25000508 | [@lucaxaviers](https://github.com/lucaxaviers) |
 
