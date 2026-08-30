@@ -26,11 +26,13 @@ Repositório inicial do **TIME 17** para o componente curricular **Projeto Integ
 
 ---
 
-## 📋 Atividades da Reunião 1 — Preparação do Ambiente
+## 📋 Andamento do Projeto
 
-- [x] **Criação do repositório no GitHub** com o nome oficial informado no Canvas (`PI-II-TIME17`).
-- [x] **Inclusão de todos os integrantes do grupo** como colaboradores no repositório.
-- [x] **Inclusão da professora Renata** ([@RenataArantes](https://github.com/RenataArantes)) no repositório.
-- [x] **Configuração inicial do GitHub Projects**.
-- [x] **Criação e organização inicial do arquivo `README.md`**.
-- [ ] **Configuração e teste do ambiente Git/GitHub** por todos os integrantes (clone, branch, commit e push).
+| Reunião | Data | Foco | Situação |
+| :---: | :---: | :--- | :---: |
+| 1 | 18/08 | Preparação do ambiente | ✅ Concluída |
+| 2 | 01/09 | Desenvolvimento do frontend | 🔄 Em andamento |
+
+O detalhamento de cada reunião está em [documentos/time/reunioes.md](documentos/time/reunioes.md).
+
+O apontamento de esforço da equipe é registrado no **GitHub Projects**.
