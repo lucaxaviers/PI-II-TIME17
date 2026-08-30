@@ -1,0 +1,149 @@
+/* ==========================================
+   Autor: Lucas Rodrigues Xavier | 25000508
+   Descricao: Estilos compartilhados pelas telas de cadastro e login
+   ========================================== */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1f4e79;
+    margin: 0;
+}
+
+/* ---------- Cartao ---------- */
+
+.cartao {
+    background-color: white;
+    width: 440px;
+    margin: 40px auto;
+    padding: 30px;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+}
+
+/* ---------- Cabecalho ---------- */
+
+.cabecalho {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.logo {
+    color: #1f4e79;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.cabecalho h1 {
+    color: #1f4e79;
+    font-size: 22px;
+    margin: 10px;
+}
+
+.cabecalho p {
+    color: #555555;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* ---------- Campos ---------- */
+
+.campo {
+    margin-bottom: 15px;
+}
+
+.campo label {
+    display: block;
+    color: #333333;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.campo input {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    width: 418px;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+}
+
+/* Campo com erro */
+
+.campo.invalido input {
+    background-color: #fdecea;
+    border: 1px solid #c0392b;
+}
+
+.campo.valido input {
+    border: 1px solid #239b56;
+}
+
+.mensagem-erro {
+    display: none;
+    color: #c0392b;
+    font-size: 13px;
+    margin: 5px;
+}
+
+.campo.invalido .mensagem-erro {
+    display: block;
+}
+
+/* ---------- Botao principal ---------- */
+
+.botao {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #1f4e79;
+    width: 440px;
+    padding: 12px;
+    border: 1px solid #1f4e79;
+    border-radius: 5px;
+}
+
+/* ---------- Links ---------- */
+
+a {
+    color: #1f4e79;
+    font-weight: bold;
+}
+
+/* ---------- Rodape ---------- */
+
+.rodape-form {
+    color: #555555;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #cccccc;
+}
+
+/* ---------- Alertas ---------- */
+
+.alerta {
+    display: none;
+    font-size: 14px;
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 5px;
+}
+
+.alerta.visivel {
+    display: block;
+}
+
+.alerta-erro {
+    color: #922b21;
+    background-color: #fdecea;
+    border: 1px solid #c0392b;
+}
+
+.alerta-sucesso {
+    color: #145a32;
+    background-color: #e6f6ec;
+    border: 1px solid #239b56;
+}
