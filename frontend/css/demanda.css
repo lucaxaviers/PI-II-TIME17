@@ -1,0 +1,120 @@
+body{
+    background-color: rgb(247, 234, 234);
+}
+#cabecalho{
+    display: inline-block;
+    width: 100%;
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+}
+#logo{
+    color: rgb(62, 62, 231);
+}
+
+#demandas{
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    background-color: white;
+}
+table{
+    width: 90%;
+}
+tr{
+    text-align: justify;
+}  
+
+th,td{
+    text-align: justify;
+    padding: 13px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+.titulo{
+    color: blue;
+}
+.acao {
+    text-align: center;
+    padding: 5px;
+}
+.visualizar {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    width: auto;
+}
+
+.visualizar:hover {
+    background-color: #1d4ed8;
+}
+
+.legenda {
+    margin-top: 30px;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 14px;
+    background-color: white;
+}
+
+
+.item-legenda {
+    display: flex;
+    gap: 6px;
+}
+
+.cor {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.aberta {
+    background-color: #3b82f6;
+}
+
+.andamento {
+    background-color: #f59e0b;
+}
+
+.revisao {
+    background-color: #8b5cf6;
+}
+
+.concluida {
+    background-color: #22c55e;
+}
+
+.cancelada {
+    background-color: #ef4444;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+    display: inline-block;
+}
+.aberta {
+    background-color: #dbeafe;
+    color: #2563eb;
+}
+
+#rodape{
+    text-align: center;
+    padding: 11px;
+    background-color: #1d4ed8;
+    margin: 10px;
+}
+
+#rodape p{
+    color: white;
+    font-size: 15px;
+}
