@@ -1,0 +1,59 @@
+<!--
+  Autor: Lucas Rodrigues Xavier | 25000508
+  Descricao: Tela de login de usuarios ja cadastrados
+-->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Acessar conta — DevTrack</title>
+  <link rel="stylesheet" href="css/comum.css">
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+  <div class="cartao">
+
+    <div class="cabecalho">
+      <div class="logo">DevTrack</div>
+      <h1>Acesse sua conta</h1>
+      <p>Bem-vindo de volta! Informe suas credenciais para continuar.</p>
+    </div>
+
+    <!-- Mensagem de erro ou de sucesso -->
+    <div id="alerta" class="alerta"></div>
+
+    <form id="form-login">
+
+      <!-- E-mail -->
+      <div class="campo" data-campo="email">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" placeholder="Seu e-mail cadastrado">
+        <p class="mensagem-erro" id="erro-email"></p>
+      </div>
+
+      <!-- Senha -->
+      <div class="campo" data-campo="senha">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" placeholder="Sua senha">
+        <p class="mensagem-erro" id="erro-senha"></p>
+      </div>
+
+      <!-- Link de recuperacao de senha -->
+      <p class="linha-opcoes">
+        <a href="recuperar-senha.html">Esqueceu a senha?</a>
+      </p>
+
+      <button type="submit" class="botao">Entrar</button>
+
+    </form>
+
+    <p class="rodape-form">
+      Ainda não tem uma conta? <a href="cadastro.html">Cadastre-se</a>
+    </p>
+
+  </div>
+
+</body>
+</html>

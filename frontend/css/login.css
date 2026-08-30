@@ -1,0 +1,12 @@
+/* ==========================================
+   Autor: Lucas Rodrigues Xavier | 25000508
+   Descricao: Estilos exclusivos da tela de login
+   ========================================== */
+
+/* Link de "Esqueceu a senha?" acima do botao */
+
+.linha-opcoes {
+    font-size: 14px;
+    text-align: right;
+    margin-bottom: 20px;
+}
