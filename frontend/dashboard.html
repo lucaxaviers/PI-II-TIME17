@@ -1,0 +1,812 @@
+<!--
+  Autor: Gabriela Amanda Pereira| 26005884
+  Descricao: Dashboard
+-->
+
+ <!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | DevTrack</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <!-- BARRA LATERAL-->
+        <aside class="barra-lateral">
+
+            <div class="logo">
+                <img src="imagens/logo-devtrack.png" alt="Logo DevTrack">
+            </div>
+
+
+            <nav class="menu">
+
+                <a href="#" class="menu-item ativo">
+                    <span>⌂</span>
+                    Dashboard
+                </a>
+
+                <a href="#" class="menu-item">
+                    <span>▣</span>
+                    Projetos
+                </a>
+
+                <a href="#" class="menu-item">
+                    <span>✓</span>
+                    Tarefas
+                </a>
+
+                <a href="#" class="menu-item">
+                    <span>♙</span>
+                    Equipe
+                </a>
+
+                <a href="#" class="menu-item">
+                    <span>▥</span>
+                    Relatórios
+                </a>
+
+            </nav>
+
+
+            <div class="menu-inferior">
+
+                <a href="#" class="menu-item">
+                    <span>⚙</span>
+                    Configurações
+                </a>
+
+                <a href="#" class="menu-item sair">
+                    <span>↪</span>
+                    Sair
+                </a>
+
+            </div>
+
+        </aside>
+
+
+        <!-- CONTEÚDO PRINCIPAL-->
+
+        <main class="conteudo">
+
+
+            <!-- CABEÇALHO -->
+
+            <header class="cabecalho-dashboard">
+
+                <div class="titulo">
+
+                    <h1>Olá, Gabriela! </h1>
+
+                    <p>
+                        Acompanhe o andamento dos seus projetos.
+                    </p>
+
+                </div>
+
+
+                <div class="usuario">
+
+                    <button class="notificacao">
+                        🔔
+                        <span class="numero-notificacao">3</span>
+                    </button>
+
+
+                    <div class="avatar">
+                        G
+                    </div>
+
+
+                    <div class="dados-usuario">
+
+                        <strong>Gabriela</strong>
+
+                        <span>Desenvolvedora</span>
+
+                    </div>
+
+
+                    <span class="seta">
+                        ▾
+                    </span>
+
+                </div>
+
+            </header>
+
+            <!-- CARDS-->
+
+            <section class="cards">
+
+
+                <!-- PROJETOS -->
+
+                <div class="card card-roxo">
+
+                    <div class="card-topo">
+
+                        <div class="icone">
+                            ▣
+                        </div>
+
+                    </div>
+
+                    <p>Projetos ativos</p>
+
+                    <h2>08</h2>
+
+                    <span class="card-info positivo">
+                        +2 este mês
+                    </span>
+
+                </div>
+
+
+
+                <!-- TAREFAS -->
+
+                <div class="card card-verde">
+
+                    <div class="card-topo">
+
+                        <div class="icone">
+                            ✓
+                        </div>
+
+                    </div>
+
+                    <p>Tarefas concluídas</p>
+
+                    <h2>32</h2>
+
+                    <span class="card-info positivo">
+                        +12 esta semana
+                    </span>
+
+                </div>
+
+                <!-- PENDENTES -->
+
+                <div class="card card-laranja">
+
+                    <div class="card-topo">
+
+                        <div class="icone">
+                            ◷
+                        </div>
+
+                    </div>
+
+                    <p>Pendentes</p>
+
+                    <h2>07</h2>
+
+                    <span class="card-info laranja">
+                        Precisam de atenção
+                    </span>
+
+                </div>
+
+
+
+                <!-- PRODUTIVIDADE -->
+
+                <div class="card card-azul">
+
+                    <div class="card-topo">
+
+                        <div class="icone">
+                            ↗
+                        </div>
+
+                    </div>
+
+                    <p>Produtividade</p>
+
+                    <h2>84%</h2>
+
+                    <span class="card-info positivo">
+                        +8% vs semana passada
+                    </span>
+
+                </div>
+
+            </section>
+
+            <!-- PARTE DO MEIO-->
+
+            <section class="area-meio">
+
+                <!--  RESUMO DAS TAREFAS-->
+
+                <div class="painel resumo">
+
+                    <div class="painel-cabecalho">
+
+                        <div>
+
+                            <h2>Resumo de tarefas</h2>
+
+                            <p>
+                                Distribuição das suas atividades.
+                            </p>
+
+                        </div>
+
+
+                        <select>
+
+                            <option>
+                                Esta semana
+                            </option>
+
+                            <option>
+                                Este mês
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="resumo-conteudo">
+
+
+                        <!-- GRÁFICO REDONDO -->
+
+                        <div class="grafico-circular">
+
+                            <div class="grafico-centro">
+
+                                <strong>46</strong>
+
+                                <span>
+                                    Total de tarefas
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- LEGENDA -->
+
+                        <div class="legenda">
+
+
+                            <div class="legenda-item">
+
+                                <div class="legenda-nome">
+
+                                    <span class="bolinha vermelho"></span>
+
+                                    <span>
+                                        Pendentes
+                                    </span>
+
+                                </div>
+
+                                <strong>07</strong>
+
+                                <small>15%</small>
+
+                            </div>
+
+
+
+                            <div class="legenda-item">
+
+                                <div class="legenda-nome">
+
+                                    <span class="bolinha laranja"></span>
+
+                                    <span>
+                                        Em andamento
+                                    </span>
+
+                                </div>
+
+                                <strong>14</strong>
+
+                                <small>30%</small>
+
+                            </div>
+
+
+
+                            <div class="legenda-item">
+
+                                <div class="legenda-nome">
+
+                                    <span class="bolinha amarelo"></span>
+
+                                    <span>
+                                        Concluídas
+                                    </span>
+
+                                </div>
+
+                                <strong>25</strong>
+
+                                <small>55%</small>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =========================
+                     ATIVIDADES RECENTES
+                ========================== -->
+
+                <div class="painel atividades">
+
+                    <div class="painel-cabecalho">
+
+                        <div>
+
+                            <h2>Atividades recentes</h2>
+
+                            <p>
+                                Últimas atualizações.
+                            </p>
+
+                        </div>
+
+                        <a href="#">
+                            Ver todas
+                        </a>
+
+                    </div>
+
+
+
+                    <!-- ATIVIDADE 1 -->
+
+                    <div class="atividade">
+
+                        <div class="atividade-icone verde">
+                            ✓
+                        </div>
+
+                        <div class="atividade-texto">
+
+                            <strong>
+                                Tarefa concluída
+                            </strong>
+
+                            <span>
+                                Sistema Web
+                            </span>
+
+                        </div>
+
+                        <small>
+                            Há 20 min
+                        </small>
+
+                    </div>
+
+
+
+                    <!-- ATIVIDADE 2 -->
+
+                    <div class="atividade">
+
+                        <div class="atividade-icone laranja">
+                            +
+                        </div>
+
+                        <div class="atividade-texto">
+
+                            <strong>
+                                Novo projeto criado
+                            </strong>
+
+                            <span>
+                                App Mobile
+                            </span>
+
+                        </div>
+
+                        <small>
+                            Há 1 hora
+                        </small>
+
+                    </div>
+
+
+
+                    <!-- ATIVIDADE 3 -->
+
+                    <div class="atividade">
+
+                        <div class="atividade-icone vermelho">
+                            !
+                        </div>
+
+                        <div class="atividade-texto">
+
+                            <strong>
+                                Tarefa pendente
+                            </strong>
+
+                            <span>
+                                API DevTrack
+                            </span>
+
+                        </div>
+
+                        <small>
+                            Há 3 horas
+                        </small>
+
+                    </div>
+
+
+
+                    <!-- ATIVIDADE 4 -->
+
+                    <div class="atividade">
+
+                        <div class="atividade-icone azul">
+                            ↑
+                        </div>
+
+                        <div class="atividade-texto">
+
+                            <strong>
+                                Projeto atualizado
+                            </strong>
+
+                            <span>
+                                Sistema Web
+                            </span>
+
+                        </div>
+
+                        <small>
+                            Há 5 horas
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =========================
+                 PROJETOS EM ANDAMENTO
+            ========================== -->
+
+            <section class="painel projetos">
+
+                <div class="painel-cabecalho">
+
+                    <div>
+
+                        <h2>Projetos em andamento</h2>
+
+                        <p>
+                            Acompanhe os projetos da equipe.
+                        </p>
+
+                    </div>
+
+                    <a href="#">
+                        Ver todos
+                    </a>
+
+                </div>
+
+
+
+                <div class="tabela-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Projeto</th>
+
+                                <th>Responsável</th>
+
+                                <th>Status</th>
+
+                                <th>Progresso</th>
+
+                                <th>Prazo</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                            <!-- PROJETO 1 -->
+
+                            <tr>
+
+                                <td>
+
+                                    <div class="projeto-nome">
+
+                                        <div class="projeto-icone roxo">
+                                            &lt;/&gt;
+                                        </div>
+
+                                        <div>
+
+                                            <strong>
+                                                Sistema Web
+                                            </strong>
+
+                                            <span>
+                                                Projeto principal
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="responsavel">
+
+                                        <div class="mini-avatar">
+                                            GA
+                                        </div>
+
+                                        Gabriela Amanda
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <span class="status andamento">
+                                        Em andamento
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="progresso">
+
+                                        <strong>
+                                            78%
+                                        </strong>
+
+                                        <div class="barra">
+
+                                            <div
+                                                class="barra-preenchida roxo"
+                                                style="width: 78%;">
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+                                    20/06/2025
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- PROJETO 2 -->
+
+                            <tr>
+
+                                <td>
+
+                                    <div class="projeto-nome">
+
+                                        <div class="projeto-icone vermelho">
+                                            ▣
+                                        </div>
+
+                                        <div>
+
+                                            <strong>
+                                                App Mobile
+                                            </strong>
+
+                                            <span>
+                                                Aplicativo da equipe
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="responsavel">
+
+                                        <div class="mini-avatar">
+                                            RC
+                                        </div>
+
+                                        Renata Castro
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <span class="status revisao">
+                                        Em revisão
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="progresso">
+
+                                        <strong>
+                                            54%
+                                        </strong>
+
+                                        <div class="barra">
+
+                                            <div
+                                                class="barra-preenchida laranja"
+                                                style="width: 54%;">
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+                                    15/06/2025
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- PROJETO 3 -->
+
+                            <tr>
+
+                                <td>
+
+                                    <div class="projeto-nome">
+
+                                        <div class="projeto-icone verde">
+                                            API
+                                        </div>
+
+                                        <div>
+
+                                            <strong>
+                                                API DevTrack
+                                            </strong>
+
+                                            <span>
+                                                Integração do sistema
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="responsavel">
+
+                                        <div class="mini-avatar">
+                                            EL
+                                        </div>
+
+                                        Enrico Locateli
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <span class="status concluido">
+                                        Concluído
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="progresso">
+
+                                        <strong>
+                                            100%
+                                        </strong>
+
+                                        <div class="barra">
+
+                                            <div
+                                                class="barra-preenchida verde"
+                                                style="width: 100%;">
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+                                    10/06/2025
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>
