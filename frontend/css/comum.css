@@ -1,34 +1,39 @@
 /* ==========================================
    Autor: Lucas Rodrigues Xavier | 25000508
-   Descricao: Estilos compartilhados pelas telas de cadastro e login
+   Descricao: Estilos unificados para a tela de login / cadastro
    ========================================== */
 
+/* Configurações gerais */
+* {
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #337beb;
     margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(247, 234, 234);
+    color: #333333;
 }
 
-/* ---------- Cartao ---------- */
-
+/* Estrutura do Cartão de Login */
 .cartao {
-    background-color: white;
+    background-color: #ffffff;
     width: 440px;
-    margin: 40px auto;
-    padding: 30px;
-    border: 1px solid #cccccc;
+    margin: 80px auto;
+    padding: 35px;
+    border: 1px solid #d9e2ef;
     border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(30, 50, 90, 0.04);
 }
 
-/* ---------- Cabecalho ---------- */
-
+/* Cabeçalho do formulário */
 .cabecalho {
     text-align: center;
     margin-bottom: 25px;
 }
 
 .logo {
-    color: #1f4e79;
+    color: #2563eb;
     font-size: 26px;
     font-weight: bold;
 }
@@ -36,7 +41,7 @@ body {
 .cabecalho h1 {
     color: #1f4e79;
     font-size: 22px;
-    margin: 10px;
+    margin: 10px 0 4px;
 }
 
 .cabecalho p {
@@ -48,7 +53,7 @@ body {
 /* ---------- Campos ---------- */
 
 .campo {
-    margin-bottom: 15px;
+    margin-bottom: 18px;
 }
 
 .campo label {
@@ -56,20 +61,26 @@ body {
     color: #333333;
     font-size: 14px;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
 
 .campo input {
-    font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
-    width: 418px;
-    padding: 10px;
+    width: 100%;
+    padding: 11px 14px;
     border: 1px solid #cccccc;
     border-radius: 5px;
+    background-color: #ffffff;
+    color: #333333;
 }
 
-/* Campo com erro */
+.campo input:focus {
+    outline: 2px solid #93c5fd;
+    border-color: #2563eb;
+}
 
+/* Campo com erro / sucesso */
 .campo.invalido input {
     background-color: #fdecea;
     border: 1px solid #c0392b;
@@ -83,42 +94,67 @@ body {
     display: none;
     color: #c0392b;
     font-size: 13px;
-    margin: 5px;
+    margin: 5px 0 0;
 }
 
 .campo.invalido .mensagem-erro {
     display: block;
 }
 
-/* ---------- Botao principal ---------- */
+/* Link de opções (Esqueceu a senha) */
+.linha-opcoes {
+    font-size: 14px;
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+/* ---------- Botão principal ---------- */
 
 .botao {
-    font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
     font-weight: bold;
-    color: white;
-    background-color: #1f4e79;
-    width: 440px;
+    color: #ffffff;
+    background-color: #2563eb;
+    width: 100%;
     padding: 12px;
-    border: 1px solid #1f4e79;
+    border: 1px solid #2563eb;
     border-radius: 5px;
+    cursor: pointer;
+}
+
+.botao:hover {
+    background-color: #1d4ed8;
+    border-color: #1d4ed8;
+}
+
+.botao:disabled {
+    color: #777777;
+    background-color: #e5e7eb;
+    border-color: #d1d5db;
+    cursor: not-allowed;
 }
 
 /* ---------- Links ---------- */
 
 a {
-    color: #1f4e79;
+    color: #1d4ed8;
+    text-decoration: none;
     font-weight: bold;
 }
 
-/* ---------- Rodape ---------- */
+a:hover {
+    text-decoration: underline;
+}
+
+/* ---------- Rodapé do formulário ---------- */
 
 .rodape-form {
     color: #555555;
     font-size: 14px;
     text-align: center;
-    margin-top: 20px;
-    padding-top: 15px;
+    margin-top: 25px;
+    padding-top: 20px;
     border-top: 1px solid #cccccc;
 }
 
@@ -127,7 +163,7 @@ a {
 .alerta {
     display: none;
     font-size: 14px;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
     padding: 12px;
     border-radius: 5px;
 }
@@ -146,4 +182,13 @@ a {
     color: #145a32;
     background-color: #e6f6ec;
     border: 1px solid #239b56;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 480px) {
+    .cartao {
+        width: 90%;
+        margin: 30px auto;
+        padding: 20px;
+    }
 }
