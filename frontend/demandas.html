@@ -1,161 +1,193 @@
 <!DOCTYPE html>
 <html lang="Pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/comum.css">
     <link rel="stylesheet" href="css/demanda.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=settings" />
-    
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=settings" />
+
     <title>Lista de Demandas</title>
 </head>
+
 <body>
-   <div id="cabecalho">
-    <div id="logo"><h1>DevTrack</h1></div> 
-    <h3>Demandas</h3>
-   </div>
+    <div id="cabecalho">
+        <div id="logo">
+            <h1>DevTrack</h1>
+        </div>
+        <h3>Demandas</h3>
+    </div>
 
-   <div id="demandas">
-    <table>
-        <tr>
-        <th>ID</th>
-        <th>Titulo</th>
-        <th>Tipo</th>
-        <th>Prioridade</th>
-        <th>Responsével</th>
-        <th>Status</th>
-        <th>Data criação</th>
-        <th>Data Finalização</th>
-        <th>Ações</th>
-        </tr>
-        <tr>
-            <td>123</td>
-            <td class="titulo">Atualização do sistema</td>
-            <td>Atualização</td>
-            <td>Alta</td>
-            <td>Felipe Passos</td>
-            <td><span class="status andamento">Em andamento</span></td>
-            <td>29/08/2026</td>
-            <td>07/09/2026</td>
-            <td class="acao"><button class="visualizar">Visualizar</button></td>
-        </tr>
+
+    <div id="demandas">
+        <div id="filtros-status">
+            <button class="filtro ativo">Todas</button>
+            <button class="filtro">Abertas <span class="aberta">3</span></button>
+            <button class="filtro">Em andamento <span class="andamento">2</span></button>
+            <button class="filtro">Em revisão <span class="revisao">1</span></button>
+            <button class="filtro">Concluidas <span class="concluida">1</span></button>
+            <button class="filtro">Canceladas <span class="cancelada">1</span></button>
+
+        </div>
+        <table>
             <tr>
-            <td>124</td>
-            <td class="titulo">Adicionar filtro de busca por categoria</td>
-            <td>Melhoria</td>
-            <td>Média</td>
-            <td>Gabriel Caurin</td>
-            <td><span class="status aberta">Aberta</span></td>
-            <td>15/08/2026</td>
-            <td>10/10/2026</td>
-            <td class="acao"><button class="visualizar">Visualizar</button></td>
-        </tr>
+                <th>ID</th>
+                <th>Titulo</th>
+                <th>Tipo</th>
+                <th>Prioridade</th>
+                <th>Responsével</th>
+                <th>Status</th>
+                <th>Data criação</th>
+                <th>Data Finalização</th>
+                <th>Ações</th>
+            </tr>
             <tr>
-            <td>125</td>
-            <td class="titulo">Mudar cor de um botão</td>
-            <td>Melhoria</td>
-            <td>Baixa</td>
-            <td>José Picolo</td>
-            <td><span class="status aberta">Aberta</span></td>
-            <td>29/08/2026</td>
-            <td>29/08/2026</td>
-           <td class="acao"><button class="visualizar">Visualizar</button></td>
-        </tr>
-        <tr>
-            <td>126</td>
-            <td class="titulo">Corrigir erro no login</td>
-            <td>Defeito</td>
-            <td>Crítica</td>
-            <td>Maria Santos</td>
-            <td><span class="status andamento">Em andamento</span></td>
-            <td>30/08/2026</td>
-            <td>01/09/2026</td>
-           <td class="acao"><button class="visualizar">Visualizar</button></td>
-        </tr>
+                <td>123</td>
+                <td class="titulo">Atualização do sistema</td>
+                <td>Atualização</td>
+                <td>Alta</td>
+                <td>Felipe Passos</td>
+                <td><span class="status andamento">Em andamento</span></td>
+                <td>29/08/2026</td>
+                <td>07/09/2026</td>
+                <td class="acao"><button class="visualizar">Visualizar</button></td>
+            </tr>
+            <tr>
+                <td>124</td>
+                <td class="titulo">Adicionar filtro de busca por categoria</td>
+                <td>Melhoria</td>
+                <td>Média</td>
+                <td>Gabriel Caurin</td>
+                <td><span class="status aberta">Aberta</span></td>
+                <td>15/08/2026</td>
+                <td>10/10/2026</td>
+                <td class="acao"><button class="visualizar">Visualizar</button></td>
+            </tr>
+            <tr>
+                <td>125</td>
+                <td class="titulo">Mudar cor de um botão</td>
+                <td>Melhoria</td>
+                <td>Baixa</td>
+                <td>José Picolo</td>
+                <td><span class="status aberta">Aberta</span></td>
+                <td>29/08/2026</td>
+                <td>29/08/2026</td>
+                <td class="acao"><button class="visualizar">Visualizar</button></td>
+            </tr>
+            <tr>
+                <td>126</td>
+                <td class="titulo">Corrigir erro no login</td>
+                <td>Defeito</td>
+                <td>Crítica</td>
+                <td>Maria Santos</td>
+                <td><span class="status andamento">Em andamento</span></td>
+                <td>30/08/2026</td>
+                <td>01/09/2026</td>
+                <td class="acao"><button class="visualizar">Visualizar</button></td>
+            </tr>
 
-        <tr>
-            <td>127</td>
-            <td class="titulo">Criar página de perfil</td>
-            <td>Tarefa</td>
-            <td>Média</td>
-            <td>Pedro Costa</td>
-            <td><span class="status concluida">Concluída</span></td>
-            <td>28/08/2026</td>
-            <td>15/09/2026</td>
-            <td class="acao"><button class="visualizar">Visualizar</button></td>
-        </tr>
+            <tr>
+                <td>127</td>
+                <td class="titulo">Criar página de perfil</td>
+                <td>Tarefa</td>
+                <td>Média</td>
+                <td>Pedro Costa</td>
+                <td><span class="status concluida">Concluída</span></td>
+                <td>28/08/2026</td>
+                <td>15/09/2026</td>
+                <td class="acao"><button class="visualizar">Visualizar</button></td>
+            </tr>
 
-        <tr>
-            <td>128</td>
-            <td class="titulo">Atualizar documentação da API</td>
-            <td>Documentação</td>
-            <td>Baixa</td>
-            <td>Ana Paula</td>
-            <td><span class="status cancelada">Cancelada</span></td>
-            <td>27/08/2026</td>
-            <td>07/09/2026</td>
-            <td class="acao"><button class="visualizar">Visualizar</button></td>
-        </tr>
+            <tr>
+                <td>128</td>
+                <td class="titulo">Atualizar documentação da API</td>
+                <td>Documentação</td>
+                <td>Baixa</td>
+                <td>Ana Paula</td>
+                <td><span class="status cancelada">Cancelada</span></td>
+                <td>27/08/2026</td>
+                <td>07/09/2026</td>
+                <td class="acao"><button class="visualizar">Visualizar</button></td>
+            </tr>
 
-        <tr>
-            <td>129</td>
-            <td class="titulo">Corrigir erro no cadastro de usuário</td>
-            <td>Defeito</td>
-            <td>Alta</td>
-            <td>Lucas Almeida</td>
-            <td><span class="status aberta">Aberta</span></td>
-            <td>26/08/2026</td>
-            <td>30/08/2026</td>
-            <td class="acao"><button class="visualizar">Visualizar</button></td>
-        </tr>
+            <tr>
+                <td>129</td>
+                <td class="titulo">Corrigir erro no cadastro de usuário</td>
+                <td>Defeito</td>
+                <td>Alta</td>
+                <td>Lucas Almeida</td>
+                <td><span class="status aberta">Aberta</span></td>
+                <td>26/08/2026</td>
+                <td>30/08/2026</td>
+                <td class="acao"><button class="visualizar">Visualizar</button></td>
+            </tr>
 
-        <tr>
-            <td>130</td>
-            <td class="titulo">Melhorar tela inicial do sistema</td>
-            <td>Melhoria</td>
-            <td>Média</td>
-            <td>João Silva</td>
-            <td><span class="status revisao">Em revisão</span></td>
-            <td>25/08/2026</td>
-            <td>30/09/2026</td>
-           <td class="acao"><button class="visualizar">Visualizar</button></td>
-        </tr>
-    </table>
-   </div>
+            <tr>
+                <td>130</td>
+                <td class="titulo">Melhorar tela inicial do sistema</td>
+                <td>Melhoria</td>
+                <td>Média</td>
+                <td>João Silva</td>
+                <td><span class="status revisao">Em revisão</span></td>
+                <td>25/08/2026</td>
+                <td>30/09/2026</td>
+                <td class="acao"><button class="visualizar">Visualizar</button></td>
+            </tr>
+        </table>
+    </div>
 
 
     <div class="legenda">
-    <p><strong>Status:</strong></p>
+        <p><strong>Status:</strong></p>
 
-    <div class="item-legenda">
-        <span class="cor aberta"></span>
-        Aberta
+        <div class="item-legenda">
+            <span class="cor aberta"></span>
+            <div>
+                <strong>Aberta</strong>
+                <p>Demanda aguardando início.</p>
+            </div>
+        </div>
+
+        <div class="item-legenda">
+            <span class="cor andamento"></span>
+            <div>
+                <strong>Em andamento</strong>
+                <p>Demanda em desenvolvimento.</p>
+            </div>
+        </div>
+
+        <div class="item-legenda">
+            <span class="cor revisao"></span>
+            <div>
+                <strong>Em revisão</strong>
+                <p>Demanda aguardando revisão.</p>
+            </div>
+        </div>
+
+        <div class="item-legenda">
+            <span class="cor concluida"></span>
+            <div>
+                <strong>Concluída</strong>
+                <p>Demanda finalizada.</p>
+            </div>
+        </div>
+
+        <div class="item-legenda">
+            <span class="cor cancelada"></span>
+            <div>
+                <strong>Cancelada</strong>
+                <p>Demanda que foi cancelada.</p>
+            </div>
+        </div>
     </div>
 
-    <div class="item-legenda">
-        <span class="cor andamento"></span>
-        Em andamento
+    <div id="rodape">
+        <p>Projeto integrador ||</p>
+        <p>Grupo 17</p>
     </div>
-
-    <div class="item-legenda">
-        <span class="cor revisao"></span>
-        Em revisão
-    </div>
-
-    <div class="item-legenda">
-        <span class="cor concluida"></span>
-        Concluída
-    </div>
-
-    <div class="item-legenda">
-        <span class="cor cancelada"></span>
-        Cancelada
-    </div>
-</div>
- <div id="rodape">
-    <p>Projeto integrador ||</p>
-    <p>Grupo 17</p>
-   </div>
 </body>
+
 </html>
