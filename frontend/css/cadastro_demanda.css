@@ -1,48 +1,12 @@
 /* ==========================================
    Autor: Gabriel Santucci de Novaes
-   Descricao: Estilos exclusivos para a tela de Cadastro e Edicao de Demanda
+   Descricao: Estilos para o formulario de Cadastro e Edicao de Demanda
    ========================================== */
 
-/* Estrutura principal */
-.pagina {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 24px;
-}
-
-.voltar {
-    color: #1d4ed8;
-    font-size: 14px;
-    font-weight: bold;
-    text-decoration: none;
-    display: inline-block;
-    margin-bottom: 20px;
-}
-
-.voltar:hover {
-    text-decoration: underline;
-}
-
-/* Container do Formulário */
 .form-container {
-    background-color: #ffffff;
-    padding: 30px;
-    border: 1px solid #d9e2ef;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(30, 50, 90, 0.04);
-}
-
-.form-container h2 {
-    color: #1f4e79;
     margin-top: 0;
-    margin-bottom: 25px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #edf0f5;
 }
 
-/* ==========================================
-   Uso de Flexbox para alinhar campos
-   ========================================== */
 .linha-flex {
     display: flex;
     flex-direction: row;
@@ -51,11 +15,13 @@
 }
 
 .flex-item {
-    flex: 1; /* Faz os inputs dividirem o espaço igualmente */
-    margin-bottom: 0; /* Anula a margem padrão dentro da linha */
+    flex: 1;
 }
 
-/* Estilização dos Inputs e Selects */
+.campo {
+    margin-bottom: 18px;
+}
+
 .campo label {
     display: block;
     color: #333333;
@@ -71,14 +37,14 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
     padding: 11px 14px;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
+    border: 1px solid #b8c7d9;
+    border-radius: 4px;
     background-color: #ffffff;
     color: #333333;
 }
 
 .campo textarea {
-    resize: vertical; /* Permite ao usuário alterar apenas a altura do campo */
+    resize: vertical;
 }
 
 .campo input:focus,
@@ -88,30 +54,28 @@
     border-color: #2563eb;
 }
 
-/* Ações (Botões) no final do form */
 .acoes-form {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 20px;
-    margin-top: 35px;
+    margin-top: 25px;
     padding-top: 20px;
-    border-top: 1px solid #edf0f5;
+    border-top: 1px solid #e5e7eb;
 }
 
 .botao-secundario {
-    color: #555555;
-    font-size: 14px;
+    color: #777777;
+    font-size: 13px;
     font-weight: bold;
     text-decoration: none;
 }
 
 .botao-secundario:hover {
-    color: #111b3a;
+    color: #333333;
     text-decoration: underline;
 }
 
-/* Adaptando o flexbox para telas menores (Responsividade básica) */
 @media (max-width: 768px) {
     .linha-flex {
         flex-direction: column;
