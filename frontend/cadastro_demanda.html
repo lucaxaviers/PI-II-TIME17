@@ -4,39 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevTrack | Cadastro de Demanda</title>
-    <!-- Reaproveitamos o cabeçalho e reset do arquivo comum criado pela equipe -->
-    <link rel="stylesheet" href="css/comum.css">
-    <!-- Arquivo CSS que você vai criar no próximo passo -->
+    <!-- Alteramos a referencia base para o arquivo da Gabriela que contem o cabecalho correto -->
+    <link rel="stylesheet" href="css/detalhes_demanda.css">
     <link rel="stylesheet" href="css/cadastro_demanda.css">
 </head>
 <body>
 
-    <!-- Cabeçalho padronizado da equipe -->
+    <!-- Cabecalho IDENTICO ao da tela "Detalhes da demanda" -->
     <header id="cabecalho">
         <a id="logo" href="demandas.html">DevTrack</a>
         <h1>Cadastro de demanda</h1>
+        <p class="perfil">Perfil visualizado: Líder de Projeto</p>
     </header>
 
     <main class="pagina">
         <a class="voltar" href="demandas.html">← Voltar para demandas</a>
 
+        <!-- O titulo principal da tela, com a barra lateral azul (igual a detalhes_demanda) -->
+        <section class="titulo-demanda">
+            <div>
+                <p class="codigo">Nova Demanda</p>
+                <h2>Preencha os dados da atividade</h2>
+            </div>
+        </section>
+
+        <!-- Container do formulario, aproveitando a classe 'cartao' do detalhes_demanda -->
         <section class="cartao form-container">
-            <h2>Informações da Demanda</h2>
+            <h3>Informações Gerais</h3>
             
             <form action="#" method="POST">
-                <!-- Título -->
                 <div class="campo">
                     <label for="titulo">Título *</label>
                     <input type="text" id="titulo" placeholder="Ex: Corrigir erro na listagem de usuários" required>
                 </div>
 
-                <!-- Descrição -->
                 <div class="campo">
                     <label for="descricao">Descrição *</label>
                     <textarea id="descricao" rows="4" placeholder="Descreva os detalhes da atividade, defeito ou melhoria..." required></textarea>
                 </div>
 
-                <!-- Agrupamento com Flexbox (Lado a Lado) -->
                 <div class="linha-flex">
                     <div class="campo flex-item">
                         <label for="projeto">Projeto associado *</label>
@@ -60,7 +66,6 @@
                     </div>
                 </div>
 
-                <!-- Agrupamento triplo com Flexbox -->
                 <div class="linha-flex">
                     <div class="campo flex-item">
                         <label for="prioridade">Prioridade *</label>
@@ -77,7 +82,7 @@
                         <label for="responsavel">Responsável</label>
                         <select id="responsavel">
                             <option value="">Sem atribuição (Aberto)</option>
-                            <option value="gabriel">Gabriel Santucci de Novaes (Você)</option>
+                            <option value="gabriel">Gabriel Santucci de Novaes</option>
                             <option value="gabriela">Gabriela Amanda</option>
                             <option value="lucas">Lucas Xavier</option>
                         </select>
@@ -89,7 +94,6 @@
                     </div>
                 </div>
 
-                <!-- Ações do Formulário -->
                 <div class="acoes-form">
                     <a href="demandas.html" class="botao-secundario">Cancelar</a>
                     <button type="submit" class="botao">Salvar Demanda</button>

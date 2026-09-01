@@ -3,7 +3,6 @@
    Descricao: Estilos unificados para a tela de login / cadastro
    ========================================== */
 
-/* Configurações gerais */
 * {
     box-sizing: border-box;
 }
@@ -15,7 +14,6 @@ body {
     color: #333333;
 }
 
-/* Estrutura do Cartão de Login */
 .cartao {
     background-color: #ffffff;
     width: 440px;
@@ -26,7 +24,6 @@ body {
     box-shadow: 0 4px 15px rgba(30, 50, 90, 0.04);
 }
 
-/* Cabeçalho do formulário */
 .cabecalho {
     text-align: center;
     margin-bottom: 25px;
@@ -50,7 +47,6 @@ body {
     margin: 0;
 }
 
-/* ---------- Campos ---------- */
 
 .campo {
     margin-bottom: 18px;
@@ -80,7 +76,6 @@ body {
     border-color: #2563eb;
 }
 
-/* Campo com erro / sucesso */
 .campo.invalido input {
     background-color: #fdecea;
     border: 1px solid #c0392b;
@@ -101,14 +96,11 @@ body {
     display: block;
 }
 
-/* Link de opções (Esqueceu a senha) */
 .linha-opcoes {
     font-size: 14px;
     text-align: right;
     margin-bottom: 20px;
 }
-
-/* ---------- Botão principal ---------- */
 
 .botao {
     font-family: Arial, Helvetica, sans-serif;
@@ -135,8 +127,6 @@ body {
     cursor: not-allowed;
 }
 
-/* ---------- Links ---------- */
-
 a {
     color: #1d4ed8;
     text-decoration: none;
@@ -147,7 +137,6 @@ a:hover {
     text-decoration: underline;
 }
 
-/* ---------- Rodapé do formulário ---------- */
 
 .rodape-form {
     color: #555555;
@@ -157,8 +146,6 @@ a:hover {
     padding-top: 20px;
     border-top: 1px solid #cccccc;
 }
-
-/* ---------- Alertas ---------- */
 
 .alerta {
     display: none;
@@ -184,7 +171,6 @@ a:hover {
     border: 1px solid #239b56;
 }
 
-/* Responsividade para telas menores */
 @media (max-width: 480px) {
     .cartao {
         width: 90%;
