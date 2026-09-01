@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevTrack | Cadastro de Demanda</title>
+    <!-- Reaproveitamos o cabeçalho e reset do arquivo comum criado pela equipe -->
+    <link rel="stylesheet" href="css/comum.css">
+    <!-- Arquivo CSS que você vai criar no próximo passo -->
+    <link rel="stylesheet" href="css/cadastro_demanda.css">
+</head>
+<body>
+
+    <!-- Cabeçalho padronizado da equipe -->
+    <header id="cabecalho">
+        <a id="logo" href="demandas.html">DevTrack</a>
+        <h1>Cadastro de demanda</h1>
+    </header>
+
+    <main class="pagina">
+        <a class="voltar" href="demandas.html">← Voltar para demandas</a>
+
+        <section class="cartao form-container">
+            <h2>Informações da Demanda</h2>
+            
+            <form action="#" method="POST">
+                <!-- Título -->
+                <div class="campo">
+                    <label for="titulo">Título *</label>
+                    <input type="text" id="titulo" placeholder="Ex: Corrigir erro na listagem de usuários" required>
+                </div>
+
+                <!-- Descrição -->
+                <div class="campo">
+                    <label for="descricao">Descrição *</label>
+                    <textarea id="descricao" rows="4" placeholder="Descreva os detalhes da atividade, defeito ou melhoria..." required></textarea>
+                </div>
+
+                <!-- Agrupamento com Flexbox (Lado a Lado) -->
+                <div class="linha-flex">
+                    <div class="campo flex-item">
+                        <label for="projeto">Projeto associado *</label>
+                        <select id="projeto" required>
+                            <option value="" disabled selected>Selecione um projeto</option>
+                            <option value="1">Portal do Aluno</option>
+                            <option value="2">App Mobile</option>
+                            <option value="3">API DevTrack</option>
+                        </select>
+                    </div>
+                    
+                    <div class="campo flex-item">
+                        <label for="tipo">Tipo da demanda *</label>
+                        <select id="tipo" required>
+                            <option value="" disabled selected>Selecione um tipo</option>
+                            <option value="tarefa">Tarefa</option>
+                            <option value="defeito">Defeito</option>
+                            <option value="melhoria">Melhoria</option>
+                            <option value="documentacao">Documentação</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Agrupamento triplo com Flexbox -->
+                <div class="linha-flex">
+                    <div class="campo flex-item">
+                        <label for="prioridade">Prioridade *</label>
+                        <select id="prioridade" required>
+                            <option value="" disabled selected>Selecione a prioridade</option>
+                            <option value="critica">Crítica</option>
+                            <option value="alta">Alta</option>
+                            <option value="media">Média</option>
+                            <option value="baixa">Baixa</option>
+                        </select>
+                    </div>
+
+                    <div class="campo flex-item">
+                        <label for="responsavel">Responsável</label>
+                        <select id="responsavel">
+                            <option value="">Sem atribuição (Aberto)</option>
+                            <option value="gabriel">Gabriel Santucci de Novaes (Você)</option>
+                            <option value="gabriela">Gabriela Amanda</option>
+                            <option value="lucas">Lucas Xavier</option>
+                        </select>
+                    </div>
+
+                    <div class="campo flex-item">
+                        <label for="prazo">Prazo de finalização</label>
+                        <input type="date" id="prazo">
+                    </div>
+                </div>
+
+                <!-- Ações do Formulário -->
+                <div class="acoes-form">
+                    <a href="demandas.html" class="botao-secundario">Cancelar</a>
+                    <button type="submit" class="botao">Salvar Demanda</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer id="rodape">Projeto Integrador II · Time 17</footer>
+
+</body>
+</html>
