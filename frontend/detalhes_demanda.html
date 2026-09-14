@@ -1,3 +1,6 @@
+<!--
+  Autor: Enrico Locateli Costa | 26003119
+-->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -8,7 +11,6 @@
 </head>
 <body>
 
-    <!-- Cabeçalho da página -->
     <header id="cabecalho">
         <a id="logo" href="demandas.html">DevTrack</a>
         <h1>Detalhes da demanda</h1>
@@ -19,7 +21,6 @@
     <main class="pagina">
         <a class="voltar" href="demandas.html">← Voltar para demandas</a>
 
-        <!-- Resumo da demanda -->
         <section class="titulo-demanda">
             <div>
                 <p class="codigo">DEM-042</p>
@@ -31,7 +32,6 @@
         </section>
 
         <div class="conteudo">
-            <!-- Coluna principal -->
             <div class="coluna-principal">
                 <section class="cartao">
                     <h3>Descrição</h3>
@@ -53,7 +53,6 @@
                     </p>
                 </section>
 
-                <!-- Comentários da demanda -->
                 <section class="cartao">
                     <h3>Comentários <span>3</span></h3>
 
@@ -96,15 +95,26 @@
                         </div>
                     </article>
 
-                    <!-- Formulário demonstrativo: será ligado ao backend nas próximas etapas -->
-                    <form class="form-comentario">
-                        <label for="novoComentario">Adicionar comentário</label>
-                        <textarea id="novoComentario" rows="3" placeholder="Escreva um comentário..."></textarea>
-                        <button type="button" class="botao">Comentar</button>
+                    <form id="form-comentario" class="form-comentario" novalidate>
+                        <div class="campo-form" data-campo="comentario">
+                            <label for="novoComentario">Adicionar comentário</label>
+                            <textarea
+                                id="novoComentario"
+                                name="comentario"
+                                rows="3"
+                                maxlength="500"
+                                placeholder="Escreva um comentário..."
+                            ></textarea>
+                            <p class="ajuda-campo">Mínimo de 10 e máximo de 500 caracteres.</p>
+                            <p class="mensagem-erro" id="erro-comentario"></p>
+                        </div>
+                        <button type="submit" class="botao">Comentar</button>
+                        <p class="alerta alerta-sucesso" id="alerta-comentario" hidden>
+                            Comentário registrado. Nesta etapa o envio é apenas demonstrativo.
+                        </p>
                     </form>
                 </section>
 
-                <!-- Histórico da demanda -->
                 <section class="cartao">
                     <h3>Histórico de alterações</h3>
 
@@ -129,7 +139,6 @@
                 </section>
             </div>
 
-            <!-- Coluna lateral com as informações obrigatórias da demanda -->
             <aside class="coluna-lateral">
                 <section class="cartao detalhes">
                     <h3>Detalhes</h3>
@@ -154,22 +163,66 @@
                     <p class="aviso">O prazo foi validado para não coincidir com feriado nacional.</p>
                 </section>
 
-                <!-- Ações apenas visuais nesta etapa -->
                 <section class="cartao acoes">
-                    <h3>Ações de status</h3>
+                    <h3>Atualizar demanda</h3>
                     <p class="aviso">
-                        Como membro da equipe, você pode acompanhar a demanda e registrar comentários.
-                        Alterações de status serão implementadas nas próximas etapas.
+                        Informe o novo status e, se necessário, o prazo. A transição completa
+                        de estados será aprofundada nas próximas etapas.
                     </p>
 
-                    <button type="button" class="botao" disabled>Voltar para Em andamento</button>
-                    <button type="button" class="botao" disabled>Concluir demanda</button>
-                    <button type="button" class="botao cancelar" disabled>Cancelar demanda</button>
+                    <form id="form-atualizacao" novalidate>
+                        <div class="campo-form" data-campo="status">
+                            <label for="novoStatus">Novo status *</label>
+                            <select id="novoStatus" name="status">
+                                <option value="" disabled selected>Selecione um status</option>
+                                <option value="aberta">Aberta</option>
+                                <option value="em-andamento">Em andamento</option>
+                                <option value="em-revisao">Em revisão</option>
+                                <option value="concluida">Concluída</option>
+                                <option value="cancelada">Cancelada</option>
+                            </select>
+                            <p class="mensagem-erro" id="erro-status"></p>
+                        </div>
+
+                        <div class="campo-form" data-campo="prazo">
+                            <label for="prazoFinalizacao">Prazo de finalização</label>
+                            <input type="date" id="prazoFinalizacao" name="prazo" value="2026-09-05">
+                            <p class="ajuda-campo">A data não pode ser anterior à criação da demanda (27/08/2026).</p>
+                            <p class="mensagem-erro" id="erro-prazo"></p>
+                        </div>
+
+                        <div class="campo-form" data-campo="justificativa">
+                            <label for="justificativa">Justificativa da alteração *</label>
+                            <textarea
+                                id="justificativa"
+                                name="justificativa"
+                                rows="3"
+                                maxlength="300"
+                                placeholder="Descreva o motivo da atualização..."
+                            ></textarea>
+                            <p class="ajuda-campo">Obrigatória, com 10 a 300 caracteres.</p>
+                            <p class="mensagem-erro" id="erro-justificativa"></p>
+                        </div>
+
+                        <div class="campo-form campo-checkbox" data-campo="confirmacao">
+                            <label>
+                                <input type="checkbox" id="confirmarAlteracao" name="confirmacao">
+                                Confirmo que a alteração deve ser registrada no histórico.
+                            </label>
+                            <p class="mensagem-erro" id="erro-confirmacao"></p>
+                        </div>
+
+                        <button type="submit" class="botao">Salvar atualização</button>
+                        <p class="alerta alerta-sucesso" id="alerta-atualizacao" hidden>
+                            Dados válidos. A atualização será enviada ao servidor nas próximas etapas.
+                        </p>
+                    </form>
                 </section>
             </aside>
         </div>
     </main>
 
     <footer id="rodape">Projeto Integrador II · Time 17</footer>
+    <script src="js/detalhes_demanda.js"></script>
 </body>
 </html>
