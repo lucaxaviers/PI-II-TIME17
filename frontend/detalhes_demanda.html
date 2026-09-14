@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevTrack | Detalhes da Demanda</title>
+    <link rel="stylesheet" href="css/detalhes_demanda.css">
+</head>
+<body>
+
+    <!-- Cabeçalho da página -->
+    <header id="cabecalho">
+        <a id="logo" href="demandas.html">DevTrack</a>
+        <h1>Detalhes da demanda</h1>
+
+        <p class="perfil">Perfil visualizado: Membro da equipe</p>
+    </header>
+
+    <main class="pagina">
+        <a class="voltar" href="demandas.html">← Voltar para demandas</a>
+
+        <!-- Resumo da demanda -->
+        <section class="titulo-demanda">
+            <div>
+                <p class="codigo">DEM-042</p>
+                <h2>Corrigir erro de paginação na listagem de demandas</h2>
+                <p class="subtitulo">Projeto Portal do Aluno · criada por Gabriela Amanda</p>
+            </div>
+
+            <span class="status revisao">Em revisão</span>
+        </section>
+
+        <div class="conteudo">
+            <!-- Coluna principal -->
+            <div class="coluna-principal">
+                <section class="cartao">
+                    <h3>Descrição</h3>
+
+                    <p>
+                        Ao aplicar o filtro por prioridade na tela de listagem, a paginação
+                        não respeita o filtro ativo. Ao avançar para a próxima página, são
+                        exibidas todas as demandas.
+                    </p>
+
+                    <p>
+                        <strong>Passos para reproduzir:</strong> filtrar por prioridade
+                        “Alta” e acessar a página 2.
+                    </p>
+
+                    <p>
+                        <strong>Resultado esperado:</strong> manter o filtro aplicado ao
+                        trocar de página.
+                    </p>
+                </section>
+
+                <!-- Comentários da demanda -->
+                <section class="cartao">
+                    <h3>Comentários <span>3</span></h3>
+
+                    <article class="comentario">
+                        <div class="avatar">GA</div>
+                        <div class="texto-comentario">
+                            <p class="comentario-cabecalho">
+                                <strong>Gabriela Amanda</strong>
+                                <span>28 ago, 09:14</span>
+                            </p>
+                            <p>
+                                Consegui reproduzir em Chrome e Firefox. Parece que o filtro
+                                não é enviado na próxima página.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="comentario">
+                        <div class="avatar roxo">EL</div>
+                        <div class="texto-comentario">
+                            <p class="comentario-cabecalho">
+                                <strong>Enrico Locateli</strong>
+                                <span>29 ago, 15:47</span>
+                            </p>
+                            <p>Assumindo essa demanda. Vou investigar o componente de paginação.</p>
+                        </div>
+                    </article>
+
+                    <article class="comentario">
+                        <div class="avatar amarelo">EL</div>
+                        <div class="texto-comentario">
+                            <p class="comentario-cabecalho">
+                                <strong>Enrico Locateli</strong>
+                                <span>30 ago, 18:02</span>
+                            </p>
+                            <p>
+                                Encontrei a causa: o objeto de filtro atual não chega ao
+                                componente de paginação.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Formulário demonstrativo: será ligado ao backend nas próximas etapas -->
+                    <form class="form-comentario">
+                        <label for="novoComentario">Adicionar comentário</label>
+                        <textarea id="novoComentario" rows="3" placeholder="Escreva um comentário..."></textarea>
+                        <button type="button" class="botao">Comentar</button>
+                    </form>
+                </section>
+
+                <!-- Histórico da demanda -->
+                <section class="cartao">
+                    <h3>Histórico de alterações</h3>
+
+                    <ul class="historico">
+                        <li>
+                            <p>Gabriela Amanda criou a demanda com status <strong>Aberta</strong>.</p>
+                            <span>27 ago, 16:30</span>
+                        </li>
+                        <li>
+                            <p>Gabriel Caurin alterou o responsável para <strong>Enrico Locateli</strong>.</p>
+                            <span>29 ago, 15:45</span>
+                        </li>
+                        <li>
+                            <p>Enrico Locateli alterou o status de <strong>Aberta</strong> para <strong>Em andamento</strong>.</p>
+                            <span>29 ago, 15:46</span>
+                        </li>
+                        <li>
+                            <p>Enrico Locateli alterou o status de <strong>Em andamento</strong> para <strong>Em revisão</strong>.</p>
+                            <span>30 ago, 18:00</span>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+
+            <!-- Coluna lateral com as informações obrigatórias da demanda -->
+            <aside class="coluna-lateral">
+                <section class="cartao detalhes">
+                    <h3>Detalhes</h3>
+
+                    <div class="campo-detalhe">
+                        <p>Status</p>
+                        <span class="status revisao">Em revisão</span>
+                    </div>
+
+                    <div class="campo-detalhe">
+                        <p>Prioridade</p>
+                        <strong class="prioridade">● Alta</strong>
+                    </div>
+
+                    <div class="campo-detalhe"><p>Tipo</p><strong>Defeito</strong></div>
+                    <div class="campo-detalhe"><p>Projeto</p><strong>Portal do Aluno</strong></div>
+                    <div class="campo-detalhe"><p>Responsável</p><strong>Enrico Locateli</strong></div>
+                    <div class="campo-detalhe"><p>Criada em</p><strong>27/08/2026 às 16:30</strong></div>
+                    <div class="campo-detalhe"><p>Última atualização</p><strong>30/08/2026 às 18:00</strong></div>
+                    <div class="campo-detalhe"><p>Prazo de finalização</p><strong>05/09/2026</strong></div>
+
+                    <p class="aviso">O prazo foi validado para não coincidir com feriado nacional.</p>
+                </section>
+
+                <!-- Ações apenas visuais nesta etapa -->
+                <section class="cartao acoes">
+                    <h3>Ações de status</h3>
+                    <p class="aviso">
+                        Como membro da equipe, você pode acompanhar a demanda e registrar comentários.
+                        Alterações de status serão implementadas nas próximas etapas.
+                    </p>
+
+                    <button type="button" class="botao" disabled>Voltar para Em andamento</button>
+                    <button type="button" class="botao" disabled>Concluir demanda</button>
+                    <button type="button" class="botao cancelar" disabled>Cancelar demanda</button>
+                </section>
+            </aside>
+        </div>
+    </main>
+
+    <footer id="rodape">Projeto Integrador II · Time 17</footer>
+</body>
+</html>
