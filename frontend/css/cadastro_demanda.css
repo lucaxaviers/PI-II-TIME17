@@ -81,12 +81,20 @@
         flex-direction: column;
         gap: 18px;
     }
-    
     .acoes-form {
         flex-direction: column-reverse;
     }
-
     .acoes-form .botao {
         width: 100%;
     }
+}
+
+.erro-prazo {
+    display: block;
+    color: #dc2626;
+    font-size: 12px;
+    margin-top: 5px;
+}
+.campo input.invalido {
+    border: 2px solid #dc2626 !important;
 }
