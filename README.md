@@ -36,3 +36,36 @@ Repositório inicial do **TIME 17** para o componente curricular **Projeto Integ
 O detalhamento de cada reunião está em [documentos/time/reunioes.md](documentos/time/reunioes.md).
 
 O apontamento de esforço da equipe é registrado no **GitHub Projects**.
+
+---
+
+### Instalar dependências   **Node.js 24 LTS** e **Express**.
+
+Na raiz do projeto, instale as dependências:
+
+```bash
+npm install
+```
+
+```bash
+npm install express
+```
+
+Depois, inicie o servidor:
+
+```bash
+npm start
+```
+
+O servidor será executado na porta `3000`:
+
+```text
+http://localhost:3000/
+```
+
+A rota principal retorna uma mensagem de confirmação do funcionamento do
+servidor. O frontend pode ser acessado em:
+
+```text
+http://localhost:3000/app/pages/login.html
+```
