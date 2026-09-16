@@ -1,0 +1,26 @@
+{
+  "name": "pi-ii-time17",
+  "version": "1.0.0",
+  "description": "Repositório inicial do **TIME 17** para o componente curricular **Projeto Integrador II**.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucaxaviers/PI-II-TIME17.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/lucaxaviers/PI-II-TIME17/issues"
+  },
+  "homepage": "https://github.com/lucaxaviers/PI-II-TIME17#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "engines": {
+    "node": ">=24 <25"
+  }
+}
