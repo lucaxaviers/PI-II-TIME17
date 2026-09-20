@@ -1,0 +1,270 @@
+<!--  ==========================================
+   Autor: Felipe D. dos Passos | 26002875
+   Descricao: Pagina de listagem de demandas
+   ==========================================  -->
+
+<!DOCTYPE html>
+<html lang="Pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/comum.css">
+    <link rel="stylesheet" href="../css/lista_demanda.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=settings" />
+    <script src="../js/lista_demanda.js"></script>
+
+    <title>Lista de Demandas</title>
+</head>
+
+<body>
+    <div class="cabecalho">
+        <div class="logo">
+            <img src="../assets/logoresumido.png">
+        </div>
+        <div class="navbar">
+            <ul>
+                <li><a href="dashboard.html" target="_blank">Dashboard</a> </li>
+                <li><a href="cadastro_demanda.html">Cadastrar nova demanda</a> </li>
+                <li><a href="">Relatórios</a></li>
+                <li><a href="login.html">Sair</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <form id="formFiltros">
+        <div class="filtro_demanda">
+            <h3>Filtros</h3>
+            <div class="erro"></div>
+            <div class="campo_filtro">
+                <label for="titulo">Título</label>
+                <input id="titulo" type="text">
+            </div>
+
+            <div class="campo_filtro">
+                <label for="prioridade">Prioridade</label>
+                <select id="prioridade">
+                    <option value="" disabled selected>Selecione</option>
+                    <option value="critica">Crítica</option>
+                    <option value="alta">Alta</option>
+                    <option value="media">Média</option>
+                    <option value="baixa">Baixa</option>
+                </select>
+            </div>
+
+            <div class="campo_filtro">
+                <label for="tipo">Tipo de demanda</label>
+                <select id="tipo">
+                    <option value="" disabled selected>Selecione</option>
+                    <option value="tarefa">Tarefa</option>
+                    <option value="defeito">Defeito</option>
+                    <option value="melhoria">Melhoria</option>
+                    <option value="documentacao">Documentação</option>
+                </select>
+            </div>
+
+            <div class="campo_filtro">
+                <label for="responsavel">Responsável</label>
+                <select id="responsavel">
+                    <option value="" disabled selected>Selecione</option>
+                    <option value="felipe">Felipe Passos</option>
+                    <option value="gabriel">Gabriel Caurin</option>
+                    <option value="jose">José Picolo</option>
+                </select>
+            </div>
+
+            <div class="campo_filtro">
+                <label for="projeto">Projeto associado</label>
+                <select id="projeto">
+                    <option value="" disabled selected>Selecione</option>
+                    <option value="1">Portal do Aluno</option>
+                    <option value="2">App Mobile</option>
+                    <option value="3">API DevTrack</option>
+                </select>
+            </div>
+        
+            <div class="campo_filtro">
+                <label for="descricao">Descrição</label>
+                <textarea id="descricao" placeholder="Descreva os detalhes da demanda..."></textarea>
+            </div>
+                
+            <div class="botoes_filtro">
+                <button id="btnAplicar" type="submit">Aplicar filtros</button>
+                <button id="btnLimpar" type="button">Limpar</button>
+            </div>
+        </div>
+
+    </form>
+
+    <div id="demandas">
+        <div id="filtros-status">
+            <button class="filtro ativo">Todas</button>
+            <button class="filtro">Abertas <span class="aberta">3</span></button>
+            <button class="filtro">Em andamento <span class="andamento">2</span></button>
+            <button class="filtro">Em revisão <span class="revisao">1</span></button>
+            <button class="filtro">Concluidas <span class="concluida">1</span></button>
+            <button class="filtro">Canceladas <span class="cancelada">1</span></button>
+
+        </div>
+         <div class="tabela-wrapper">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Titulo</th>
+                <th>Tipo</th>
+                <th>Prioridade</th>
+                <th>Responsével</th>
+                <th>Status</th>
+                <th>Data criação</th>
+                <th>Data Finalização</th>
+                <th>Ações</th>
+            </tr>
+            <tr>
+                <td data-label="ID">123</td>
+                <td data-label="Título" class="titulo">Atualização do sistema</td>
+                <td data-label="Tipo">Atualização</td>
+                <td data-label="Prioridade">Alta</td>
+                <td data-label="Responsável">Felipe Passos</td>
+                <td data-label="Status"><span class="status andamento">Em andamento</span></td>
+                <td data-label="Data criação">29/08/2026</td>
+                <td data-label="Data finalização">07/09/2026</td>
+                <td class="acao"><a class="visualizar" href="detalhes_demanda.html">Visualizar</a></td>
+            </tr>
+            <tr>
+                <td data-label="ID">124</td>
+                <td data-label="Título" class="titulo">Adicionar filtro de busca por categoria</td>
+                <td data-label="Tipo">Melhoria</td>
+                <td data-label="Prioridade">Média</td>
+                <td data-label="Responsável">Gabriel Caurin</td>
+                <td data-label="Status"><span class="status aberta">Aberta</span></td>
+                <td data-label="Data criação">15/08/2026</td>
+                <td data-label="Data finalização">10/10/2026</td>
+                <td class="acao"><a class="visualizar" href="detalhes_demanda.html">Visualizar</a></td>
+            </tr>
+            <tr>
+                <td data-label="ID">125</td>
+                <td data-label="Título" class="titulo">Mudar cor de um botão</td>
+                <td data-label="Tipo">Melhoria</td>
+                <td data-label="Prioridade">Baixa</td>
+                <td data-label="Responsável">José Picolo</td>
+                <td data-label="Status"><span class="status aberta">Aberta</span></td>
+                <td data-label="Data criação">29/08/2026</td>
+                <td data-label="Data finalização">29/08/2026</td>
+                <td class="acao"><a class="visualizar" href="detalhes_demanda.html">Visualizar</a></td>
+            </tr>
+            <tr>
+                <td data-label="ID">126</td>
+                <td data-label="Título" class="titulo">Corrigir erro no login</td>
+                <td data-label="Tipo">Defeito</td>
+                <td data-label="Prioridade">Crítica</td>
+                <td data-label="Responsável">Maria Santos</td>
+                <td data-label="Status"><span class="status andamento">Em andamento</span></td>
+                <td data-label="Data criação">30/08/2026</td>
+                <td data-label="Data finalização">01/09/2026</td>
+                <td class="acao"><a class="visualizar" href="detalhes_demanda.html">Visualizar</a></td>
+            </tr>
+
+            <tr>
+                <td data-label="ID">127</td>
+                <td data-label="Título" class="titulo">Criar página de perfil</td>
+                <td data-label="Tipo">Tarefa</td>
+                <td data-label="Prioridade">Média</td>
+                <td data-label="Responsável">Pedro Costa</td>
+                <td data-label="Status"><span class="status concluida">Concluída</span></td>
+                <td data-label="Data criação">28/08/2026</td>
+                <td data-label="Data finalização">15/09/2026</td>
+                <td class="acao"><a class="visualizar" href="detalhes_demanda.html">Visualizar</a></td>
+            </tr>
+
+            <tr>
+                <td data-label="ID">128</td>
+                <td data-label="Título" class="titulo">Atualizar documentação da API</td>
+                <td data-label="Tipo">Documentação</td>
+                <td data-label="Prioridade">Baixa</td>
+                <td data-label="Responsável">Ana Paula</td>
+                <td data-label="Status"><span class="status cancelada">Cancelada</span></td>
+                <td data-label="Data criação">27/08/2026</td>
+                <td data-label="Data finalização">07/09/2026</td>
+                <td class="acao"><a class="visualizar" href="detalhes_demanda.html">Visualizar</a></td>
+            </tr>
+
+            <tr>
+                <td data-label="ID">129</td>
+                <td data-label="Título" class="titulo">Corrigir erro no cadastro de usuário</td>
+                <td data-label="Tipo">Defeito</td>
+                <td data-label="Prioridade">Alta</td>
+                <td data-label="Responsável">Lucas Almeida</td>
+                <td data-label="Status"><span class="status aberta">Aberta</span></td>
+                <td data-label="Data criação">26/08/2026</td>
+                <td data-label="Data finalização">30/08/2026</td>
+                <td class="acao"><a class="visualizar" href="detalhes_demanda.html">Visualizar</a></td>
+            </tr>
+
+            <tr>
+                <td data-label="ID">130</td>
+                <td data-label="Título" class="titulo">Melhorar tela inicial do sistema</td>
+                <td data-label="Tipo">Melhoria</td>
+                <td data-label="Prioridade">Média</td>
+                <td data-label="Responsável">João Silva</td>
+                <td data-label="Status"><span class="status revisao">Em revisão</span></td>
+                <td data-label="Data criação">25/08/2026</td>
+                <td data-label="Data finalização">30/09/2026</td>
+                <td class="acao"><a class="visualizar" href="detalhes_demanda.html">Visualizar</a></td>
+            </tr>
+        </table>
+        </div>
+    </div>
+
+
+    <div class="legenda">
+        <p><strong>Status:</strong></p>
+
+        <div class="item-legenda">
+            <span class="cor aberta"></span>
+            <div>
+                <strong>Aberta</strong>
+                <p>Demanda aguardando início.</p>
+            </div>
+        </div>
+
+        <div class="item-legenda">
+            <span class="cor andamento"></span>
+            <div>
+                <strong>Em andamento</strong>
+                <p>Demanda em desenvolvimento.</p>
+            </div>
+        </div>
+
+        <div class="item-legenda">
+            <span class="cor revisao"></span>
+            <div>
+                <strong>Em revisão</strong>
+                <p>Demanda aguardando revisão.</p>
+            </div>
+        </div>
+
+        <div class="item-legenda">
+            <span class="cor concluida"></span>
+            <div>
+                <strong>Concluída</strong>
+                <p>Demanda finalizada.</p>
+            </div>
+        </div>
+
+        <div class="item-legenda">
+            <span class="cor cancelada"></span>
+            <div>
+                <strong>Cancelada</strong>
+                <p>Demanda que foi cancelada.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="rodape">
+        <p>Projeto integrador ||</p>
+        <p>Grupo 17</p>
+    </div>
+</body>
+
+</html>

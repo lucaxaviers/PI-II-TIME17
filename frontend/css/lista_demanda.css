@@ -1,0 +1,484 @@
+/* ==========================================
+   Autor: Felipe D. dos Passos | 26002875
+   Descricao: Estilo tela de listagem de demandas
+   ========================================== */
+
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: rgb(247, 234, 234);
+}
+
+h2{
+    text-align: center;
+}
+
+.logo img{
+    width: 100px;
+}
+.cabecalho {
+    display: flex;
+    justify-content: space-between;
+    background-color: #5081eb;
+    padding: 20px 30px;
+}
+
+.navbar ul{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.navbar li{
+    text-decoration: none;
+    list-style: none;
+}
+.navbar a{
+    color: white;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+.filtro_demanda {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 25px;
+    background-color: white;
+    padding: 25px 30px;
+    margin: 10px;
+    border-radius: 8px;
+}
+.filtro_demanda h3{
+    text-align: center;
+}
+.campo_filtro {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.filtro_demanda label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+.filtro_demanda h3 {
+    width: 100%;
+    margin: 0;
+    text-align: start;
+    padding: 5px;
+    font-size: 25px;
+}
+
+.filtro_demanda input,
+.filtro_demanda select,
+.filtro_demanda textarea {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    padding: 9px 10px;
+    border: 1px solid #b8c7d9;
+    border-radius: 5px;
+    background-color: white;
+    outline: none;
+}
+
+.filtro_demanda input:focus,
+.filtro_demanda select:focus,
+.filtro_demanda textarea:focus {
+    border-color: #2563eb;
+}
+
+.filtro_demanda input,
+.filtro_demanda select {
+    width: 200px;
+    height: 40px;
+}
+#titulo {
+    width: 270px;
+}
+
+.campo_filtro:first-child input {
+    width: 100%;
+}
+
+.campo_filtro:last-child {
+    flex-basis: 100%;
+}
+
+.filtro_demanda textarea {
+    width: 500px;
+    max-width: 600px;
+    height: 100px;
+    resize: vertical;
+}
+
+.botoes_filtro {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+#btnAplicar,
+#btnLimpar {
+    padding: 9px 18px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#btnAplicar {
+    background-color: #2563eb;
+    color: white;
+    border: 1px solid #2563eb;
+}
+
+#btnAplicar:hover {
+    background-color: #1d4ed8;
+}
+
+#btnLimpar {
+    background-color: white;
+    color: #333;
+    border: 1px solid #b8c7d9;
+}
+
+#btnLimpar:hover {
+    background-color: #f1f5f9;
+}
+
+.erro{
+    background-color: lch(61.46% 64.39 27.67);
+    width: 100%;
+    padding: 15px;
+    border-radius: 5px;
+    display: none;
+}
+
+
+
+
+#filtros-status {
+    display: flex;
+    justify-content: end;
+    flex-wrap: wrap;
+    background-color: white;
+    border-bottom: 2px solid #ddd;
+    margin: 5px 10px 20px;
+    padding: 15px;
+    gap: 10px;
+}
+
+
+.filtro {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 8px 14px;
+    border-radius: 30px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.filtro:hover {
+    background-color: #f1f5f9;
+}
+
+.filtro.ativo {
+    background-color: #2563eb;
+    color: white;
+    border-color: #2563eb;
+}
+
+.filtro span {
+    display: inline-block;
+    padding: 5px;
+    border-radius: 25px;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+#demandas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    background-color: white;
+}
+
+.tabela-wrapper {
+    width: 90%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    min-width: 900px; /* garante que as colunas não fiquem espremidas */
+}
+
+tr {
+    text-align: justify;
+}
+
+th,
+td {
+    text-align: justify;
+    padding: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.titulo {
+    color: blue;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+    display: inline-block;
+}
+
+.aberta {
+    background-color: #dbeafe;
+    color: #2563eb;
+}
+
+.andamento {
+    background-color: #f59e0b;
+}
+
+.revisao {
+    background-color: #8b5cf6;
+}
+
+.concluida {
+    background-color: #22c55e;
+}
+
+.cancelada {
+    background-color: #ef4444;
+}
+
+.acao {
+    text-align: center;
+    padding: 5px;
+}
+
+.visualizar {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    width: auto;
+}
+
+.visualizar:hover {
+    background-color: #1d4ed8;
+}
+
+.legenda {
+    margin-top: 30px;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-size: 14px;
+    background-color: white;
+}
+
+.item-legenda {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.item-legenda p {
+    margin: 3px 0 0;
+    font-size: 12px;
+    color: #777;
+}
+
+.cor {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+
+#rodape {
+    text-align: center;
+    padding: 11px;
+    background-color: #1d4ed8;
+    margin: 10px;
+}
+
+#rodape p {
+    color: white;
+    font-size: 15px;
+}
+
+
+/*Responsividade*/
+/* ===== Tablet ===== */
+@media (max-width: 900px) {
+    .cabecalho {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .navbar ul {
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+        gap: 15px;
+    }
+
+    .filtro_demanda {
+        padding: 20px;
+        gap: 15px;
+    }
+
+    .campo_filtro {
+        flex: 1 1 200px; /* cresce e quebra de linha sozinho */
+    }
+
+    .filtro_demanda input,
+    .filtro_demanda select,
+    #titulo {
+        width: 100%;
+    }
+
+    .filtro_demanda textarea {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #filtros-status {
+        justify-content: center;
+    }
+
+    .legenda {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+}
+
+/* ===== Celular ===== */
+@media (max-width: 600px) {
+    .filtro_demanda {
+        margin: 10px 5px;
+        padding: 15px;
+    }
+
+    .campo_filtro {
+        flex-basis: 100%; /* um campo por linha */
+    }
+
+    .filtro_demanda h3 {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .botoes_filtro {
+        flex-direction: column;
+    }
+
+    #btnAplicar,
+    #btnLimpar {
+        width: 100%;
+    }
+
+    #filtros-status {
+        margin: 5px;
+        padding: 10px;
+    }
+
+    .filtro {
+        flex: 1 1 45%; /* dois botões por linha */
+    }
+
+    #demandas {
+        margin: 5px;
+    }
+
+    .tabela-wrapper {
+        width: 100%;
+    }
+
+
+    @media (max-width: 600px) {
+    .tabela-wrapper {
+        overflow-x: visible; /* não precisa mais rolar de lado */
+    }
+
+    table {
+        min-width: 0; /* remove os 900px do desktop */
+    }
+
+    table,
+    tbody,
+    tr,
+    td {
+        display: block;
+        width: 100%;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        padding: 10px;
+        background-color: white;
+    }
+
+    
+    td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        text-align: right;
+        padding: 8px 5px;
+        border-bottom: 1px solid #eee;
+    }
+
+    td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #333;
+        text-align: left;
+    }
+
+
+    td.acao {
+        justify-content: center;
+        border-bottom: none;
+    }
+
+    td.acao::before {
+        display: none;
+    }
+}
+    .legenda {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    #rodape {
+        margin: 5px;
+    }
+}
