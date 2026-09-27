@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../css/comum.css">
     <link rel="stylesheet" href="../css/lista_demanda.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=settings" />
-    <script src="../js/lista_demanda.js"></script>
+    <script src="../js/lista_demanda.js" defer></script>
 
     <title>Lista de Demandas</title>
 </head>
@@ -27,7 +27,7 @@
             <ul>
                 <li><a href="dashboard.html" target="_blank">Dashboard</a> </li>
                 <li><a href="cadastro_demanda.html">Cadastrar nova demanda</a> </li>
-                <li><a href="">Relatórios</a></li>
+                <li><a href="#">Relatórios</a></li>
                 <li><a href="login.html">Sair</a></li>
             </ul>
         </div>
@@ -35,13 +35,14 @@
 
     <form id="formFiltros">
         <div class="filtro_demanda">
-            <h3>Filtros</h3>
-            <div class="erro"></div>
+            <h3>Filtros</h3> 
+               
             <div class="campo_filtro">
+                <div id="erroqtdfiltros" class="erro"></div><br>
                 <label for="titulo">Título</label>
                 <input id="titulo" type="text">
+                <div id="errotitulo" class="erro"></div>
             </div>
-
             <div class="campo_filtro">
                 <label for="prioridade">Prioridade</label>
                 <select id="prioridade">
@@ -87,7 +88,9 @@
             <div class="campo_filtro">
                 <label for="descricao">Descrição</label>
                 <textarea id="descricao" placeholder="Descreva os detalhes da demanda..."></textarea>
+                 <div id="errodescricao" class="erro"></div>
             </div>
+           
                 
             <div class="botoes_filtro">
                 <button id="btnAplicar" type="submit">Aplicar filtros</button>

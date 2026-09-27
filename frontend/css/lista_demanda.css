@@ -151,13 +151,11 @@ h2{
 }
 
 .erro{
-    background-color: lch(61.46% 64.39 27.67);
-    width: 100%;
-    padding: 15px;
-    border-radius: 5px;
+    color: #ff0000;
+    font-size: 13px;
+    padding: 3px;
     display: none;
 }
-
 
 
 
@@ -380,7 +378,7 @@ td {
     }
 
     .campo_filtro {
-        flex-basis: 100%; /* um campo por linha */
+        flex-basis: 100%; 
     }
 
     .filtro_demanda h3 {
@@ -403,7 +401,7 @@ td {
     }
 
     .filtro {
-        flex: 1 1 45%; /* dois botões por linha */
+        flex: 1 1 45%; 
     }
 
     #demandas {
