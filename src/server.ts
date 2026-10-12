@@ -1,3 +1,4 @@
+
 import express, { Request, Response } from "express";
 import path from "path";
 
@@ -13,6 +14,13 @@ app.get("/", (req: Request, res: Response) => {
     status: "ok",
     message: "funcionando",
   });
+});
+
+
+
+app.get("/demandas", (req: Request, res: Response)=>{
+  res.redirect("/app/pages/lista_demandas.html");
+  
 });
 
 app.listen(PORT, () => {
