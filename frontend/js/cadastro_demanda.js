@@ -1,33 +1,99 @@
 /*------------------------------------------------------------------
- * Autor: Gabriela Amanda Pereira
- * Descrição: Validação dos campos do cadastro de demanda.
+ * Autor: Gabriel Santucci de Novaes | 26002102
+ * Descricao: Validacao dos campos do cadastro de demanda.
+ *            Escopo PI2 - Reuniao 3 (validacoes em JavaScript):
+ *            - campos obrigatorios nao podem ficar vazios;
+ *            - quantidade minima/maxima de caracteres em titulo e descricao;
+ *            - tipo aceito apenas: Tarefa, Defeito, Melhoria ou Documentacao;
+ *            - prioridade aceita apenas: Critica, Alta, Media ou Baixa;
+ *            - projeto e selecoes obrigatorias;
+ *            - prazo com formato e consistencia basica de data;
+ *            - mensagens de erro claras e bloqueio do envio com dados invalidos.
  -------------------------------------------------------------------*/
 
 (function () {
     "use strict";
 
-    var formulario = document.querySelector("form");
+    /* Apenas os valores previstos no escopo do sistema */
+    var TIPOS_PERMITIDOS = ["tarefa", "defeito", "melhoria", "documentacao"];
+    var PRIORIDADES_PERMITIDAS = ["critica", "alta", "media", "baixa"];
+    var RESPONSAVEIS_PERMITIDOS = ["gabriel", "gabriela", "lucas"];
 
-    var titulo = document.getElementById("titulo");
-    var descricao = document.getElementById("descricao");
-    var projeto = document.getElementById("projeto");
-    var tipo = document.getElementById("tipo");
-    var prioridade = document.getElementById("prioridade");
-    var campoPrazo = document.getElementById("prazo");
+    var formCadastro = document.getElementById("form-cadastro");
 
     /*--------------------------------------------------------------
-     * Criação da mensagem de erro do prazo
+     * Retorna o elemento .campo (data-campo) de um determinado campo
      --------------------------------------------------------------*/
-
-    var mensagemErro = document.createElement("small");
-    mensagemErro.className = "erro-prazo";
-    campoPrazo.parentNode.appendChild(mensagemErro);
-
+    function obterCampo(nome) {
+        return formCadastro.querySelector('[data-campo="' + nome + '"]');
+    }
 
     /*--------------------------------------------------------------
-     * Verifica se a data possui um formato válido
+     * Exibe a mensagem de erro dentro do campo
      --------------------------------------------------------------*/
+    function mostrarErro(campo, mensagem) {
+        campo.classList.add("invalido");
+        var erro = campo.querySelector(".mensagem-erro");
+        if (erro) {
+            erro.textContent = mensagem;
+        }
+    }
 
+    /*--------------------------------------------------------------
+     * Limpa a mensagem de erro do campo
+     --------------------------------------------------------------*/
+    function limparErro(campo) {
+        campo.classList.remove("invalido");
+        var erro = campo.querySelector(".mensagem-erro");
+        if (erro) {
+            erro.textContent = "";
+        }
+    }
+
+    /*--------------------------------------------------------------
+     * Oculta o alerta de sucesso
+     --------------------------------------------------------------*/
+    function ocultarAlerta() {
+        var alerta = document.getElementById("alerta-cadastro");
+        if (alerta) {
+            alerta.hidden = true;
+        }
+    }
+
+    /*--------------------------------------------------------------
+     * Exibe o alerta de sucesso
+     --------------------------------------------------------------*/
+    function mostrarAlerta() {
+        var alerta = document.getElementById("alerta-cadastro");
+        if (alerta) {
+            alerta.hidden = false;
+        }
+    }
+
+    /*--------------------------------------------------------------
+     * Valida texto obrigatorio respeitando minimo e maximo de caracteres
+     --------------------------------------------------------------*/
+    function textoValido(valor, minimo, maximo) {
+        var conteudo = valor.trim();
+
+        if (!conteudo) {
+            return "Preencha este campo. Ele não pode ficar vazio.";
+        }
+
+        if (conteudo.length < minimo) {
+            return "Informe pelo menos " + minimo + " caracteres.";
+        }
+
+        if (conteudo.length > maximo) {
+            return "Use no máximo " + maximo + " caracteres.";
+        }
+
+        return "";
+    }
+
+    /*--------------------------------------------------------------
+     * Verifica se a data possui formato e consistência válidos
+     --------------------------------------------------------------*/
     function dataEhValida(valor) {
         if (!/^\d{4}-\d{2}-\d{2}$/.test(valor)) {
             return false;
@@ -47,160 +113,210 @@
         );
     }
 
+    /*--------------------------------------------------------------
+     * Data de hoje no formato AAAA-MM-DD (para comparar com o prazo)
+     --------------------------------------------------------------*/
+    function hojeISO() {
+        var agora = new Date();
+        var mes = String(agora.getMonth() + 1).padStart(2, "0");
+        var dia = String(agora.getDate()).padStart(2, "0");
+        return agora.getFullYear() + "-" + mes + "-" + dia;
+    }
 
     /*--------------------------------------------------------------
-     * Validação do prazo
+     * Validacao do titulo
      --------------------------------------------------------------*/
+    function validarTitulo() {
+        var campo = obterCampo("titulo");
+        var input = document.getElementById("titulo");
+        var mensagem = textoValido(input.value, 5, 120);
 
+        if (mensagem) {
+            mostrarErro(campo, mensagem);
+            return false;
+        }
+
+        limparErro(campo);
+        return true;
+    }
+
+    /*--------------------------------------------------------------
+     * Validacao da descricao
+     --------------------------------------------------------------*/
+    function validarDescricao() {
+        var campo = obterCampo("descricao");
+        var area = document.getElementById("descricao");
+        var mensagem = textoValido(area.value, 10, 1000);
+
+        if (mensagem) {
+            mostrarErro(campo, mensagem);
+            return false;
+        }
+
+        limparErro(campo);
+        return true;
+    }
+
+    /*--------------------------------------------------------------
+     * Validacao do projeto (selecao obrigatoria)
+     --------------------------------------------------------------*/
+    function validarProjeto() {
+        var campo = obterCampo("projeto");
+        var select = document.getElementById("projeto");
+
+        if (!select.value) {
+            mostrarErro(campo, "Selecione um projeto.");
+            return false;
+        }
+
+        limparErro(campo);
+        return true;
+    }
+
+    /*--------------------------------------------------------------
+     * Validacao do tipo (apenas Tarefa, Defeito, Melhoria ou Documentacao)
+     --------------------------------------------------------------*/
+    function validarTipo() {
+        var campo = obterCampo("tipo");
+        var select = document.getElementById("tipo");
+        var valor = select.value;
+
+        if (!valor) {
+            mostrarErro(campo, "Selecione o tipo da demanda.");
+            return false;
+        }
+
+        if (TIPOS_PERMITIDOS.indexOf(valor) === -1) {
+            mostrarErro(campo, "Tipo inválido. Use apenas: Tarefa, Defeito, Melhoria ou Documentação.");
+            return false;
+        }
+
+        limparErro(campo);
+        return true;
+    }
+
+    /*--------------------------------------------------------------
+     * Validacao da prioridade (apenas Critica, Alta, Media ou Baixa)
+     --------------------------------------------------------------*/
+    function validarPrioridade() {
+        var campo = obterCampo("prioridade");
+        var select = document.getElementById("prioridade");
+        var valor = select.value;
+
+        if (!valor) {
+            mostrarErro(campo, "Selecione a prioridade.");
+            return false;
+        }
+
+        if (PRIORIDADES_PERMITIDAS.indexOf(valor) === -1) {
+            mostrarErro(campo, "Prioridade inválida. Use apenas: Crítica, Alta, Média ou Baixa.");
+            return false;
+        }
+
+        limparErro(campo);
+        return true;
+    }
+
+    /*--------------------------------------------------------------
+     * Validacao do responsavel (opcional, mas deve ser um valor previsto)
+     --------------------------------------------------------------*/
+    function validarResponsavel() {
+        var campo = obterCampo("responsavel");
+        var select = document.getElementById("responsavel");
+        var valor = select.value;
+
+        // Responsavel pode ficar sem atribuicao (valor vazio = Aberto)
+        if (valor && RESPONSAVEIS_PERMITIDOS.indexOf(valor) === -1) {
+            mostrarErro(campo, "Responsável inválido. Selecione uma opção da lista.");
+            return false;
+        }
+
+        limparErro(campo);
+        return true;
+    }
+
+    /*--------------------------------------------------------------
+     * Validacao do prazo (formato e consistencia basica da data)
+     --------------------------------------------------------------*/
     function validarPrazo() {
-        var valor = campoPrazo.value.trim();
-
-        mensagemErro.textContent = "";
-        campoPrazo.classList.remove("invalido");
+        var campo = obterCampo("prazo");
+        var input = document.getElementById("prazo");
+        var valor = input.value.trim();
 
         // O prazo pode ficar vazio no cadastro
         if (!valor) {
+            limparErro(campo);
             return true;
         }
 
         if (!dataEhValida(valor)) {
-            mensagemErro.textContent = "A data informada é inválida.";
-            campoPrazo.classList.add("invalido");
+            mostrarErro(campo, "A data informada é inválida.");
             return false;
         }
 
+        if (valor < hojeISO()) {
+            mostrarErro(campo, "O prazo não pode ser anterior à data de hoje.");
+            return false;
+        }
+
+        limparErro(campo);
         return true;
     }
 
-
     /*--------------------------------------------------------------
-     * Validação do título
+     * Agrupa todas as validacoes do formulario
      --------------------------------------------------------------*/
+    function validarFormulario() {
+        var valido = true;
 
-    function validarTitulo() {
-        var valor = titulo.value.trim();
+        valido = validarTitulo() && valido;
+        valido = validarDescricao() && valido;
+        valido = validarProjeto() && valido;
+        valido = validarTipo() && valido;
+        valido = validarPrioridade() && valido;
+        valido = validarResponsavel() && valido;
+        valido = validarPrazo() && valido;
 
-        if (valor === "") {
-            alert("Preencha o título da demanda.");
-            titulo.focus();
-            return false;
-        }
-
-        if (valor.length < 5) {
-            alert("O título da demanda deve ter pelo menos 5 caracteres.");
-            titulo.focus();
-            return false;
-        }
-
-        return true;
+        return valido;
     }
 
-
     /*--------------------------------------------------------------
-     * Validação da descrição
+     * Impede o envio enquanto houver dados invalidos
      --------------------------------------------------------------*/
+    formCadastro.addEventListener("submit", function (evento) {
+        evento.preventDefault();
+        ocultarAlerta();
 
-    function validarDescricao() {
-        var valor = descricao.value.trim();
-
-        if (valor === "") {
-            alert("Preencha a descrição da demanda.");
-            descricao.focus();
-            return false;
-        }
-
-        return true;
-    }
-
-
-    /*--------------------------------------------------------------
-     * Validação do projeto
-     --------------------------------------------------------------*/
-
-    function validarProjeto() {
-        if (projeto.value === "") {
-            alert("Selecione um projeto.");
-            projeto.focus();
-            return false;
-        }
-
-        return true;
-    }
-
-
-    /*--------------------------------------------------------------
-     * Validação do tipo
-     --------------------------------------------------------------*/
-
-    function validarTipo() {
-        if (tipo.value === "") {
-            alert("Selecione o tipo da demanda.");
-            tipo.focus();
-            return false;
-        }
-
-        return true;
-    }
-
-
-    /*--------------------------------------------------------------
-     * Validação da prioridade
-     --------------------------------------------------------------*/
-
-    function validarPrioridade() {
-        if (prioridade.value === "") {
-            alert("Selecione a prioridade.");
-            prioridade.focus();
-            return false;
-        }
-
-        return true;
-    }
-
-
-    /*--------------------------------------------------------------
-     * Validações realizadas ao enviar o formulário
-     --------------------------------------------------------------*/
-
-    formulario.addEventListener("submit", function (evento) {
-
-        if (!validarTitulo()) {
-            evento.preventDefault();
+        if (!validarFormulario()) {
+            var primeiroInvalido = formCadastro.querySelector(
+                ".campo.invalido input, .campo.invalido select, .campo.invalido textarea"
+            );
+            if (primeiroInvalido) {
+                primeiroInvalido.focus();
+            }
             return;
         }
 
-        if (!validarDescricao()) {
-            evento.preventDefault();
-            return;
-        }
-
-        if (!validarProjeto()) {
-            evento.preventDefault();
-            return;
-        }
-
-        if (!validarTipo()) {
-            evento.preventDefault();
-            return;
-        }
-
-        if (!validarPrioridade()) {
-            evento.preventDefault();
-            return;
-        }
-
-        if (!validarPrazo()) {
-            evento.preventDefault();
-            campoPrazo.focus();
-            return;
-        }
+        mostrarAlerta();
+        formCadastro.reset();
+        limparErro(obterCampo("titulo"));
+        limparErro(obterCampo("descricao"));
+        limparErro(obterCampo("projeto"));
+        limparErro(obterCampo("tipo"));
+        limparErro(obterCampo("prioridade"));
+        limparErro(obterCampo("responsavel"));
+        limparErro(obterCampo("prazo"));
     });
 
-
     /*--------------------------------------------------------------
-     * Valida o prazo quando o usuário altera o campo
+     * Valida cada campo quando o usuario interage com ele
      --------------------------------------------------------------*/
-
-    campoPrazo.addEventListener("change", validarPrazo);
+    document.getElementById("titulo").addEventListener("input", validarTitulo);
+    document.getElementById("descricao").addEventListener("input", validarDescricao);
+    document.getElementById("projeto").addEventListener("change", validarProjeto);
+    document.getElementById("tipo").addEventListener("change", validarTipo);
+    document.getElementById("prioridade").addEventListener("change", validarPrioridade);
+    document.getElementById("responsavel").addEventListener("change", validarResponsavel);
+    document.getElementById("prazo").addEventListener("change", validarPrazo);
 
 }());

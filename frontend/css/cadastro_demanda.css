@@ -89,12 +89,16 @@
     }
 }
 
-.erro-prazo {
+/* Mensagens de erro e destaque dos campos inválidos.
+   A classe base .mensagem-erro e o texto de ajuda (.ajuda-campo)
+   vem de detalhes_demanda.css, já carregado nesta página. */
+.campo.invalido .mensagem-erro {
     display: block;
-    color: #dc2626;
-    font-size: 12px;
-    margin-top: 5px;
 }
-.campo input.invalido {
-    border: 2px solid #dc2626 !important;
+
+.campo.invalido input,
+.campo.invalido select,
+.campo.invalido textarea {
+    border-color: #b91c1c;
+    background-color: #fef2f2;
 }
