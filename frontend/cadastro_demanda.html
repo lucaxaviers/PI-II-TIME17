@@ -1,3 +1,9 @@
+<!--  ==========================================
+    Autor: Gabriel Santucci de Novaes | 26002102
+    Descricao: Tela de cadastro/edicao de demanda com
+               validacoes em JavaScript (escopo PI2 - Reuniao 3)
+    ==========================================  -->
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -12,7 +18,7 @@
 
     <!-- Cabecalho IDENTICO ao da tela "Detalhes da demanda" -->
     <header id="cabecalho">
-        <a id="logo" href="demandas.html">DevTrack</a>
+        <a id="logo" href="lista_demandas.html">DevTrack</a>
         <h1>Cadastro de demanda</h1>
         <p class="perfil">Perfil visualizado: Líder de Projeto</p>
     </header>
@@ -32,72 +38,88 @@
         <section class="cartao form-container">
             <h3>Informações Gerais</h3>
 
-            <form action="#" method="POST">
-                <div class="campo">
+            <form id="form-cadastro" action="#" method="POST" novalidate>
+                <div class="campo" data-campo="titulo">
                     <label for="titulo">Título *</label>
-                    <input type="text" id="titulo" placeholder="Ex: Corrigir erro na listagem de usuários" required>
+                    <input type="text" id="titulo" name="titulo" maxlength="120"
+                           placeholder="Ex: Corrigir erro na listagem de usuários">
+                    <p class="ajuda-campo">Obrigatório, com 5 a 120 caracteres.</p>
+                    <p class="mensagem-erro" id="erro-titulo"></p>
                 </div>
 
-                <div class="campo">
+                <div class="campo" data-campo="descricao">
                     <label for="descricao">Descrição *</label>
-                    <textarea id="descricao" rows="4" placeholder="Descreva os detalhes da atividade, defeito ou melhoria..." required></textarea>
+                    <textarea id="descricao" name="descricao" rows="4" maxlength="1000"
+                              placeholder="Descreva os detalhes da atividade, defeito ou melhoria..."></textarea>
+                    <p class="ajuda-campo">Obrigatório, com 10 a 1000 caracteres.</p>
+                    <p class="mensagem-erro" id="erro-descricao"></p>
                 </div>
 
                 <div class="linha-flex">
-                    <div class="campo flex-item">
+                    <div class="campo flex-item" data-campo="projeto">
                         <label for="projeto">Projeto associado *</label>
-                        <select id="projeto" required>
+                        <select id="projeto" name="projeto">
                             <option value="" disabled selected>Selecione um projeto</option>
                             <option value="1">Portal do Aluno</option>
                             <option value="2">App Mobile</option>
                             <option value="3">API DevTrack</option>
                         </select>
+                        <p class="mensagem-erro" id="erro-projeto"></p>
                     </div>
 
-                    <div class="campo flex-item">
+                    <div class="campo flex-item" data-campo="tipo">
                         <label for="tipo">Tipo da demanda *</label>
-                        <select id="tipo" required>
+                        <select id="tipo" name="tipo">
                             <option value="" disabled selected>Selecione um tipo</option>
                             <option value="tarefa">Tarefa</option>
                             <option value="defeito">Defeito</option>
                             <option value="melhoria">Melhoria</option>
                             <option value="documentacao">Documentação</option>
                         </select>
+                        <p class="mensagem-erro" id="erro-tipo"></p>
                     </div>
                 </div>
 
                 <div class="linha-flex">
-                    <div class="campo flex-item">
+                    <div class="campo flex-item" data-campo="prioridade">
                         <label for="prioridade">Prioridade *</label>
-                        <select id="prioridade" required>
+                        <select id="prioridade" name="prioridade">
                             <option value="" disabled selected>Selecione a prioridade</option>
                             <option value="critica">Crítica</option>
                             <option value="alta">Alta</option>
                             <option value="media">Média</option>
                             <option value="baixa">Baixa</option>
                         </select>
+                        <p class="mensagem-erro" id="erro-prioridade"></p>
                     </div>
 
-                    <div class="campo flex-item">
+                    <div class="campo flex-item" data-campo="responsavel">
                         <label for="responsavel">Responsável</label>
-                        <select id="responsavel">
+                        <select id="responsavel" name="responsavel">
                             <option value="">Sem atribuição (Aberto)</option>
                             <option value="gabriel">Gabriel Santucci de Novaes</option>
                             <option value="gabriela">Gabriela Amanda</option>
                             <option value="lucas">Lucas Xavier</option>
                         </select>
+                        <p class="mensagem-erro" id="erro-responsavel"></p>
                     </div>
 
-                    <div class="campo flex-item">
+                    <div class="campo flex-item" data-campo="prazo">
                         <label for="prazo">Prazo de finalização</label>
-                        <input type="date" id="prazo">
+                        <input type="date" id="prazo" name="prazo">
+                        <p class="ajuda-campo">Opcional. A data não pode ser anterior ao dia de hoje.</p>
+                        <p class="mensagem-erro" id="erro-prazo"></p>
                     </div>
                 </div>
 
                 <div class="acoes-form">
-                    <a href="demandas.html" class="botao-secundario">Cancelar</a>
+                    <a href="lista_demandas.html" class="botao-secundario">Cancelar</a>
                     <button type="submit" class="botao">Salvar Demanda</button>
                 </div>
+
+                <p class="alerta alerta-sucesso" id="alerta-cadastro" hidden>
+                    Dados válidos. A demanda será enviada ao servidor nas próximas etapas.
+                </p>
             </form>
         </section>
     </main>
