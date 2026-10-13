@@ -20,7 +20,10 @@ app.get("/", (req: Request, res: Response) => {
 
 app.get("/demandas", (req: Request, res: Response)=>{
   res.redirect("/app/pages/lista_demandas.html");
-  
+});
+
+app.get("/dashboard", (req: Request, res: Response)=>{
+  res.redirect("/app/pages/dashboard.html");
 });
 
 app.listen(PORT, () => {
