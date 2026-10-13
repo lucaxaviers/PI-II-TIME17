@@ -1,0 +1,54 @@
+/* ==========================================
+   Autor: Lucas Rodrigues Xavier | 25000508
+   Descricao: Estilos exclusivos da tela de cadastro de usuarios
+   ========================================== */
+
+/* Ajuste do tamanho e alinhamento do logo */
+.logo {
+    display: block;
+    max-width: 190px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto 12px;
+}
+
+/* Responsividade do cartao de cadastro */
+.cartao {
+    width: 90%;
+    max-width: 480px;
+    margin: 40px auto;
+}
+
+/* Estilo para selecao de perfil compativel com o design do sistema */
+.campo select {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.campo select:focus {
+    outline: 2px solid #93c5fd;
+    border-color: #2563eb;
+}
+
+/* Adaptacao para telas menores e celulares */
+@media (max-width: 576px) {
+    .cartao {
+        width: 92%;
+        margin: 20px auto;
+        padding: 24px 18px;
+    }
+
+    .cabecalho h1 {
+        font-size: 20px;
+    }
+
+    .logo {
+        max-width: 150px;
+    }
+}
