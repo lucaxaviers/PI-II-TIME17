@@ -24,6 +24,10 @@ app.get("/login", (_req: Request, res: Response) => {
   res.redirect("/app/pages/login.html");
 });
 
+app.get("/cadastro", (_req: Request, res: Response) => {
+  res.redirect("/app/pages/cadastro_usuario.html");
+});
+
 app.get("/demandas", (_req: Request, res: Response) => {
   res.redirect("/app/pages/lista_demandas.html");
 });

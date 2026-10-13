@@ -1,0 +1,82 @@
+<!--
+  Autor: Lucas Rodrigues Xavier | 25000508
+  Descricao: Tela de cadastro de novos usuarios
+-->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastre-se — DevTrack</title>
+  <link rel="stylesheet" href="../css/comum.css">
+  <link rel="stylesheet" href="../css/cadastro_usuario.css">
+</head>
+<body>
+
+  <div class="cartao">
+
+    <div class="cabecalho">
+      <img class="logo" src="../assets/logo.jpeg" alt="DevTrack">
+      <h1>Crie sua conta</h1>
+      <p>Preencha os dados abaixo para se cadastrar no DevTrack.</p>
+    </div>
+
+    <!-- Mensagem de alerta para feedback -->
+    <div id="alerta" class="alerta"></div>
+
+    <form id="form-cadastro">
+
+      <!-- Nome Completo -->
+      <div class="campo" data-campo="nome">
+        <label for="nome">Nome Completo</label>
+        <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
+        <p class="mensagem-erro" id="erro-nome"></p>
+      </div>
+
+      <!-- E-mail -->
+      <div class="campo" data-campo="email">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="seu.email@empresa.com" required>
+        <p class="mensagem-erro" id="erro-email"></p>
+      </div>
+
+      <!-- Perfil de Acesso (Perfis definidos no Documento de Escopo) -->
+      <div class="campo" data-campo="perfil">
+        <label for="perfil">Perfil de Acesso</label>
+        <select id="perfil" name="perfil" required>
+          <option value="">Selecione o perfil...</option>
+          <option value="Administrador">Administrador</option>
+          <option value="Líder de Projeto">Líder de Projeto</option>
+          <option value="Membro da Equipe">Membro da Equipe</option>
+        </select>
+        <p class="mensagem-erro" id="erro-perfil"></p>
+      </div>
+
+      <!-- Senha -->
+      <div class="campo" data-campo="senha">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" placeholder="Crie uma senha (mínimo 6 caracteres)" required minlength="6">
+        <p class="mensagem-erro" id="erro-senha"></p>
+      </div>
+
+      <!-- Confirmar Senha -->
+      <div class="campo" data-campo="confirmar-senha">
+        <label for="confirmar-senha">Confirmar Senha</label>
+        <input type="password" id="confirmar-senha" name="confirmar-senha" placeholder="Repita a senha digitada" required minlength="6">
+        <p class="mensagem-erro" id="erro-confirmar-senha"></p>
+      </div>
+
+      <button type="submit" class="botao">Criar Conta</button>
+
+      <!-- Link para retorno ao Login -->
+      <p class="rodape-form">
+        Já possui uma conta? <a href="login.html">Fazer login</a>
+      </p>
+
+    </form>
+
+  </div>
+
+</body>
+</html>
