@@ -3,10 +3,41 @@
    Descricao: Estilos exclusivos da tela de login
    ========================================== */
 
-/* Link de "Esqueceu a senha?" acima do botao */
+/* Ajuste do tamanho e alinhamento do logo */
+.logo {
+    display: block;
+    max-width: 190px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto 12px;
+}
 
+/* Link de "Esqueceu a senha?" acima do botao */
 .linha-opcoes {
     font-size: 14px;
     text-align: right;
     margin-bottom: 20px;
+}
+
+/* Responsividade da tela de login para celulares e telas menores */
+.cartao {
+    width: 90%;
+    max-width: 440px;
+    margin: 60px auto;
+}
+
+@media (max-width: 576px) {
+    .cartao {
+        width: 92%;
+        margin: 25px auto;
+        padding: 24px 18px;
+    }
+
+    .cabecalho h1 {
+        font-size: 20px;
+    }
+
+    .logo {
+        max-width: 150px;
+    }
 }
