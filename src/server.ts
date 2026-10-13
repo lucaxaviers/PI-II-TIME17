@@ -1,6 +1,7 @@
 
 import express, { Request, Response } from "express";
 import path from "path";
+import detalhesDemandaRoutes from "./routes/detalhes-demanda";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -8,6 +9,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 app.use("/app", express.static(path.join(__dirname, "../frontend")));
+app.use(detalhesDemandaRoutes);
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({
@@ -17,11 +19,6 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 
-
-app.get("/demandas", (req: Request, res: Response)=>{
-  res.redirect("/app/pages/lista_demandas.html");
-  
-});
 
 app.listen(PORT, () => {
   console.log(`Servidor executando em http://localhost:${PORT}`);
