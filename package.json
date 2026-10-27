@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/lucaxaviers/PI-II-TIME17#readme",
   "dependencies": {
-    "express": "^5.2.1"
+    "dotenv": "^18.0.9",
+    "express": "^5.2.1",
+    "oracledb": "^26.0.0"
   },
   "engines": {
     "node": ">=24 <25"
@@ -27,6 +29,7 @@
     "@tsconfig/recommended": "^1.0.13",
     "@types/express": "^5.0.6",
     "@types/node": "^26.6.5",
+    "@types/oracledb": "^26.0.0",
     "tsc-watch": "^7.2.1",
     "typescript": "^7.0.2"
   }

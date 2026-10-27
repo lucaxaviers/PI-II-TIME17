@@ -1,31 +1,28 @@
 /*
   Autor: Lucas Rodrigues Xavier | 25000508
-  Descricao: Validacao e autenticacao simples da tela de login (ITW / PI-II)
+  Descricao: Validacao e integracao da tela de login com a API (Reuniao 5 / PI-II)
 */
 
-// Usuarios de teste em memoria (3 perfis definidos no escopo)
-const usuariosValidos = [
-  { email: 'lucas@devtrack.com', senha: 'senha123' },
-  { email: 'enrico@devtrack.com', senha: 'senha123' },
-  { email: 'gabriela@devtrack.com', senha: 'senha123' }
-];
+// Ao carregar a tela de login, limpa qualquer sessao anterior
+sessionStorage.removeItem('usuarioLogado');
 
-document.getElementById('form-login').addEventListener('submit', function (evento) {
+document.getElementById('form-login').addEventListener('submit', async function (evento) {
   evento.preventDefault();
   ocultarAlerta();
 
   const email = document.getElementById('email');
   const senha = document.getElementById('senha');
+  const botaoEntrar = document.querySelector('#form-login button[type="submit"]');
 
   const emailValor = email.value.trim().toLowerCase();
   const senhaValor = senha.value;
 
-  // Regex simples para formato de e-mail basico
+  // Regex para formato de e-mail valido
   const regexEmail = /^[^\s@]+@[^\s@]+$/;
 
   let valido = true;
 
-  // 1. Validacao do campo de e-mail
+  // 1. Validacao do campo de e-mail no cliente
   valido = validarCampo(
     email,
     emailValor !== '' && regexEmail.test(emailValor),
@@ -33,7 +30,7 @@ document.getElementById('form-login').addEventListener('submit', function (event
     emailValor === '' ? 'Informe seu e-mail.' : 'Informe um e-mail válido.'
   ) && valido;
 
-  // 2. Validacao do campo de senha (minimo 6 caracteres)
+  // 2. Validacao do campo de senha no cliente (minimo 6 caracteres)
   valido = validarCampo(
     senha,
     senhaValor.length >= 6,
@@ -45,60 +42,77 @@ document.getElementById('form-login').addEventListener('submit', function (event
     return;
   }
 
-  // 3. Autenticacao: verifica se as credenciais correspondem a um usuario valido
-  if (window.location.protocol.startsWith('http')) {
-    // Se estiver rodando pelo servidor Express, consome a rota POST /login
-    fetch('/login', {
+  // Desabilita botao temporariamente durante a requisicao
+  if (botaoEntrar) {
+    botaoEntrar.disabled = true;
+    botaoEntrar.textContent = 'Entrando...';
+  }
+
+  try {
+    // 3. Consumo da API: envia e-mail e senha para POST /login
+    const resposta = await fetch('/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ email: emailValor, senha: senhaValor })
-    })
-      .then(function (resposta) {
-        if (resposta.ok) {
-          window.location.href = 'dashboard.html';
-        } else {
-          mostrarAlerta('E-mail ou senha inválidos.');
-        }
-      })
-      .catch(function () {
-        // Fallback caso a API falhe ou nao responda
-        autenticarLocal(emailValor, senhaValor);
-      });
-  } else {
-    // Se o arquivo HTML foi aberto diretamente no navegador
-    autenticarLocal(emailValor, senhaValor);
+    });
+
+    const dados = await resposta.json().catch(function () {
+      return {};
+    });
+
+    if (resposta.ok) {
+      // Guarda os dados e o perfil do usuario autenticado para manter a sessao ao navegar
+      sessionStorage.setItem('usuarioLogado', JSON.stringify({
+        id: dados.id,
+        nome: dados.nome,
+        email: dados.email,
+        perfil: dados.perfil
+      }));
+
+      // Redireciona para o Dashboard apos autenticacao com sucesso
+      window.location.href = 'dashboard.html';
+    } else {
+      // Exibe a mensagem de erro retornada diretamente pelo servidor (ex: status 400 ou 401)
+      const mensagemErro = dados.mensagem || dados.erro || 'E-mail ou senha inválidos.';
+      mostrarAlerta(mensagemErro);
+    }
+  } catch (erro) {
+    // Falha de conexao com o servidor
+    mostrarAlerta('Não foi possível conectar ao servidor. Verifique sua conexão e tente novamente.');
+  } finally {
+    if (botaoEntrar) {
+      botaoEntrar.disabled = false;
+      botaoEntrar.textContent = 'Entrar';
+    }
   }
 });
 
-function autenticarLocal(emailValor, senhaValor) {
-  const usuario = usuariosValidos.find(function (u) {
-    return u.email === emailValor && u.senha === senhaValor;
-  });
-
-  if (usuario) {
-    window.location.href = 'dashboard.html';
-  } else {
-    mostrarAlerta('E-mail ou senha inválidos.');
-  }
-}
-
 function validarCampo(input, condicao, idErro, mensagem) {
   const campo = input.closest('.campo');
-  campo.classList.toggle('invalido', !condicao);
-  document.getElementById(idErro).textContent = condicao ? '' : mensagem;
+  if (campo) {
+    campo.classList.toggle('invalido', !condicao);
+  }
+  const elementoErro = document.getElementById(idErro);
+  if (elementoErro) {
+    elementoErro.textContent = condicao ? '' : mensagem;
+  }
   return condicao;
 }
 
 function mostrarAlerta(mensagem) {
   const alerta = document.getElementById('alerta');
-  alerta.textContent = mensagem;
-  alerta.className = 'alerta alerta-erro visivel';
+  if (alerta) {
+    alerta.textContent = mensagem;
+    alerta.className = 'alerta alerta-erro visivel';
+  }
 }
 
 function ocultarAlerta() {
   const alerta = document.getElementById('alerta');
-  alerta.textContent = '';
-  alerta.className = 'alerta';
+  if (alerta) {
+    alerta.textContent = '';
+    alerta.className = 'alerta';
+  }
 }

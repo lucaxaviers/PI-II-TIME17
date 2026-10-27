@@ -59,8 +59,47 @@ O apontamento de esforço e horas de cada integrante é registrado continuamente
 
 - **Frontend:** HTML5 semântico, CSS3 (responsivo com Flexbox/Grid) e JavaScript puro (DOM e eventos).
 - **Backend:** Node.js (v24 LTS), TypeScript e Express.
-- **Banco de Dados:** Banco de Dados Relacional (MySQL / Oracle — em modelagem).
+- **Banco de Dados:** Oracle Database (scripts DDL e DML em `banco/`).
 - **Controle de Versão:** Git e GitHub (fluxo baseado em branches e Pull Requests).
+
+---
+
+## 🗄️ Banco de Dados (Oracle via Docker)
+
+Os scripts SQL do banco de dados relacional estão localizados na pasta [`banco/`](banco/):
+- **`banco/schema.sql`:** Script de criação das 6 tabelas (`usuarios`, `projetos`, `usuarios_projetos`, `demandas`, `comentarios`, `historico_demandas`) e chaves.
+- **`banco/seed.sql`:** Script de carga inicial com os 3 perfis de usuários (Admin, Líder, Membro), projetos e demandas de exemplo.
+
+### Como subir e configurar o Oracle localmente:
+
+1. **Suba o container do Oracle via terminal:**
+   ```bash
+   docker run -d --name oracle-devtrack -p 1521:1521 -e ORACLE_PASSWORD=oracle gvenzl/oracle-free:slim
+   ```
+   *(Aguarde cerca de 30 a 60 segundos após o comando para o Oracle inicializar completamente o banco `FREEPDB1`).*
+
+2. **Configure o arquivo `.env` na raiz do projeto:**
+   ```bash
+   cp .env.example .env
+   ```
+   *(O arquivo já vem pré-configurado para `DB_CONNECT_STRING=localhost:1521/FREEPDB1`).*
+
+3. **Execute os scripts no banco:**
+   
+   - **Opção A (Via Terminal / PowerShell - mais rápido):**
+     ```powershell
+     Get-Content banco/schema.sql, banco/seed.sql | docker exec -i oracle-devtrack sqlplus system/oracle@FREEPDB1
+     ```
+     *(No Linux/macOS ou Git Bash: `cat banco/schema.sql banco/seed.sql | docker exec -i oracle-devtrack sqlplus system/oracle@FREEPDB1`)*
+
+   - **Opção B (Via SQL Developer, DBeaver ou extensão do VS Code):**
+     Conecte ao banco (`localhost:1521/FREEPDB1`, usuário `system`, senha `oracle`) e execute como script (**F5**):
+     1. Execute primeiro o script `banco/schema.sql`
+     2. Em seguida, execute o script `banco/seed.sql`
+
+> 💡 **Nota sobre a primeira execução:** No início do `schema.sql`, os comandos `DROP TABLE ... CASCADE CONSTRAINTS` garantem a limpeza de tabelas antigas. Se for a primeira vez rodando num banco vazio, mensagens de aviso `ORA-00942: table or view does not exist` são normais e esperadas; o script continuará e criará todas as tabelas e dados com sucesso.
+
+> **Nota de Contingência:** Caso o container do Oracle não esteja rodando, o servidor ativa automaticamente o modo de fallback em memória para que o desenvolvimento e testes do frontend não sejam interrompidos.
 
 ---
 
@@ -69,6 +108,7 @@ O apontamento de esforço e horas de cada integrante é registrado continuamente
 ### Pré-requisitos
 - [Node.js](https://nodejs.org/) versão 24 LTS instalada.
 - [Git](https://git-scm.com/) instalado.
+- [Docker](https://www.docker.com/) (ou instância do **Oracle Database** / SQL Developer conectado ao servidor da faculdade).
 
 ### Passo a Passo
 
@@ -78,17 +118,20 @@ O apontamento de esforço e horas de cada integrante é registrado continuamente
    cd PI-II-TIME17
    ```
 
-2. **Instale as dependências:**
+2. **Configure o banco de dados Oracle:**
+   Siga os passos da seção [Banco de Dados (Oracle via Docker)](#️-banco-de-dados-oracle-via-docker) acima.
+
+3. **Instale as dependências:**
    ```bash
    npm install
    ```
 
-3. **Inicie o servidor de desenvolvimento:**
+4. **Inicie o servidor de desenvolvimento:**
    ```bash
    npm start
    ```
 
-   O servidor iniciará automaticamente com recarregamento contínuo em `http://localhost:3000`.
+   O servidor iniciará automaticamente em `http://localhost:3000`.
 
 ---
 
