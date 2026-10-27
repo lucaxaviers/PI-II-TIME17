@@ -64,23 +64,30 @@ O apontamento de esforço e horas de cada integrante é registrado continuamente
 
 ---
 
-## 🗄️ Banco de Dados (Oracle)
+## 🗄️ Banco de Dados (Oracle via Docker)
 
 Os scripts SQL do banco de dados relacional estão localizados na pasta [`banco/`](banco/):
-- **`banco/schema.sql`:** Script DDL de criação das tabelas (`usuarios`, `projetos`, `usuarios_projetos`, `demandas`, `comentarios`, `historico_demandas`) e constraints.
-- **`banco/seed.sql`:** Script DML de carga inicial com os 3 perfis de usuários, projetos e demandas para testes.
+- **`banco/schema.sql`:** Script de criação das 6 tabelas (`usuarios`, `projetos`, `usuarios_projetos`, `demandas`, `comentarios`, `historico_demandas`) e chaves.
+- **`banco/seed.sql`:** Script de carga inicial com os 3 perfis de usuários (Admin, Líder, Membro), projetos e demandas de exemplo.
 
-### Configuração de Conexão:
-1. Copie o arquivo `.env.example` para `.env`:
+### Como subir e configurar o Oracle localmente:
+
+1. **Suba o container do Oracle via terminal:**
+   ```bash
+   docker run -d --name oracle-devtrack -p 1521:1521 -e ORACLE_PASSWORD=oracle gvenzl/oracle-free:slim
+   ```
+
+2. **Configure o arquivo `.env` na raiz do projeto:**
    ```bash
    cp .env.example .env
    ```
-2. Abra o arquivo `.env` e preencha com as credenciais do seu Oracle (local, Docker ou servidor da PUC):
-   ```env
-   DB_USER=seu_usuario
-   DB_PASSWORD=sua_senha
-   DB_CONNECT_STRING=localhost:1521/XEPDB1
-   ```
+   *(Certifique-se de que a variável `DB_CONNECT_STRING` aponte para `localhost:1521/FREEPDB1`).*
+
+3. **Execute os scripts no banco (via extensão do VS Code ou SQL Developer):**
+   - Execute primeiro o script `banco/schema.sql`
+   - Em seguida, execute o script `banco/seed.sql`
+
+> **Nota de Contingência:** Caso o container do Oracle não esteja rodando, o servidor ativa automaticamente o modo de fallback em memória para que o desenvolvimento e testes do frontend não sejam interrompidos.
 
 ---
 
