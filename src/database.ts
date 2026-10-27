@@ -15,7 +15,7 @@ oracledb.autoCommit = true;
 const dbConfig = {
   user: process.env.DB_USER || "system",
   password: process.env.DB_PASSWORD || "oracle",
-  connectString: process.env.DB_CONNECT_STRING || "localhost:1521/XEPDB1",
+  connectString: process.env.DB_CONNECT_STRING || "localhost:1521/FREEPDB1",
 };
 
 /**

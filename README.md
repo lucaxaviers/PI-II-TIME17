@@ -76,16 +76,28 @@ Os scripts SQL do banco de dados relacional estão localizados na pasta [`banco/
    ```bash
    docker run -d --name oracle-devtrack -p 1521:1521 -e ORACLE_PASSWORD=oracle gvenzl/oracle-free:slim
    ```
+   *(Aguarde cerca de 30 a 60 segundos após o comando para o Oracle inicializar completamente o banco `FREEPDB1`).*
 
 2. **Configure o arquivo `.env` na raiz do projeto:**
    ```bash
    cp .env.example .env
    ```
-   *(Certifique-se de que a variável `DB_CONNECT_STRING` aponte para `localhost:1521/FREEPDB1`).*
+   *(O arquivo já vem pré-configurado para `DB_CONNECT_STRING=localhost:1521/FREEPDB1`).*
 
-3. **Execute os scripts no banco (via extensão do VS Code ou SQL Developer):**
-   - Execute primeiro o script `banco/schema.sql`
-   - Em seguida, execute o script `banco/seed.sql`
+3. **Execute os scripts no banco:**
+   
+   - **Opção A (Via Terminal / PowerShell - mais rápido):**
+     ```powershell
+     Get-Content banco/schema.sql, banco/seed.sql | docker exec -i oracle-devtrack sqlplus system/oracle@FREEPDB1
+     ```
+     *(No Linux/macOS ou Git Bash: `cat banco/schema.sql banco/seed.sql | docker exec -i oracle-devtrack sqlplus system/oracle@FREEPDB1`)*
+
+   - **Opção B (Via SQL Developer, DBeaver ou extensão do VS Code):**
+     Conecte ao banco (`localhost:1521/FREEPDB1`, usuário `system`, senha `oracle`) e execute como script (**F5**):
+     1. Execute primeiro o script `banco/schema.sql`
+     2. Em seguida, execute o script `banco/seed.sql`
+
+> 💡 **Nota sobre a primeira execução:** No início do `schema.sql`, os comandos `DROP TABLE ... CASCADE CONSTRAINTS` garantem a limpeza de tabelas antigas. Se for a primeira vez rodando num banco vazio, mensagens de aviso `ORA-00942: table or view does not exist` são normais e esperadas; o script continuará e criará todas as tabelas e dados com sucesso.
 
 > **Nota de Contingência:** Caso o container do Oracle não esteja rodando, o servidor ativa automaticamente o modo de fallback em memória para que o desenvolvimento e testes do frontend não sejam interrompidos.
 
@@ -96,7 +108,7 @@ Os scripts SQL do banco de dados relacional estão localizados na pasta [`banco/
 ### Pré-requisitos
 - [Node.js](https://nodejs.org/) versão 24 LTS instalada.
 - [Git](https://git-scm.com/) instalado.
-- Instância do **Oracle Database** (ou Oracle SQL Developer conectado ao servidor da faculdade).
+- [Docker](https://www.docker.com/) (ou instância do **Oracle Database** / SQL Developer conectado ao servidor da faculdade).
 
 ### Passo a Passo
 
@@ -106,9 +118,8 @@ Os scripts SQL do banco de dados relacional estão localizados na pasta [`banco/
    cd PI-II-TIME17
    ```
 
-2. **Crie as tabelas e os dados de teste no Oracle:**
-   - Execute o script `banco/schema.sql` no seu cliente Oracle (ex: Oracle SQL Developer).
-   - Em seguida, execute o script `banco/seed.sql` para carregar os dados de teste.
+2. **Configure o banco de dados Oracle:**
+   Siga os passos da seção [Banco de Dados (Oracle via Docker)](#️-banco-de-dados-oracle-via-docker) acima.
 
 3. **Instale as dependências:**
    ```bash
