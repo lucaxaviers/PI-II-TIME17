@@ -59,8 +59,28 @@ O apontamento de esforço e horas de cada integrante é registrado continuamente
 
 - **Frontend:** HTML5 semântico, CSS3 (responsivo com Flexbox/Grid) e JavaScript puro (DOM e eventos).
 - **Backend:** Node.js (v24 LTS), TypeScript e Express.
-- **Banco de Dados:** Banco de Dados Relacional (MySQL / Oracle — em modelagem).
+- **Banco de Dados:** Oracle Database (scripts DDL e DML em `banco/`).
 - **Controle de Versão:** Git e GitHub (fluxo baseado em branches e Pull Requests).
+
+---
+
+## 🗄️ Banco de Dados (Oracle)
+
+Os scripts SQL do banco de dados relacional estão localizados na pasta [`banco/`](banco/):
+- **`banco/schema.sql`:** Script DDL de criação das tabelas (`usuarios`, `projetos`, `usuarios_projetos`, `demandas`, `comentarios`, `historico_demandas`) e constraints.
+- **`banco/seed.sql`:** Script DML de carga inicial com os 3 perfis de usuários, projetos e demandas para testes.
+
+### Configuração de Conexão:
+1. Copie o arquivo `.env.example` para `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+2. Abra o arquivo `.env` e preencha com as credenciais do seu Oracle (local, Docker ou servidor da PUC):
+   ```env
+   DB_USER=seu_usuario
+   DB_PASSWORD=sua_senha
+   DB_CONNECT_STRING=localhost:1521/XEPDB1
+   ```
 
 ---
 
@@ -69,6 +89,7 @@ O apontamento de esforço e horas de cada integrante é registrado continuamente
 ### Pré-requisitos
 - [Node.js](https://nodejs.org/) versão 24 LTS instalada.
 - [Git](https://git-scm.com/) instalado.
+- Instância do **Oracle Database** (ou Oracle SQL Developer conectado ao servidor da faculdade).
 
 ### Passo a Passo
 
@@ -78,17 +99,21 @@ O apontamento de esforço e horas de cada integrante é registrado continuamente
    cd PI-II-TIME17
    ```
 
-2. **Instale as dependências:**
+2. **Crie as tabelas e os dados de teste no Oracle:**
+   - Execute o script `banco/schema.sql` no seu cliente Oracle (ex: Oracle SQL Developer).
+   - Em seguida, execute o script `banco/seed.sql` para carregar os dados de teste.
+
+3. **Instale as dependências:**
    ```bash
    npm install
    ```
 
-3. **Inicie o servidor de desenvolvimento:**
+4. **Inicie o servidor de desenvolvimento:**
    ```bash
    npm start
    ```
 
-   O servidor iniciará automaticamente com recarregamento contínuo em `http://localhost:3000`.
+   O servidor iniciará automaticamente em `http://localhost:3000`.
 
 ---
 
