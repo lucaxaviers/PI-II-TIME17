@@ -4,7 +4,7 @@
 -- Descricao: Carga inicial de dados para testes (Oracle)
 -- ============================================================
 
--- 1. Usuarios (os 3 perfis obrigatorios)
+-- 1. Usuarios (Integrantes do grupo + usuarios de teste)
 INSERT INTO usuarios (nome, email, senha, perfil)
 VALUES ('Lucas Rodrigues Xavier', 'lucas@devtrack.com', 'senha123', 'Administrador');
 
@@ -19,6 +19,37 @@ VALUES ('Felipe Dalan dos Passos', 'felipe@devtrack.com', 'senha123', 'Membro da
 
 INSERT INTO usuarios (nome, email, senha, perfil)
 VALUES ('Gabriel Santucci de Novaes', 'gabriel@devtrack.com', 'senha123', 'Membro da Equipe');
+
+-- Novos usuarios de teste para validacao do sistema (Issue #55)
+INSERT INTO usuarios (nome, email, senha, perfil)
+VALUES ('Mariana Souza Silveira', 'mariana.silveira@devtrack.com', 'senha123', 'Líder de Projeto');
+
+INSERT INTO usuarios (nome, email, senha, perfil)
+VALUES ('Rafael Alves de Oliveira', 'rafael.oliveira@devtrack.com', 'senha123', 'Membro da Equipe');
+
+INSERT INTO usuarios (nome, email, senha, perfil)
+VALUES ('Beatriz Lima Mendes', 'beatriz.mendes@devtrack.com', 'senha123', 'Membro da Equipe');
+
+INSERT INTO usuarios (nome, email, senha, perfil)
+VALUES ('Thiago Henrique Martins', 'thiago.martins@devtrack.com', 'senha123', 'Administrador');
+
+INSERT INTO usuarios (nome, email, senha, perfil)
+VALUES ('Camila Duarte Fernandes', 'camila.fernandes@devtrack.com', 'senha123', 'Membro da Equipe');
+
+INSERT INTO usuarios (nome, email, senha, perfil)
+VALUES ('Rodrigo Barbosa Ramos', 'rodrigo.ramos@devtrack.com', 'senha123', 'Membro da Equipe');
+
+INSERT INTO usuarios (nome, email, senha, perfil)
+VALUES ('Juliana Castro Ribeiro', 'juliana.castro@devtrack.com', 'senha123', 'Líder de Projeto');
+
+INSERT INTO usuarios (nome, email, senha, perfil)
+VALUES ('Lucas Ferreira Guimarães', 'lucas.guimaraes@devtrack.com', 'senha123', 'Membro da Equipe');
+
+INSERT INTO usuarios (nome, email, senha, perfil)
+VALUES ('Larissa Moreira Carvalho', 'larissa.carvalho@devtrack.com', 'senha123', 'Membro da Equipe');
+
+INSERT INTO usuarios (nome, email, senha, perfil)
+VALUES ('Bruno Vinicius Cardoso', 'bruno.cardoso@devtrack.com', 'senha123', 'Membro da Equipe');
 
 -- 2. Projetos
 INSERT INTO projetos (nome, descricao)
@@ -38,6 +69,16 @@ INSERT INTO usuarios_projetos (id_usuario, id_projeto) VALUES (2, 1);
 INSERT INTO usuarios_projetos (id_usuario, id_projeto) VALUES (3, 1);
 INSERT INTO usuarios_projetos (id_usuario, id_projeto) VALUES (4, 2);
 INSERT INTO usuarios_projetos (id_usuario, id_projeto) VALUES (5, 3);
+INSERT INTO usuarios_projetos (id_usuario, id_projeto) VALUES (6, 1);
+INSERT INTO usuarios_projetos (id_usuario, id_projeto) VALUES (7, 1);
+INSERT INTO usuarios_projetos (id_usuario, id_projeto) VALUES (8, 2);
+INSERT INTO usuarios_projetos (id_usuario, id_projeto) VALUES (9, 2);
+INSERT INTO usuarios_projetos (id_usuario, id_projeto) VALUES (10, 3);
+INSERT INTO usuarios_projetos (id_usuario, id_projeto) VALUES (11, 3);
+INSERT INTO usuarios_projetos (id_usuario, id_projeto) VALUES (12, 1);
+INSERT INTO usuarios_projetos (id_usuario, id_projeto) VALUES (13, 2);
+INSERT INTO usuarios_projetos (id_usuario, id_projeto) VALUES (14, 2);
+INSERT INTO usuarios_projetos (id_usuario, id_projeto) VALUES (15, 3);
 
 -- 4. Demandas (diferentes tipos, status e prioridades)
 INSERT INTO demandas (titulo, descricao, tipo, prioridade, status, data_criacao, data_atualizacao, prazo_finalizacao, id_projeto, id_responsavel)
