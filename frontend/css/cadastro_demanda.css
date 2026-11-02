@@ -7,6 +7,12 @@
     margin-top: 0;
 }
 
+.alerta-erro {
+    color: #922b21;
+    background-color: #fdecea;
+    border: 1px solid #c0392b;
+}
+
 .linha-flex {
     display: flex;
     flex-direction: row;

@@ -6,11 +6,17 @@
 import { Router, Request, Response } from "express";
 import { Usuario, usuarios } from "../data";
 import { executarConsulta } from "../database";
+import { iniciarSessao, encerrarSessao } from "../sessao";
 
 const router = Router();
+router.post("/logout", (req, res) => {
+  encerrarSessao(req, res);
+  return res.sendStatus(204);
+});
 
 // POST /login - autenticacao de usuario contra o banco Oracle
 router.post("/login", async (req: Request, res: Response) => {
+  encerrarSessao(req, res);
   const { email, senha } = req.body;
 
   // Verifica campos obrigatorios ausentes
@@ -39,6 +45,7 @@ router.post("/login", async (req: Request, res: Response) => {
 
     if (resultado && resultado.length > 0) {
       const usuarioBanco = resultado[0];
+      iniciarSessao(res, usuarioBanco.ID_USUARIO);
       return res.status(200).json({
         id: usuarioBanco.ID_USUARIO,
         nome: usuarioBanco.NOME,
@@ -86,7 +93,7 @@ router.get("/usuarios", async (_req: Request, res: Response) => {
        ORDER BY nome ASC`
     );
 
-    if (resultado && resultado.length > 0) {
+    if (_req.query.origem === "oracle" || resultado.length > 0) {
       const listaFormatada = resultado.map((u) => ({
         id: u.ID_USUARIO,
         nome: u.NOME,
@@ -96,6 +103,7 @@ router.get("/usuarios", async (_req: Request, res: Response) => {
       return res.status(200).json(listaFormatada);
     }
   } catch (erroBanco) {
+    if (_req.query.origem === "oracle") return res.status(503).json({ erro: "Não foi possível carregar os responsáveis no Oracle." });
     // Fallback para dados em memoria
   }
 

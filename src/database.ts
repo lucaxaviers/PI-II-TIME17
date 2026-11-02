@@ -18,6 +18,19 @@ const dbConfig = {
   connectString: process.env.DB_CONNECT_STRING || "localhost:1521/FREEPDB1",
 };
 
+// Mantém a atualização da demanda e o histórico na mesma conexão.
+export async function comConexao<T>(operacao: (c: oracledb.Connection) => Promise<T>) {
+  const c = await oracledb.getConnection(dbConfig);
+  try {
+    const resultado = await operacao(c);
+    await c.commit();
+    return resultado;
+  } finally {
+    // O driver desfaz alterações pendentes se a operação falhar antes do commit.
+    await c.close();
+  }
+}
+
 /**
  * Executa uma consulta SQL no Oracle de forma simples e direta.
  * Fecha a conexao automaticamente ao finalizar.
