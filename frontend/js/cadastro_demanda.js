@@ -15,9 +15,10 @@
     "use strict";
 
     /* Apenas os valores previstos no escopo do sistema */
-    var TIPOS_PERMITIDOS = ["tarefa", "defeito", "melhoria", "documentacao"];
-    var PRIORIDADES_PERMITIDAS = ["critica", "alta", "media", "baixa"];
-    var RESPONSAVEIS_PERMITIDOS = ["gabriel", "gabriela", "lucas"];
+    var TIPOS_PERMITIDOS = ["Tarefa", "Defeito", "Melhoria", "Documentação"];
+    var PRIORIDADES_PERMITIDAS = ["Crítica", "Alta", "Média", "Baixa"];
+    const id = new URLSearchParams(location.search).get("id");
+    let prazoOriginal = "";
 
     var formCadastro = document.getElementById("form-cadastro");
 
@@ -56,6 +57,7 @@
     function ocultarAlerta() {
         var alerta = document.getElementById("alerta-cadastro");
         if (alerta) {
+            alerta.classList.remove("visivel");
             alerta.hidden = true;
         }
     }
@@ -63,12 +65,53 @@
     /*--------------------------------------------------------------
      * Exibe o alerta de sucesso
      --------------------------------------------------------------*/
-    function mostrarAlerta() {
-        var alerta = document.getElementById("alerta-cadastro");
-        if (alerta) {
-            alerta.hidden = false;
+    function mostrarAlerta(mensagem, erro) {
+        const alerta = document.getElementById("alerta-cadastro");
+        alerta.textContent = mensagem;
+        alerta.className = "alerta visivel " + (erro ? "alerta-erro" : "alerta-sucesso");
+        alerta.hidden = false;
+    }
+
+    async function consultar(url, opcoes) {
+        const resposta = await fetch(url, opcoes);
+        const dados = await resposta.json();
+        if (!resposta.ok) throw new Error(dados.erro || dados.mensagem || "Falha ao consultar a API.");
+        return dados;
+    }
+
+    const campos = formCadastro.elements;
+    const botao = formCadastro.querySelector("button");
+    const seletor = document.getElementById("selecionar-demanda");
+    seletor.addEventListener("change", () => {
+        location.href = location.pathname + (seletor.value ? "?id=" + encodeURIComponent(seletor.value) : "");
+    });
+
+    async function carregar() {
+        try {
+            const [projetos, usuarios, demandas] = await Promise.all([
+                consultar("/projetos"), consultar("/usuarios?origem=oracle"), consultar("/demandas/editaveis")
+            ]);
+            projetos.forEach(p => campos.projeto.add(new Option(p.nome, p.id)));
+            usuarios.forEach(u => campos.responsavel.add(new Option(u.nome, u.id)));
+            demandas.forEach(d => seletor.add(new Option("#" + d.id + " — " + d.titulo, d.id)));
+            if (id !== null) {
+                const d = await consultar("/demandas/" + encodeURIComponent(id) + "/edicao");
+                for (const nome of ["titulo", "descricao", "tipo", "prioridade"]) campos[nome].value = d[nome];
+                campos.projeto.value = d.idProjetoAssociado;
+                campos.responsavel.value = d.idUsuario ?? "";
+                prazoOriginal = d.dataFinalizacao || "";
+                campos.prazo.value = prazoOriginal;
+                seletor.value = id;
+                document.querySelector("h1").textContent = "Edição de demanda";
+                document.querySelector(".codigo").textContent = "Demanda #" + id;
+                document.querySelector("h2").textContent = "Editar dados da atividade";
+            }
+            botao.disabled = false;
+        } catch (erro) {
+            mostrarAlerta(erro.message, true);
         }
     }
+    carregar();
 
     /*--------------------------------------------------------------
      * Valida texto obrigatorio respeitando minimo e maximo de caracteres
@@ -129,7 +172,7 @@
     function validarTitulo() {
         var campo = obterCampo("titulo");
         var input = document.getElementById("titulo");
-        var mensagem = textoValido(input.value, 5, 120);
+        var mensagem = textoValido(input.value, 5, 100);
 
         if (mensagem) {
             mostrarErro(campo, mensagem);
@@ -146,7 +189,7 @@
     function validarDescricao() {
         var campo = obterCampo("descricao");
         var area = document.getElementById("descricao");
-        var mensagem = textoValido(area.value, 10, 1000);
+        var mensagem = textoValido(area.value, 10, 500);
 
         if (mensagem) {
             mostrarErro(campo, mensagem);
@@ -226,7 +269,7 @@
         var valor = select.value;
 
         // Responsavel pode ficar sem atribuicao (valor vazio = Aberto)
-        if (valor && RESPONSAVEIS_PERMITIDOS.indexOf(valor) === -1) {
+        if (valor && !Array.from(select.options).some(opcao => opcao.value === valor)) {
             mostrarErro(campo, "Responsável inválido. Selecione uma opção da lista.");
             return false;
         }
@@ -254,7 +297,7 @@
             return false;
         }
 
-        if (valor < hojeISO()) {
+        if (valor !== prazoOriginal && valor < hojeISO()) {
             mostrarErro(campo, "O prazo não pode ser anterior à data de hoje.");
             return false;
         }
@@ -283,10 +326,11 @@
     /*--------------------------------------------------------------
      * Impede o envio enquanto houver dados invalidos
      --------------------------------------------------------------*/
-    formCadastro.addEventListener("submit", function (evento) {
+    formCadastro.addEventListener("submit", async function (evento) {
         evento.preventDefault();
         ocultarAlerta();
 
+        if (botao.disabled) return;
         if (!validarFormulario()) {
             var primeiroInvalido = formCadastro.querySelector(
                 ".campo.invalido input, .campo.invalido select, .campo.invalido textarea"
@@ -297,15 +341,36 @@
             return;
         }
 
-        mostrarAlerta();
-        formCadastro.reset();
-        limparErro(obterCampo("titulo"));
-        limparErro(obterCampo("descricao"));
-        limparErro(obterCampo("projeto"));
-        limparErro(obterCampo("tipo"));
-        limparErro(obterCampo("prioridade"));
-        limparErro(obterCampo("responsavel"));
-        limparErro(obterCampo("prazo"));
+        botao.disabled = true;
+        seletor.disabled = true;
+        try {
+            const dados = {
+                titulo: campos.titulo.value, descricao: campos.descricao.value,
+                tipo: campos.tipo.value, prioridade: campos.prioridade.value,
+                idProjetoAssociado: Number(campos.projeto.value),
+                idUsuario: campos.responsavel.value ? Number(campos.responsavel.value) : null,
+                dataFinalizacao: campos.prazo.value || null
+            };
+            const demanda = await consultar(id ? "/demandas/" + encodeURIComponent(id) : "/demandas", {
+                method: id ? "PUT" : "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(dados)
+            });
+            const rotulo = "#" + demanda.id + " — " + demanda.titulo;
+            if (id) {
+                seletor.selectedOptions[0].textContent = rotulo;
+                prazoOriginal = demanda.dataFinalizacao || "";
+            } else {
+                seletor.add(new Option(rotulo, demanda.id));
+                formCadastro.reset();
+            }
+            mostrarAlerta("Demanda #" + demanda.id + (id ? " atualizada." : " cadastrada."), false);
+        } catch (erro) {
+            mostrarAlerta(erro.message, true);
+        } finally {
+            botao.disabled = false;
+            seletor.disabled = false;
+        }
     });
 
     /*--------------------------------------------------------------

@@ -37,22 +37,24 @@
 
         <!-- Container do formulario, aproveitando a classe 'cartao' do detalhes_demanda -->
         <section class="cartao form-container">
+            <label for="selecionar-demanda">Cadastrar ou editar uma demanda</label>
+            <select id="selecionar-demanda"><option value="">Nova demanda</option></select>
             <h3>Informações Gerais</h3>
 
             <form id="form-cadastro" action="#" method="POST" novalidate>
                 <div class="campo" data-campo="titulo">
                     <label for="titulo">Título *</label>
-                    <input type="text" id="titulo" name="titulo" maxlength="120"
+                    <input type="text" id="titulo" name="titulo" maxlength="100"
                            placeholder="Ex: Corrigir erro na listagem de usuários">
-                    <p class="ajuda-campo">Obrigatório, com 5 a 120 caracteres.</p>
+                    <p class="ajuda-campo">Obrigatório, com 5 a 100 caracteres.</p>
                     <p class="mensagem-erro" id="erro-titulo"></p>
                 </div>
 
                 <div class="campo" data-campo="descricao">
                     <label for="descricao">Descrição *</label>
-                    <textarea id="descricao" name="descricao" rows="4" maxlength="1000"
+                    <textarea id="descricao" name="descricao" rows="4" maxlength="500"
                               placeholder="Descreva os detalhes da atividade, defeito ou melhoria..."></textarea>
-                    <p class="ajuda-campo">Obrigatório, com 10 a 1000 caracteres.</p>
+                    <p class="ajuda-campo">Obrigatório, com 10 a 500 caracteres.</p>
                     <p class="mensagem-erro" id="erro-descricao"></p>
                 </div>
 
@@ -61,9 +63,6 @@
                         <label for="projeto">Projeto associado *</label>
                         <select id="projeto" name="projeto">
                             <option value="" disabled selected>Selecione um projeto</option>
-                            <option value="1">Portal do Aluno</option>
-                            <option value="2">App Mobile</option>
-                            <option value="3">API DevTrack</option>
                         </select>
                         <p class="mensagem-erro" id="erro-projeto"></p>
                     </div>
@@ -72,10 +71,10 @@
                         <label for="tipo">Tipo da demanda *</label>
                         <select id="tipo" name="tipo">
                             <option value="" disabled selected>Selecione um tipo</option>
-                            <option value="tarefa">Tarefa</option>
-                            <option value="defeito">Defeito</option>
-                            <option value="melhoria">Melhoria</option>
-                            <option value="documentacao">Documentação</option>
+                            <option value="Tarefa">Tarefa</option>
+                            <option value="Defeito">Defeito</option>
+                            <option value="Melhoria">Melhoria</option>
+                            <option value="Documentação">Documentação</option>
                         </select>
                         <p class="mensagem-erro" id="erro-tipo"></p>
                     </div>
@@ -86,10 +85,10 @@
                         <label for="prioridade">Prioridade *</label>
                         <select id="prioridade" name="prioridade">
                             <option value="" disabled selected>Selecione a prioridade</option>
-                            <option value="critica">Crítica</option>
-                            <option value="alta">Alta</option>
-                            <option value="media">Média</option>
-                            <option value="baixa">Baixa</option>
+                            <option value="Crítica">Crítica</option>
+                            <option value="Alta">Alta</option>
+                            <option value="Média">Média</option>
+                            <option value="Baixa">Baixa</option>
                         </select>
                         <p class="mensagem-erro" id="erro-prioridade"></p>
                     </div>
@@ -98,9 +97,6 @@
                         <label for="responsavel">Responsável</label>
                         <select id="responsavel" name="responsavel">
                             <option value="">Sem atribuição (Aberto)</option>
-                            <option value="gabriel">Gabriel Santucci de Novaes</option>
-                            <option value="gabriela">Gabriela Amanda</option>
-                            <option value="lucas">Lucas Xavier</option>
                         </select>
                         <p class="mensagem-erro" id="erro-responsavel"></p>
                     </div>
@@ -115,12 +111,10 @@
 
                 <div class="acoes-form">
                     <a href="lista_demandas.html" class="botao-secundario">Cancelar</a>
-                    <button type="submit" class="botao">Salvar Demanda</button>
+                    <button disabled type="submit" class="botao">Salvar Demanda</button>
                 </div>
 
-                <p class="alerta alerta-sucesso" id="alerta-cadastro" hidden>
-                    Dados válidos. A demanda será enviada ao servidor nas próximas etapas.
-                </p>
+                <p id="alerta-cadastro" role="status" aria-live="polite" hidden></p>
             </form>
         </section>
     </main>
