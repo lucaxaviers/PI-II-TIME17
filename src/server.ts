@@ -1,7 +1,10 @@
 import express, { Request, Response } from "express";
 import path from "path";
 import usuariosRoutes from "./routes/usuarios";
-import { cadastroDemandas } from "./routes/cadastroDemandas";
+import cadastroDemandas from "./routes/cadastroDemandas";
+
+import { usuarioDaSessao } from "./sessao";
+import { executarConsulta } from "./database";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,7 +17,7 @@ app.use("/app", express.static(path.join(__dirname, "../frontend")));
 app.use(usuariosRoutes);
 
 type tipoDemanda = "Tarefa" | "Defeito" | "Melhoria" | "Documentação";
-type statusDemanda = "Aberta" | "Andamento" | "Revisão" | "Concluída" | "Cancelada";
+type statusDemanda = "Aberta" | "Em andamento" | "Em revisão" | "Concluída" | "Cancelada";
 type prioridadeDemanda = "Crítica" | "Alta" | "Média" | "Baixa";
 
 interface Demanda {
@@ -31,56 +34,7 @@ interface Demanda {
   dataAtualizacao: Date;
 }
 
-let demandas: Demanda[] = [
-  {
-    id: 1,
-    titulo: "Implementar tela de login",
-    descricao: "Desenvolver a tela de login com validação de e-mail e senha.",
-    idProjetoAssociado: 1,
-    tipo: "Tarefa",
-    prioridade: "Alta",
-    status: "Andamento",
-    idUsuario: 1,
-    dataCriacao: new Date("2026-10-10"),
-    dataFinalizacao: null,
-    dataAtualizacao: new Date("2026-10-15"),
-  },
-  {
-    id: 2,
-    titulo: "Corrigir erro no cadastro",
-    descricao: "Corrigir falha que impede o usuário de concluir o cadastro no sistema.",
-    idProjetoAssociado: 2,
-    tipo: "Defeito",
-    prioridade: "Crítica",
-    status: "Aberta",
-    idUsuario: 2,
-    dataCriacao: new Date("2026-10-12"),
-    dataFinalizacao: null,
-    dataAtualizacao: new Date("2026-10-12"),
-  },
-  {
-    id: 3,
-    titulo: "Melhorar responsividade da página",
-    descricao: "Ajustar o layout para garantir uma boa visualização em celulares e tablets.",
-    idProjetoAssociado: 3,
-    tipo: "Melhoria",
-    prioridade: "Média",
-    status: "Concluída",
-    idUsuario: 1,
-    dataCriacao: new Date("2026-10-01"),
-    dataFinalizacao: new Date("2026-10-08"),
-    dataAtualizacao: new Date("2026-10-08"),
-  },
-];
-
-// Gabriel Santucci de Novaes | A criação define o status e as datas no servidor.
-app.use(cadastroDemandas(dados => {
-  const agora = new Date();
-  const demanda: Demanda = { ...dados, id: demandas.length + 1, status: "Aberta",
-    dataCriacao: agora, dataAtualizacao: agora };
-  demandas.push(demanda);
-  return demanda;
-}));
+app.use(cadastroDemandas);
 
 app.get("/", (_req: Request, res: Response) => {
   res.status(200).json({
@@ -138,8 +92,8 @@ const pesoPrioridade: Record<prioridadeDemanda, number> = {
 
 const pesoStatus: Record<statusDemanda, number> = {
   "Aberta": 1,
-  "Andamento": 2,
-  "Revisão": 3,
+  "Em andamento": 2,
+  "Em revisão": 3,
   "Concluída": 4,
   "Cancelada": 5,
 };
@@ -189,9 +143,22 @@ function ordenarDemandas(
   });
 }
 
-app.get("/demandas", (req: Request, res: Response) => {
+app.get("/demandas", async (req: Request, res: Response) => {
   const { titulo, descricao, prioridade, tipo, idUsuario, idProjetoAssociado, ordenarPor, direcao } = req.query;
-  let resultado = demandas;
+  const ator = usuarioDaSessao(req);
+  if (!ator) return res.status(401).json({ erro: "Entre novamente com o Oracle disponível." });
+  let resultado: Demanda[];
+  try {
+    resultado = await executarConsulta<Demanda>(`SELECT id_demanda "id", titulo "titulo",
+      descricao "descricao", tipo "tipo", prioridade "prioridade", status "status",
+      id_projeto "idProjetoAssociado", id_responsavel "idUsuario", data_criacao "dataCriacao",
+      prazo_finalizacao "dataFinalizacao", data_atualizacao "dataAtualizacao" FROM demandas d
+      WHERE EXISTS (SELECT 1 FROM usuarios u WHERE u.id_usuario=:ator AND
+        (u.perfil='Administrador' OR d.id_responsavel=u.id_usuario OR EXISTS
+        (SELECT 1 FROM usuarios_projetos v WHERE v.id_usuario=u.id_usuario AND v.id_projeto=d.id_projeto)))`, { ator });
+  } catch {
+    return res.status(503).json({ erro: "Não foi possível consultar as demandas no Oracle." });
+  }
 
   if (titulo) {
     resultado = resultado.filter((item) =>
