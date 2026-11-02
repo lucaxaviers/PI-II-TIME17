@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import path from "path";
 import usuariosRoutes from "./routes/usuarios";
+import { cadastroDemandas } from "./routes/cadastroDemandas";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -71,6 +72,15 @@ let demandas: Demanda[] = [
     dataAtualizacao: new Date("2026-10-08"),
   },
 ];
+
+// Gabriel Santucci de Novaes | A criação define o status e as datas no servidor.
+app.use(cadastroDemandas(dados => {
+  const agora = new Date();
+  const demanda: Demanda = { ...dados, id: demandas.length + 1, status: "Aberta",
+    dataCriacao: agora, dataAtualizacao: agora };
+  demandas.push(demanda);
+  return demanda;
+}));
 
 app.get("/", (_req: Request, res: Response) => {
   res.status(200).json({
