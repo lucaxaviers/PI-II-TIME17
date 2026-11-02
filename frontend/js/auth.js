@@ -34,7 +34,8 @@ function exigirAutenticacao(caminhoLogin = 'login.html') {
  * Realiza o encerramento da sessao (logout) e redireciona para o login.
  * @param {string} caminhoLogin Caminho relativo para a tela de login (padrao: 'login.html')
  */
-function fazerLogout(caminhoLogin = 'login.html') {
+async function fazerLogout(caminhoLogin = 'login.html') {
+  await fetch('/logout', { method: 'POST' });
   sessionStorage.removeItem('usuarioLogado');
   window.location.href = caminhoLogin;
 }
