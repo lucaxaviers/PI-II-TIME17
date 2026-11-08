@@ -80,14 +80,20 @@ app.get("/dashboard", (req: Request, res: Response) => {
   });
 
   res.status(200).json({
-    total: demandas.length,
-    porStatus,
-    porPrioridade,
-    porTipo,
-    demandasCriticasEmAberto,
-    demandasProximasDoPrazo,
-  });
+  total: demandas.length,
+  porStatus,
+  porPrioridade,
+  porTipo,
+  demandasCriticasEmAberto,
+  demandasProximasDoPrazo,
+
+  criterios: {
+    emAberto: "Aberta, Em andamento e Em revisão",
+    proximasDoPrazo: "Demandas em aberto com prazo entre hoje e os próximos 3 dias"
+  }
 });
+});
+
 
 app.listen(PORT, () => {
   console.log(`Servidor executando em http://localhost:${PORT}`);
