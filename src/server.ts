@@ -208,3 +208,4 @@ app.get("/demandas", async (req: Request, res: Response) => {
 app.listen(PORT, () => {
   console.log(`Servidor executando em http://localhost:${PORT}`);
 });
+
