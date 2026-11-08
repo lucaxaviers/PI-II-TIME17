@@ -117,3 +117,6 @@ INSERT INTO historico_demandas (tipo_alteracao, valor_anterior, valor_novo, data
 VALUES ('Cancelamento', 'Aberta', 'Cancelada', SYSDATE - 10, 5, 2);
 
 COMMIT;
+
+
+

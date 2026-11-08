@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/lucaxaviers/PI-II-TIME17#readme",
   "dependencies": {
+    "cors": "^2.8.6",
     "dotenv": "^18.0.9",
     "express": "^5.2.1",
     "oracledb": "^26.0.0"
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.13",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^26.6.5",
     "@types/oracledb": "^26.0.0",
