@@ -39,13 +39,15 @@ router.post("/login", async (req: Request, res: Response) => {
     }>(
       `SELECT id_usuario AS ID_USUARIO, nome AS NOME, email AS EMAIL, perfil AS PERFIL 
        FROM usuarios 
-       WHERE LOWER(email) = LOWER(:email) AND senha = :senha`,
+       WHERE LOWER(TRIM(email)) = LOWER(TRIM(:email)) 
+         AND (TRIM(senha) = TRIM(:senha) OR REPLACE(REPLACE(senha, CHR(13), ''), CHR(10), '') = TRIM(:senha))`,
       { email: emailLimpo, senha: senhaStr }
     );
 
     if (resultado && resultado.length > 0) {
       const usuarioBanco = resultado[0];
       iniciarSessao(res, usuarioBanco.ID_USUARIO);
+      console.log(`[LOGIN] Autenticado via Oracle: ${usuarioBanco.NOME} (${usuarioBanco.PERFIL})`);
       return res.status(200).json({
         id: usuarioBanco.ID_USUARIO,
         nome: usuarioBanco.NOME,
@@ -54,10 +56,12 @@ router.post("/login", async (req: Request, res: Response) => {
       });
     }
 
+    console.warn(`[LOGIN] Credenciais não encontradas no Oracle para email: "${emailLimpo}".`);
     return res.status(401).json({
       mensagem: "E-mail ou senha inválidos.",
     });
-  } catch (erroBanco) {
+  } catch (erroBanco: any) {
+    console.warn("[LOGIN] Falha na conexão com Oracle, usando fallback em memória:", erroBanco?.message || erroBanco);
     // 2. Fallback caso o banco Oracle ainda nao esteja rodando na maquina local
     const usuarioMemoria = usuarios.find(
       (u) => u.email.toLowerCase() === emailLimpo && u.senha === senhaStr
@@ -68,6 +72,8 @@ router.post("/login", async (req: Request, res: Response) => {
         mensagem: "E-mail ou senha inválidos.",
       });
     }
+
+    iniciarSessao(res, usuarioMemoria.id);
 
     return res.status(200).json({
       id: usuarioMemoria.id,
