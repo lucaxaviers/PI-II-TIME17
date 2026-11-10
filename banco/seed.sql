@@ -99,6 +99,24 @@ VALUES ('Tema escuro no dashboard', 'Funcionalidade cancelada pelo time de escop
 INSERT INTO demandas (titulo, descricao, tipo, prioridade, status, data_criacao, data_atualizacao, prazo_finalizacao, id_projeto, id_responsavel)
 VALUES ('Documentar instrucoes no README', 'Passo a passo para rodar o banco e a aplicacao.', 'Documentação', 'Baixa', 'Aberta', DATE '2026-10-22', DATE '2026-10-22', DATE '2026-11-15', 3, NULL);
 
+INSERT INTO demandas (titulo, descricao, tipo, prioridade, status, id_projeto, id_responsavel)
+VALUES ('Otimizar consulta de relatórios', 'Melhorar a performance das consultas SQL no Oracle.', 'Melhoria', 'Média', 'Aberta', 3, 1);
+
+INSERT INTO demandas (titulo, descricao, tipo, prioridade, status, id_projeto, id_responsavel)
+VALUES ('Validação de campos obrigatórios no cadastro', 'Impedir envio de formulário com dados em branco.', 'Tarefa', 'Alta', 'Em andamento', 1, 2);
+
+INSERT INTO demandas (titulo, descricao, tipo, prioridade, status, id_projeto, id_responsavel)
+VALUES ('Erro 404 ao redirecionar tela de demandas', 'Ajustar rota de navegação entre o dashboard e a listagem.', 'Defeito', 'Crítica', 'Concluída', 1, 4);
+
+INSERT INTO demandas (titulo, descricao, tipo, prioridade, status, id_projeto, id_responsavel)
+VALUES ('Exportação de demandas para PDF', 'Gerar relatório em formato PDF das atividades concluídas.', 'Tarefa', 'Baixa', 'Em revisão', 2, 3);
+
+INSERT INTO demandas (titulo, descricao, tipo, prioridade, status, id_projeto, id_responsavel)
+VALUES ('Integração de notificações push no app', 'Enviar notificação quando o status de uma demanda mudar.', 'Melhoria', 'Alta', 'Em andamento', 2, 5);
+
+INSERT INTO demandas (titulo, descricao, tipo, prioridade, status, id_projeto, id_responsavel)
+VALUES ('Atualizar manual de usuário do sistema', 'Guia passo a passo com prints de cada tela.', 'Documentação', 'Baixa', 'Aberta', 1, NULL);
+
 -- 5. Comentarios
 INSERT INTO comentarios (texto, data_hora, id_demanda, id_usuario)
 VALUES ('Iniciando a codificacao do componente de login.', SYSDATE - 5, 1, 1);

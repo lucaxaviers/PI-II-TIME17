@@ -29,7 +29,7 @@ router.post("/login", async (req: Request, res: Response) => {
   const emailLimpo = String(email).trim().toLowerCase();
   const senhaStr = String(senha);
 
-  // 1. Tenta autenticar diretamente no Banco de Dados Oracle
+  // 1. Autentica EXCLUSIVAMENTE diretamente no Banco de Dados Oracle (sem fallback)
   try {
     const resultado = await executarConsulta<{
       ID_USUARIO: number;
@@ -47,7 +47,7 @@ router.post("/login", async (req: Request, res: Response) => {
     if (resultado && resultado.length > 0) {
       const usuarioBanco = resultado[0];
       iniciarSessao(res, usuarioBanco.ID_USUARIO);
-      console.log(`[LOGIN] Autenticado via Oracle: ${usuarioBanco.NOME} (${usuarioBanco.PERFIL})`);
+      console.log(`[LOGIN ORACLE] Autenticado com sucesso: ${usuarioBanco.NOME} (${usuarioBanco.PERFIL})`);
       return res.status(200).json({
         id: usuarioBanco.ID_USUARIO,
         nome: usuarioBanco.NOME,
@@ -56,30 +56,15 @@ router.post("/login", async (req: Request, res: Response) => {
       });
     }
 
-    console.warn(`[LOGIN] Credenciais não encontradas no Oracle para email: "${emailLimpo}".`);
+    console.warn(`[LOGIN ORACLE] Credenciais não encontradas no Oracle para email: "${emailLimpo}".`);
     return res.status(401).json({
       mensagem: "E-mail ou senha inválidos.",
     });
   } catch (erroBanco: any) {
-    console.warn("[LOGIN] Falha na conexão com Oracle, usando fallback em memória:", erroBanco?.message || erroBanco);
-    // 2. Fallback caso o banco Oracle ainda nao esteja rodando na maquina local
-    const usuarioMemoria = usuarios.find(
-      (u) => u.email.toLowerCase() === emailLimpo && u.senha === senhaStr
-    );
-
-    if (!usuarioMemoria) {
-      return res.status(401).json({
-        mensagem: "E-mail ou senha inválidos.",
-      });
-    }
-
-    iniciarSessao(res, usuarioMemoria.id);
-
-    return res.status(200).json({
-      id: usuarioMemoria.id,
-      nome: usuarioMemoria.nome,
-      email: usuarioMemoria.email,
-      perfil: usuarioMemoria.perfil,
+    console.error("[LOGIN ERRO ORACLE] Falha na conexão com o banco:", erroBanco?.message || erroBanco);
+    return res.status(503).json({
+      mensagem: "Erro ao conectar com o Banco de Dados Oracle. Certifique-se de que o Docker está rodando.",
+      erro: erroBanco?.message || String(erroBanco),
     });
   }
 });

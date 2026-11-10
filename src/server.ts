@@ -79,6 +79,14 @@ app.get("/dashboard", (_req: Request, res: Response) => {
   res.redirect("/app/pages/dashboard.html");
 });
 
+app.get("/app/pages/demandas.html", (_req: Request, res: Response) => {
+  res.redirect("/app/pages/lista_demandas.html");
+});
+
+app.get("/demandas.html", (_req: Request, res: Response) => {
+  res.redirect("/app/pages/lista_demandas.html");
+});
+
 /*
  * Autor: Felipe D. dos Passos | 26002875
  * Descrição: GET, filtros e ordenação da lista de demandas.
