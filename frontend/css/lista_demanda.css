@@ -72,18 +72,46 @@ h2{
     font-size: 25px;
 }
 
+
 .filtro_demanda input,
 .filtro_demanda select,
 .filtro_demanda textarea {
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
-    padding: 9px 10px;
-    border: 1px solid #b8c7d9;
-    border-radius: 5px;
-    background-color: white;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    background-color: #fff;
+    color: #333;
     outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
+
+.filtro_demanda select {
+    cursor: pointer;
+    appearance: auto;
+}
+
+.filtro_demanda input:hover,
+.filtro_demanda select:hover,
+.filtro_demanda textarea:hover {
+    border-color: #94a3b8;
+}
+
+.filtro_demanda input:focus,
+.filtro_demanda select:focus,
+.filtro_demanda textarea:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.filtro_demanda select option {
+    padding: 10px;
+    background-color: white;
+    color: #333;
+}
+
 
 .filtro_demanda input:focus,
 .filtro_demanda select:focus,

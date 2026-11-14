@@ -27,27 +27,40 @@ function esconderErro(divErro) {
     divErro.style.display = "none";
 }
 const API_URL = "/demandas";
-async function buscarDemandas() {
 
-    try{
-        const resposta = await fetch(API_URL);
 
-        if(!resposta.ok){
-           throw new Error("Erro ao buscar demandas"); 
+async function buscarDemandas(filtros = {}) {
+    try {
+        const parametros = new URLSearchParams();
+
+        Object.entries(filtros).forEach(([chave, valor]) => {
+            if (valor !== "") {
+                parametros.append(chave, valor);
+            }
+        });
+
+        const url = parametros.toString()
+            ? `${API_URL}?${parametros.toString()}`
+            : API_URL;
+
+        const resposta = await fetch(url);
+
+        if (!resposta.ok) {
+            throw new Error("Erro ao buscar demandas");
         }
 
         const demandas = await resposta.json();
 
         exibirDemandas(demandas);
+
+    } catch (erro) {
+        console.error("Erro:", erro);
     }
-    catch(erro){
-        console.error("Erro:",erro);
-    }
-    
 }
 
 
-// Formata datas para o padrão brasileiro
+
+// Formata datas
 function formatarData(data) {
     if (!data) {
         return "—";
@@ -61,6 +74,51 @@ function formatarData(data) {
 
     return dataConvertida.toLocaleDateString("pt-BR");
 }
+
+async function carregarUsuarios() {
+    const resposta = await fetch("/usuarios/projeto");
+
+    if (!resposta.ok) {
+        throw new Error("Erro ao carregar usuários");
+    }
+
+    const usuarios = await resposta.json();
+
+    usuarios.forEach(usuario => {
+        const opcao = document.createElement("option");
+
+        opcao.value = usuario.nome;
+        opcao.textContent = usuario.nome;
+
+        campoResponsavel.appendChild(opcao);
+    });
+}
+
+
+async function carregarProjetos() {
+    try {
+        const resposta = await fetch("/projetos");
+
+        if (!resposta.ok) {
+            throw new Error("Erro ao carregar projetos");
+        }
+
+        const projetos = await resposta.json();
+
+        projetos.forEach(projeto => {
+            const opcao = document.createElement("option");
+
+            opcao.value = projeto.id;
+            opcao.textContent = projeto.nome;
+
+            campoProjeto.appendChild(opcao);
+        });
+
+    } catch (erro) {
+        console.error("Erro ao carregar projetos:", erro);
+    }
+}
+
 
 
 function escaparHTML(valor) {
@@ -149,7 +207,7 @@ function exibirDemandas(demandas) {
                 </td>
 
                 <td class="acao" data-label="Ações">
-                    —
+                    
                 </td>
             </tr>
         `;
@@ -160,6 +218,8 @@ function exibirDemandas(demandas) {
 
 document.addEventListener('DOMContentLoaded',()=>{
     buscarDemandas();
+    carregarUsuarios();
+    carregarProjetos();
 });
 
 
@@ -187,7 +247,9 @@ btnLimpar.addEventListener("click", function(){
     esconderErro(erroTitulo);
     esconderErro(erroQtdFiltros);
     esconderErro(erroDescricao);
+    buscarDemandas();
 });
+
 
 
 
@@ -201,15 +263,25 @@ formulario.addEventListener("submit", function (event) {
     const projeto = campoProjeto.value;
     const descricao = campoDescricao.value.trim();
 
-    if((verificarFiltros(prioridade,tipo,responsavel,projeto)) < 2){
-        mostrarErro(erroQtdFiltros,"Precisa de no mínimo 2 filtros");
+    if (verificarFiltros(prioridade, tipo, responsavel, projeto) < 2) {
+        mostrarErro(erroQtdFiltros, "Precisa de no mínimo 2 filtros");
+        return;
     }
-    else{
-        esconderErro(erroQtdFiltros);
-    }
-    
- 
+
+    esconderErro(erroQtdFiltros);
+
+    const filtros = {
+        titulo,
+        prioridade,
+        tipo,
+        responsavel,
+        idProjetoAssociado: projeto,
+        descricao
+    };
+
+    buscarDemandas(filtros);
 });
+
 
 
 

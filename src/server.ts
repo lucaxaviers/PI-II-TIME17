@@ -58,6 +58,8 @@ interface Demanda {
 // Rotas de cadastro de demandas
 app.use(cadastroDemandas);
 
+
+
 // Rota inicial
 app.get("/", (_req: Request, res: Response) => {
   res.status(200).json({
@@ -79,10 +81,85 @@ app.get("/dashboard", (_req: Request, res: Response) => {
   res.redirect("/app/pages/dashboard.html");
 });
 
-/*
- * Autor: Felipe D. dos Passos | 26002875
- * Descrição: GET, filtros e ordenação da lista de demandas.
- */
+app.get("/usuarios/projeto", async (req: Request, res: Response) => {
+
+    try {
+        const usuarios = await executarConsulta<{
+            id: number;
+            nome: string;
+        }>(`
+            SELECT DISTINCT
+                u.id_usuario AS "id",
+                u.nome AS "nome"
+            FROM usuarios u
+            INNER JOIN usuarios_projetos up
+                ON u.id_usuario = up.id_usuario
+            ORDER BY u.nome
+        `);
+
+        return res.status(200).json(usuarios);
+
+    } catch (erro) {
+        console.error("Erro ao consultar usuários:", erro);
+
+        return res.status(500).json({
+            erro: "Não foi possível consultar os usuários."
+        });
+    }
+});
+
+
+app.get("/projetos", async (req: Request, res: Response) => {
+    try {
+        const ator = usuarioDaSessao(req);
+
+        if (!ator) {
+            return res.status(401).json({
+                erro: "Usuário não autenticado."
+            });
+        }
+
+        const projetos = await executarConsulta<{
+            id: number;
+            nome: string;
+        }>(`
+            SELECT
+                p.id_projeto AS "id",
+                p.nome AS "nome"
+            FROM projetos p
+
+            WHERE EXISTS (
+                SELECT 1
+                FROM usuarios sessao
+                WHERE sessao.id_usuario = :ator
+
+                AND (
+                    sessao.perfil = 'Administrador'
+
+                    OR EXISTS (
+                        SELECT 1
+                        FROM usuarios_projetos vinculo
+                        WHERE vinculo.id_usuario = sessao.id_usuario
+                        AND vinculo.id_projeto = p.id_projeto
+                    )
+                )
+            )
+
+            ORDER BY p.nome
+        `, { ator });
+
+        return res.status(200).json(projetos);
+
+    } catch (erro) {
+        console.error("Erro ao consultar projetos:", erro);
+
+        return res.status(500).json({
+            erro: "Não foi possível consultar os projetos."
+        });
+    }
+});
+
+
 
 // Campos permitidos para ordenação
 type campoOrdenacao =
@@ -201,7 +278,7 @@ app.get("/demandas", async (req: Request, res: Response) => {
     descricao,
     prioridade,
     tipo,
-    idUsuario,
+    responsavel,
     idProjetoAssociado,
     ordenarPor,
     direcao
@@ -248,10 +325,8 @@ app.get("/demandas", async (req: Request, res: Response) => {
           SELECT 1
           FROM usuarios sessao
           WHERE sessao.id_usuario = :ator
-          AND (
+         AND (
               sessao.perfil = 'Administrador'
-
-              OR d.id_responsavel = sessao.id_usuario
 
               OR EXISTS (
                   SELECT 1
@@ -307,11 +382,14 @@ app.get("/demandas", async (req: Request, res: Response) => {
     );
   }
 
-  // Filtro por responsável
-  if (idUsuario !== undefined && idUsuario !== "") {
-    resultado = resultado.filter(
-      (item) => item.idUsuario === Number(idUsuario)
-    );
+
+// Filtro por responsável
+  if (responsavel) {
+      resultado = resultado.filter(
+          (item) =>
+              item.responsavel?.toLowerCase() ===
+              String(responsavel).toLowerCase()
+      );
   }
 
   // Filtro por projeto associado

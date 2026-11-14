@@ -32,9 +32,14 @@ yarn-debug.log*
 yarn-error.log*
 .env
 
+# Build output / lib
+lib/
+
 # Python (if applicable later)
 __pycache__/
 *.py[cod]
 *$py.class
 venv/
 .venv/
+
+
