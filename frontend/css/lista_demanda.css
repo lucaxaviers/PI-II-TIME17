@@ -1,96 +1,146 @@
-/* ==========================================
-   Autor: Felipe D. dos Passos | 26002875
-   Descricao: Estilo tela de listagem de demandas
-   ========================================== */
+
+/* ===== Configurações gerais ===== */
 
 * {
     box-sizing: border-box;
 }
+
 body {
-    background-color: rgb(247, 234, 234);
+    margin: 0;
+    background-color: #f4f6fb;
+    color: #1e293b;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-h2{
-    text-align: center;
-}
 
-.logo img{
-    width: 100px;
-}
+/* ===== Cabeçalho e Navbar ===== */
+
 .cabecalho {
     display: flex;
     justify-content: space-between;
-    background-color: #5081eb;
-    padding: 20px 30px;
+    align-items: center;
+    background: linear-gradient(120deg, #1e40af, #2563eb);
+    padding: 12px 40px;
+    min-height: 85px;
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.16);
 }
 
-.navbar ul{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 20px;
+.logo img {
+    width: 105px;
+    display: block;
+    transition: transform 0.2s;
 }
-.navbar li{
-    text-decoration: none;
+
+.logo img:hover {
+    transform: scale(1.04);
+}
+
+.navbar ul {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar li {
     list-style: none;
 }
-.navbar a{
+
+.navbar a {
+    display: block;
     color: white;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 11px 17px;
+    border-radius: 8px;
+    transition: background-color 0.2s, transform 0.2s;
 }
 
+.navbar a:hover {
+    background-color: rgba(255, 255, 255, 0.16);
+    transform: translateY(-2px);
+}
+
+.navbar .link-sair {
+    background-color: rgba(255, 255, 255, 0.13);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.navbar .link-sair:hover {
+    background-color: #dc2626;
+    border-color: #dc2626;
+}
+
+
+/* ===== Painel de filtros ===== */
 
 .filtro_demanda {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
-    gap: 25px;
+    gap: 22px;
     background-color: white;
     padding: 25px 30px;
-    margin: 10px;
-    border-radius: 8px;
-}
-.filtro_demanda h3{
-    text-align: center;
-}
-.campo_filtro {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+    margin: 22px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.04);
 }
 
-.filtro_demanda label {
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-}
 .filtro_demanda h3 {
     width: 100%;
     margin: 0;
-    text-align: start;
-    padding: 5px;
-    font-size: 25px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #1e293b;
+    font-size: 22px;
+    font-weight: 700;
+    text-align: left;
 }
 
+.campo_filtro {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.filtro_demanda label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+}
 
 .filtro_demanda input,
 .filtro_demanda select,
 .filtro_demanda textarea {
-    box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
     padding: 10px 12px;
     border: 1px solid #cbd5e1;
     border-radius: 7px;
-    background-color: #fff;
-    color: #333;
+    background-color: white;
+    color: #334155;
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+.filtro_demanda input,
 .filtro_demanda select {
-    cursor: pointer;
-    appearance: auto;
+    width: 200px;
+    height: 41px;
+}
+
+#titulo {
+    width: 270px;
+}
+
+.filtro_demanda textarea {
+    width: 500px;
+    max-width: 600px;
+    height: 100px;
+    resize: vertical;
 }
 
 .filtro_demanda input:hover,
@@ -106,42 +156,15 @@ h2{
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
-.filtro_demanda select option {
-    padding: 10px;
-    background-color: white;
-    color: #333;
-}
-
-
-.filtro_demanda input:focus,
-.filtro_demanda select:focus,
-.filtro_demanda textarea:focus {
-    border-color: #2563eb;
-}
-
-.filtro_demanda input,
 .filtro_demanda select {
-    width: 200px;
-    height: 40px;
-}
-#titulo {
-    width: 270px;
+    cursor: pointer;
 }
 
-.campo_filtro:first-child input {
-    width: 100%;
-}
-
-.campo_filtro:last-child {
+.campo_filtro:last-of-type {
     flex-basis: 100%;
 }
 
-.filtro_demanda textarea {
-    width: 500px;
-    max-width: 600px;
-    height: 100px;
-    resize: vertical;
-}
+/* ===== Botões dos filtros ===== */
 
 .botoes_filtro {
     display: flex;
@@ -152,10 +175,12 @@ h2{
 
 #btnAplicar,
 #btnLimpar {
-    padding: 9px 18px;
-    border-radius: 5px;
+    padding: 10px 20px;
+    border-radius: 7px;
     font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
 }
 
 #btnAplicar {
@@ -166,51 +191,55 @@ h2{
 
 #btnAplicar:hover {
     background-color: #1d4ed8;
+    transform: translateY(-1px);
 }
 
 #btnLimpar {
     background-color: white;
-    color: #333;
-    border: 1px solid #b8c7d9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
 }
 
 #btnLimpar:hover {
     background-color: #f1f5f9;
 }
 
-.erro{
-    color: #ff0000;
+.erro {
+    color: #dc2626;
     font-size: 13px;
     padding: 3px;
     display: none;
 }
 
-
+/* ===== Filtros de status ===== */
 
 #filtros-status {
     display: flex;
-    justify-content: end;
+    justify-content: flex-start;
     flex-wrap: wrap;
     background-color: white;
-    border-bottom: 2px solid #ddd;
-    margin: 5px 10px 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    margin: 22px 22px 15px;
     padding: 15px;
     gap: 10px;
 }
 
-
 .filtro {
     background-color: white;
-    border: 1px solid #ddd;
-    padding: 8px 14px;
-    border-radius: 30px;
-    font-size: 14px;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    padding: 9px 15px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 600;
     cursor: pointer;
     transition: 0.2s;
 }
 
 .filtro:hover {
-    background-color: #f1f5f9;
+    background-color: #eff6ff;
+    border-color: #93c5fd;
 }
 
 .filtro.ativo {
@@ -219,105 +248,166 @@ h2{
     border-color: #2563eb;
 }
 
-.filtro span {
-    display: inline-block;
-    padding: 5px;
-    border-radius: 25px;
+#filtros-status .contador {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 7px;
     margin-left: 5px;
+    border-radius: 20px;
+    background-color: #e8eefc;
+    color: #334155;
+    font-size: 12px;
     font-weight: bold;
 }
+
+#filtros-status .filtro.ativo .contador {
+    background-color: white;
+    color: #2563eb;
+}
+
+/* ===== Área das demandas ===== */
 
 #demandas {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 10px;
+    margin: 0 22px 22px;
+    padding-bottom: 15px;
     background-color: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.04);
 }
 
 .tabela-wrapper {
-    width: 90%;
+    width: 96%;
     overflow-x: auto;
 }
 
 table {
     width: 100%;
-    min-width: 900px; /* garante que as colunas não fiquem espremidas */
+    min-width: 900px;
+    border-collapse: collapse;
+    font-size: 13px;
 }
 
-tr {
-    text-align: justify;
+thead {
+    background-color: #f1f5f9;
+}
+
+th {
+    color: #475569;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.3px;
 }
 
 th,
 td {
-    text-align: justify;
-    padding: 13px;
+    text-align: left;
+    padding: 15px 13px;
     font-family: Arial, Helvetica, sans-serif;
+    border-bottom: 1px solid #e9eef5;
 }
 
-.titulo {
-    color: blue;
+td {
+    color: #334155;
 }
 
-.status {
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 13px;
-    font-family: Arial, Helvetica, sans-serif;
-    display: inline-block;
+tbody tr {
+    transition: background-color 0.2s;
 }
 
-.aberta {
-    background-color: #dbeafe;
-    color: #2563eb;
+tbody tr:hover {
+    background-color: #f8fafc;
 }
 
-.andamento {
-    background-color: #f59e0b;
+tbody tr:last-child td {
+    border-bottom: none;
 }
 
-.revisao {
-    background-color: #8b5cf6;
-}
-
-.concluida {
-    background-color: #22c55e;
-}
-
-.cancelada {
-    background-color: #ef4444;
-}
+/* ===== Botão de detalhes ===== */
 
 .acao {
     text-align: center;
-    padding: 5px;
+    padding: 8px;
 }
 
-.visualizar {
+.btn-detalhes {
+    display: inline-block;
+    padding: 8px 14px;
     background-color: #2563eb;
     color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    border-radius: 6px;
     font-size: 13px;
-    cursor: pointer;
-    width: auto;
+    font-weight: 600;
+    transition: background-color 0.2s;
 }
 
-.visualizar:hover {
+.btn-detalhes:hover {
     background-color: #1d4ed8;
 }
 
+/* ===== Etiquetas de status ===== */
+
+.status {
+    padding: 6px 11px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.status.aberta {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+}
+
+.status.andamento {
+    background-color: #fef3c7;
+    color: #b45309;
+}
+
+.status.revisao {
+    background-color: #ede9fe;
+    color: #6d28d9;
+}
+
+.status.concluida {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.status.cancelada {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+/* ===== Legenda ===== */
+
 .legenda {
-    margin-top: 30px;
-    padding: 12px 15px;
+    margin: 22px;
+    padding: 18px 22px;
     display: flex;
     align-items: center;
-    gap: 30px;
-    font-size: 14px;
+    flex-wrap: wrap;
+    gap: 25px;
+    font-size: 13px;
     background-color: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+}
+
+.legenda > p {
+    margin: 0;
+    color: #334155;
 }
 
 .item-legenda {
@@ -326,55 +416,82 @@ td {
     gap: 8px;
 }
 
+.item-legenda strong {
+    color: #334155;
+}
+
 .item-legenda p {
     margin: 3px 0 0;
-    font-size: 12px;
-    color: #777;
+    font-size: 11px;
+    color: #94a3b8;
 }
 
 .cor {
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 2px;
 }
+
+.cor.aberta {
+    background-color: #2563eb;
+}
+
+.cor.andamento {
+    background-color: #f59e0b;
+}
+
+.cor.revisao {
+    background-color: #8b5cf6;
+}
+
+.cor.concluida {
+    background-color: #22c55e;
+}
+
+.cor.cancelada {
+    background-color: #ef4444;
+}
+
+/* ===== Rodapé ===== */
 
 #rodape {
     text-align: center;
-    padding: 11px;
-    background-color: #1d4ed8;
-    margin: 10px;
+    padding: 12px;
+    background-color: #1e40af;
+    margin-top: 25px;
 }
 
 #rodape p {
     color: white;
-    font-size: 15px;
+    font-size: 13px;
+    margin: 4px;
 }
 
+/* ===== Responsividade: tablet ===== */
 
-/*Responsividade*/
-/* ===== Tablet ===== */
 @media (max-width: 900px) {
     .cabecalho {
         flex-direction: column;
         align-items: center;
-        gap: 15px;
+        gap: 12px;
         padding: 15px;
     }
 
     .navbar ul {
         justify-content: center;
-        padding: 0;
-        margin: 0;
-        gap: 15px;
+        gap: 8px;
     }
 
     .filtro_demanda {
         padding: 20px;
         gap: 15px;
+        margin: 15px;
     }
 
     .campo_filtro {
-        flex: 1 1 200px; /* cresce e quebra de linha sozinho */
+        flex: 1 1 200px;
     }
 
     .filtro_demanda input,
@@ -389,29 +506,54 @@ td {
     }
 
     #filtros-status {
-        justify-content: center;
+        margin: 15px;
+    }
+
+    #demandas {
+        margin: 0 15px 15px;
     }
 
     .legenda {
-        flex-wrap: wrap;
-        gap: 20px;
+        margin: 15px;
+        gap: 18px;
     }
 }
 
-/* ===== Celular ===== */
+/* ===== Responsividade: celular ===== */
+
 @media (max-width: 600px) {
-    .filtro_demanda {
-        margin: 10px 5px;
-        padding: 15px;
+    .cabecalho {
+        padding: 12px;
     }
 
-    .campo_filtro {
-        flex-basis: 100%; 
+    .navbar ul {
+        gap: 4px;
+    }
+
+    .navbar a {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .filtro_demanda {
+        margin: 10px;
+        padding: 15px;
+        gap: 15px;
     }
 
     .filtro_demanda h3 {
         font-size: 20px;
-        text-align: center;
+    }
+
+    .campo_filtro {
+        flex-basis: 100%;
+    }
+
+    .filtro_demanda input,
+    .filtro_demanda select,
+    .filtro_demanda textarea {
+        width: 100%;
+        max-width: 100%;
     }
 
     .botoes_filtro {
@@ -424,30 +566,27 @@ td {
     }
 
     #filtros-status {
-        margin: 5px;
+        margin: 10px;
         padding: 10px;
+        gap: 7px;
     }
 
     .filtro {
-        flex: 1 1 45%; 
+        flex: 1 1 45%;
+        padding: 9px 8px;
     }
 
     #demandas {
-        margin: 5px;
+        margin: 10px;
     }
 
     .tabela-wrapper {
         width: 100%;
-    }
-
-
-    @media (max-width: 600px) {
-    .tabela-wrapper {
-        overflow-x: visible; /* não precisa mais rolar de lado */
+        overflow-x: visible;
     }
 
     table {
-        min-width: 0; /* remove os 900px do desktop */
+        min-width: 0;
     }
 
     table,
@@ -462,32 +601,31 @@ td {
         display: none;
     }
 
-    tr {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        margin-bottom: 15px;
-        padding: 10px;
+    tbody tr {
+        border: 1px solid #e2e8f0;
+        border-radius: 9px;
+        margin-bottom: 12px;
+        padding: 8px;
         background-color: white;
     }
 
-    
     td {
         display: flex;
         justify-content: space-between;
         align-items: center;
         gap: 10px;
         text-align: right;
-        padding: 8px 5px;
-        border-bottom: 1px solid #eee;
+        padding: 10px 5px;
+        border-bottom: 1px solid #f1f5f9;
+        font-size: 12px;
     }
 
     td::before {
         content: attr(data-label);
-        font-weight: bold;
-        color: #333;
+        font-weight: 700;
+        color: #475569;
         text-align: left;
     }
-
 
     td.acao {
         justify-content: center;
@@ -497,14 +635,15 @@ td {
     td.acao::before {
         display: none;
     }
-}
+
     .legenda {
         flex-direction: column;
         align-items: flex-start;
-        gap: 12px;
+        gap: 13px;
+        margin: 10px;
     }
 
     #rodape {
-        margin: 5px;
+        margin-top: 15px;
     }
 }

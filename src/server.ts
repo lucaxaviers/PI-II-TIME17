@@ -83,11 +83,11 @@ app.get("/dashboard", (_req: Request, res: Response) => {
 
 app.get("/usuarios/projeto", async (req: Request, res: Response) => {
 
-    try {
-        const usuarios = await executarConsulta<{
-            id: number;
-            nome: string;
-        }>(`
+  try {
+    const usuarios = await executarConsulta<{
+      id: number;
+      nome: string;
+    }>(`
             SELECT DISTINCT
                 u.id_usuario AS "id",
                 u.nome AS "nome"
@@ -97,32 +97,32 @@ app.get("/usuarios/projeto", async (req: Request, res: Response) => {
             ORDER BY u.nome
         `);
 
-        return res.status(200).json(usuarios);
+    return res.status(200).json(usuarios);
 
-    } catch (erro) {
-        console.error("Erro ao consultar usuários:", erro);
+  } catch (erro) {
+    console.error("Erro ao consultar usuários:", erro);
 
-        return res.status(500).json({
-            erro: "Não foi possível consultar os usuários."
-        });
-    }
+    return res.status(500).json({
+      erro: "Não foi possível consultar os usuários."
+    });
+  }
 });
 
 
 app.get("/projetos", async (req: Request, res: Response) => {
-    try {
-        const ator = usuarioDaSessao(req);
+  try {
+    const ator = usuarioDaSessao(req);
 
-        if (!ator) {
-            return res.status(401).json({
-                erro: "Usuário não autenticado."
-            });
-        }
+    if (!ator) {
+      return res.status(401).json({
+        erro: "Usuário não autenticado."
+      });
+    }
 
-        const projetos = await executarConsulta<{
-            id: number;
-            nome: string;
-        }>(`
+    const projetos = await executarConsulta<{
+      id: number;
+      nome: string;
+    }>(`
             SELECT
                 p.id_projeto AS "id",
                 p.nome AS "nome"
@@ -148,15 +148,15 @@ app.get("/projetos", async (req: Request, res: Response) => {
             ORDER BY p.nome
         `, { ator });
 
-        return res.status(200).json(projetos);
+    return res.status(200).json(projetos);
 
-    } catch (erro) {
-        console.error("Erro ao consultar projetos:", erro);
+  } catch (erro) {
+    console.error("Erro ao consultar projetos:", erro);
 
-        return res.status(500).json({
-            erro: "Não foi possível consultar os projetos."
-        });
-    }
+    return res.status(500).json({
+      erro: "Não foi possível consultar os projetos."
+    });
+  }
 });
 
 
@@ -321,21 +321,45 @@ app.get("/demandas", async (req: Request, res: Response) => {
       INNER JOIN projetos p
           ON d.id_projeto = p.id_projeto
 
-      WHERE EXISTS (
-          SELECT 1
-          FROM usuarios sessao
-          WHERE sessao.id_usuario = :ator
-         AND (
-              sessao.perfil = 'Administrador'
+     
+WHERE EXISTS (
+    SELECT 1
+    FROM usuarios sessao
+    WHERE sessao.id_usuario = :ator
 
-              OR EXISTS (
-                  SELECT 1
-                  FROM usuarios_projetos vinculo
-                  WHERE vinculo.id_usuario = sessao.id_usuario
-                  AND vinculo.id_projeto = d.id_projeto
-              )
-          )
-      )
+    AND (
+        -- Administrador visualiza todas as demandas
+        sessao.perfil = 'Administrador'
+
+        OR (
+            -- Líder visualiza todas as demandas dos projetos associados
+            sessao.perfil = 'Líder de Projeto'
+
+            AND EXISTS (
+                SELECT 1
+                FROM usuarios_projetos vinculo
+                WHERE vinculo.id_usuario = sessao.id_usuario
+                AND vinculo.id_projeto = d.id_projeto
+            )
+        )
+
+        OR (
+            -- Membro visualiza apenas suas próprias demandas
+            -- nos projetos aos quais está associado
+            sessao.perfil = 'Membro da Equipe'
+
+            AND d.id_responsavel = sessao.id_usuario
+
+            AND EXISTS (
+                SELECT 1
+                FROM usuarios_projetos vinculo
+                WHERE vinculo.id_usuario = sessao.id_usuario
+                AND vinculo.id_projeto = d.id_projeto
+            )
+        )
+    )
+)
+
     `, { ator });
 
   } catch (erro) {
@@ -346,6 +370,7 @@ app.get("/demandas", async (req: Request, res: Response) => {
     });
   }
 
+  // Filtro por título
   // Filtro por título
   if (titulo) {
     resultado = resultado.filter((item) =>
@@ -383,13 +408,13 @@ app.get("/demandas", async (req: Request, res: Response) => {
   }
 
 
-// Filtro por responsável
+  // Filtro por responsável
   if (responsavel) {
-      resultado = resultado.filter(
-          (item) =>
-              item.responsavel?.toLowerCase() ===
-              String(responsavel).toLowerCase()
-      );
+    resultado = resultado.filter(
+      (item) =>
+        item.responsavel?.toLowerCase() ===
+        String(responsavel).toLowerCase()
+    );
   }
 
   // Filtro por projeto associado

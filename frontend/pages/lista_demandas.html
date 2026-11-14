@@ -12,7 +12,8 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../css/comum.css">
     <link rel="stylesheet" href="../css/lista_demanda.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=settings" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=settings" />
     <script src="../js/auth.js"></script>
     <script src="../js/lista_demanda.js" defer></script>
 
@@ -20,23 +21,39 @@
 </head>
 
 <body>
-    <div class="cabecalho">
-        <div class="logo">
-            <img src="../assets/logoresumido.png">
+
+        <div class="cabecalho">
+            <div class="logo">
+                <a href="dashboard.html">
+                    <img src="../assets/logoresumido.png" alt="Logo DevTrack">
+                </a>
+            </div>
+
+            <nav class="navbar">
+                <ul>
+                    <li>
+                        <a href="dashboard.html" target="_blank">Dashboard</a>
+                    </li>
+
+                    <li>
+                        <a href="cadastro_demanda.html">Cadastrar demanda</a>
+                    </li>
+
+                    <li>
+                        <a href="#">Relatórios</a>
+                    </li>
+
+                    <li>
+                        <a href="login.html" class="link-sair">Sair</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-        <div class="navbar">
-            <ul>
-                <li><a href="dashboard.html" target="_blank">Dashboard</a> </li>
-                <li><a href="cadastro_demanda.html">Cadastrar nova demanda</a> </li>
-                <li><a href="#">Relatórios</a></li>
-                <li><a href="login.html">Sair</a></li>
-            </ul>
-        </div>
-    </div>
+
 
     <form id="formFiltros">
         <div class="filtro_demanda">
-            <h3>Filtros</h3>     
+            <h3>Filtros</h3>
             <div class="campo_filtro">
                 <div id="erroqtdfiltros" class="erro"></div><br>
                 <label for="titulo">Título</label>
@@ -70,8 +87,8 @@
             <div class="campo_filtro">
                 <label for="responsavel">Responsável</label>
                 <select id="responsavel">
-                <option value="" disabled selected>Selecione</option>
-            </select>
+                    <option value="" disabled selected>Selecione</option>
+                </select>
             </div>
 
             <div class="campo_filtro">
@@ -80,14 +97,14 @@
                     <option value="" disabled selected>Selecione</option>
                 </select>
             </div>
-        
+
             <div class="campo_filtro">
                 <label for="descricao">Descrição</label>
                 <textarea id="descricao" placeholder="Descreva os detalhes da demanda..."></textarea>
-                 <div id="errodescricao" class="erro"></div>
+                <div id="errodescricao" class="erro"></div>
             </div>
-           
-                
+
+
             <div class="botoes_filtro">
                 <button id="btnAplicar" type="submit">Aplicar filtros</button>
                 <button id="btnLimpar" type="button">Limpar</button>
@@ -97,34 +114,52 @@
     </form>
 
     <div id="demandas">
-        <div id="filtros-status">
-            <button class="filtro ativo">Todas</button>
-            <button class="filtro">Abertas <span class="aberta">3</span></button>
-            <button class="filtro">Em andamento <span class="andamento">2</span></button>
-            <button class="filtro">Em revisão <span class="revisao">1</span></button>
-            <button class="filtro">Concluidas <span class="concluida">1</span></button>
-            <button class="filtro">Canceladas <span class="cancelada">1</span></button>
 
+        <div id="filtros-status">
+            <button type="button" class="filtro ativo" data-status="">
+                Todas <span class="contador total">0</span>
+            </button>
+
+            <button type="button" class="filtro" data-status="Aberta">
+                Abertas <span class="contador aberta">0</span>
+            </button>
+
+            <button type="button" class="filtro" data-status="Em andamento">
+                Em andamento <span class="contador andamento">0</span>
+            </button>
+
+            <button type="button" class="filtro" data-status="Em revisão">
+                Em revisão <span class="contador revisao">0</span>
+            </button>
+
+            <button type="button" class="filtro" data-status="Concluída">
+                Concluídas <span class="contador concluida">0</span>
+            </button>
+
+            <button type="button" class="filtro" data-status="Cancelada">
+                Canceladas <span class="contador cancelada">0</span>
+            </button>
         </div>
-         <div class="tabela-wrapper">
-        <table>
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Titulo</th>
-                <th>Tipo</th>
-                <th>Prioridade</th>
-                <th>Responsével</th>
-                <th>Status</th>
-                <th>Data criação</th>
-                <th>Data Finalização</th>
-                <th>Ações</th>
-            </tr>
-            </thead>
-            <tbody id="tabelaDemandas">
-                <!-- as demandas aparececerão aqui, serão puxadas no bd -->
-            </tbody>
-        </table>
+
+        <div class="tabela-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Titulo</th>
+                        <th>Tipo</th>
+                        <th>Prioridade</th>
+                        <th>Responsével</th>
+                        <th>Status</th>
+                        <th>Data criação</th>
+                        <th>Prazo Finalização</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaDemandas">
+                    <!-- as demandas aparececerão aqui, serão puxadas no bd -->
+                </tbody>
+            </table>
         </div>
     </div>
 
