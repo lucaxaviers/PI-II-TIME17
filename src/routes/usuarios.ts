@@ -9,6 +9,8 @@ import { executarConsulta } from "../database";
 import { iniciarSessao, encerrarSessao } from "../sessao";
 
 const router = Router();
+
+// Encerra a sessao do usuario atual
 router.post("/logout", (req, res) => {
   encerrarSessao(req, res);
   return res.sendStatus(204);
@@ -26,6 +28,7 @@ router.post("/login", async (req: Request, res: Response) => {
     });
   }
 
+  // Limpa espacos extras e deixa o e-mail minusculo para evitar erro na busca
   const emailLimpo = String(email).trim().toLowerCase();
   const senhaStr = String(senha);
 
