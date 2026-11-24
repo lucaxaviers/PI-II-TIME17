@@ -1,3 +1,10 @@
+/* ==========================================
+   Descricao: Servidor Express do DevTrack (arquivo compartilhado, autoria por parte)
+   Autor (servidor basico, rota inicial e inicializacao): Enrico Locateli Costa | 26003119
+   Autor (rotas de login/cadastro, redirecionamentos e verificacao de sessao): Lucas Rodrigues Xavier | 25000508
+   Autor (integracao das rotas de cadastro e edicao de demandas): Gabriel Santucci de Novaes | 26002102
+   Autor (listagem, filtros e ordenacao de demandas, projetos e usuarios por projeto, CORS e frontend estatico): Felipe D. dos Passos | 26002875
+   ========================================== */
 
 import express, { Request, Response } from "express";
 import path from "path";

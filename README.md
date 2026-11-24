@@ -48,7 +48,9 @@ O sistema permite que diferentes projetos e equipes registrem e acompanhem taref
 | **2** | 01/09 | Desenvolvimento do frontend (HTML5 e CSS3) | ✅ Concluída |
 | **3** | 15/09 | Validação do frontend em JavaScript e servidor inicial Node.js | ✅ Concluída |
 | **4** | 29/09 | Backend com Express e TypeScript, dados de teste em memória | ✅ Concluída |
-| **5** | 13/10 | Modelagem e integração com Banco de Dados Relacional | 🔄 Em andamento |
+| **5** | 13/10 | Modelagem e integração com Banco de Dados Relacional, integração frontend-backend e conclusão do escopo | 🔄 Em andamento |
+
+A reunião de 10/11 foi a última reunião de orientação. Depois dela, a equipe conclui o sistema por conta própria, que deve estar completo até o final de novembro para a banca.
 
 O histórico detalhado de cada reunião está documentado em [`documentos/time/reunioes.md`](documentos/time/reunioes.md).  
 O apontamento de esforço e horas de cada integrante é registrado continuamente no **GitHub Projects**.
@@ -82,7 +84,7 @@ Os scripts SQL do banco de dados relacional estão localizados na pasta [`banco/
    ```bash
    cp .env.example .env
    ```
-   *(O arquivo já vem pré-configurado para `DB_CONNECT_STRING=localhost:1521/FREEPDB1`).*
+   *(Descomente e ajuste `DB_USER`, `DB_PASSWORD` e `DB_CONNECT_STRING` conforme o banco usado. Para o Docker acima: `system`, `oracle` e `localhost:1521/FREEPDB1`).*
 
 3. **Execute os scripts no banco:**
    
@@ -99,7 +101,7 @@ Os scripts SQL do banco de dados relacional estão localizados na pasta [`banco/
 
 > 💡 **Nota sobre a primeira execução:** No início do `schema.sql`, os comandos `DROP TABLE ... CASCADE CONSTRAINTS` garantem a limpeza de tabelas antigas. Se for a primeira vez rodando num banco vazio, mensagens de aviso `ORA-00942: table or view does not exist` são normais e esperadas; o script continuará e criará todas as tabelas e dados com sucesso.
 
-> **Nota de Contingência:** Caso o container do Oracle não esteja rodando, o servidor ativa automaticamente o modo de fallback em memória para que o desenvolvimento e testes do frontend não sejam interrompidos.
+> **Variáveis de ambiente lidas pelo servidor:** `DB_USER`, `DB_PASSWORD`, `DB_CONNECT_STRING` e `PORT`. Se alguma não estiver definida no `.env`, o servidor usa a conexão padrão do Oracle do laboratório da faculdade. Para usar o Oracle local (Docker), defina as três variáveis `DB_*` no `.env`, como mostrado acima.
 
 ---
 
@@ -126,40 +128,73 @@ Os scripts SQL do banco de dados relacional estão localizados na pasta [`banco/
    npm install
    ```
 
-4. **Inicie o servidor de desenvolvimento:**
-   ```bash
-   npm start
-   ```
+4. **Inicie o servidor:**
+   - Desenvolvimento (recompila ao salvar):
+     ```bash
+     npm start
+     ```
+   - Execução simples (compilar e rodar):
+     ```bash
+     npx tsc
+     node lib/server.js
+     ```
 
-   O servidor iniciará automaticamente em `http://localhost:3000`.
+   O servidor iniciará em `http://localhost:3000`. Abra `http://localhost:3000/login` para começar.
 
 ---
 
 ## 🌐 Rotas e Navegação da Aplicação
 
 ### Páginas do Frontend
-| Rota Amigável | Caminho Completo | Descrição |
-| :--- | :--- | :--- |
-| `http://localhost:3000/login` | `/app/pages/login.html` | Tela de autenticação de usuários |
-| `http://localhost:3000/cadastro` | `/app/pages/cadastro_usuario.html` | Tela de cadastro de novos usuários |
-| `http://localhost:3000/dashboard` | `/app/pages/dashboard.html` | Visão geral de indicadores e demandas |
-| `http://localhost:3000/demandas` | `/app/pages/lista_demandas.html` | Listagem e filtros de demandas |
+| Endereço | Descrição |
+| :--- | :--- |
+| `http://localhost:3000/login` | Tela de autenticação de usuários |
+| `http://localhost:3000/cadastro` | Tela de cadastro de novos usuários |
+| `http://localhost:3000/dashboard` | Redireciona para o dashboard (`/app/pages/dashboard.html`) |
+| `http://localhost:3000/app/pages/lista_demandas.html` | Listagem, filtros e busca de demandas |
+| `http://localhost:3000/app/pages/cadastro_demanda.html` | Cadastro e edição de demandas |
+| `http://localhost:3000/app/pages/detalhes_demanda.html` | Detalhes de uma demanda |
 
 ### Endpoints da API (Backend)
 | Método | Endpoint | Descrição |
 | :---: | :--- | :--- |
-| `GET` | `/` | Verificação de status do servidor (`status: ok`) |
-| `POST` | `/login` | Autenticação de usuário (valida credenciais e retorna dados/perfil) |
-| `GET` | `/usuarios` | Listagem de usuários cadastrados para atribuição de demandas |
+| `GET` | `/` | Verificação de status do servidor |
+| `POST` | `/login` | Autenticação de usuário e criação da sessão |
+| `POST` | `/logout` | Encerra a sessão |
+| `GET` | `/usuarios` | Lista usuários cadastrados |
+| `POST` | `/usuarios` | Cadastra novo usuário |
+| `GET` | `/usuarios/projeto` | Lista usuários de um projeto (usado para responsáveis) |
+| `GET` | `/projetos` | Lista projetos visíveis ao usuário logado |
+| `GET` | `/demandas` | Lista demandas com filtros, busca e ordenação |
+| `GET` | `/demandas/editaveis` | Demandas que o usuário logado pode editar |
+| `GET` | `/demandas/:id/edicao` | Dados de uma demanda para edição |
+| `POST` | `/demandas` | Cadastra demanda (status inicial Aberta, valida prazo em feriado nacional pela BrasilAPI) |
+| `PUT` | `/demandas/:id` | Edita demanda e registra o histórico de alterações |
 
 ---
 
-## 🔑 Credenciais para Testes (Dados em Memória)
+## 📌 Situação Atual do Desenvolvimento
 
-Para testes das rotas e validações durante as etapas de avaliação, utilize as seguintes credenciais pré-configuradas:
+| Funcionalidade | Situação |
+| :--- | :---: |
+| Login, logout e sessão | ✅ Implementado |
+| Cadastro de usuários | ✅ Implementado |
+| Cadastro e edição de demandas, com validação de feriado | ✅ Implementado |
+| Listagem com filtros, busca e ordenação | ✅ Implementado |
+| Dashboard | 🔄 Em integração |
+| Detalhes da demanda, comentários e histórico | 🔄 Em integração |
+| Atualização de status e cancelamento de demanda | 🔄 Em desenvolvimento |
 
-| Perfil | E-mail | Senha |
-| :--- | :--- | :--- |
-| **Administrador** | `lucas@devtrack.com` | `senha123` |
-| **Líder de Projeto** | `enrico@devtrack.com` | `senha123` |
-| **Membro da Equipe** | `gabriela@devtrack.com` | `senha123` |
+> Esta tabela deve ser revisada pelo time antes da entrega final.
+
+---
+
+## 🔑 Credenciais para Testes
+
+Os usuários abaixo são criados pelo `banco/seed.sql`. A senha de todos é `senha123`.
+
+| Perfil | E-mail |
+| :--- | :--- |
+| **Administrador** | `lucas@devtrack.com` |
+| **Líder de Projeto** | `enrico@devtrack.com` |
+| **Membro da Equipe** | `gabriela@devtrack.com`, `felipe@devtrack.com`, `gabriel@devtrack.com` |
