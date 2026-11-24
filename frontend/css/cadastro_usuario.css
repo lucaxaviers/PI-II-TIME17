@@ -31,6 +31,7 @@
     color: #333333;
 }
 
+/* Destaque azul quando o campo de perfil esta selecionado */
 .campo select:focus {
     outline: 2px solid #93c5fd;
     border-color: #2563eb;
@@ -44,10 +45,12 @@
         padding: 24px 18px;
     }
 
+    /* Titulo menor para caber na tela do celular */
     .cabecalho h1 {
         font-size: 20px;
     }
 
+    /* Logo menor no celular */
     .logo {
         max-width: 150px;
     }
