@@ -3,15 +3,20 @@
   Descricao: Dados em memoria para autenticacao e usuarios (Reuniao 4 e 5)
 */
 
+// Modelo de um usuario do sistema (mesmos campos da tabela usuarios no Oracle)
 export interface Usuario {
   id: number;
   nome: string;
   email: string;
+  // Senha opcional para poder omitir o campo ao devolver o usuario ao frontend
   senha?: string;
   perfil: "Administrador" | "Líder de Projeto" | "Membro da Equipe";
 }
 
-// Usuarios de teste em memoria com os 3 perfis exigidos pelo escopo
+// Usuarios de teste em memoria com os 3 perfis exigidos pelo escopo (Administrador,
+// Lider de Projeto e Membro da Equipe). Este arquivo e legado das etapas iniciais:
+// hoje o login e os usuarios vem do banco Oracle (ver database.ts e routes/usuarios.ts),
+// e os mesmos dados de teste estao em banco/seed.sql.
 export const usuarios: Usuario[] = [
   {
     id: 1,

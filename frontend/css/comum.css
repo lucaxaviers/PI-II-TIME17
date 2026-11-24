@@ -3,10 +3,12 @@
    Descricao: Estilos globais e unificados compartilhados pela aplicacao (Issue #19)
    ========================================== */
 
+/* Faz largura e altura incluirem padding e borda, facilitando o calculo do layout */
 * {
     box-sizing: border-box;
 }
 
+/* Fundo, fonte e cor de texto padrao de todas as telas */
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
@@ -14,6 +16,7 @@ body {
     color: #333333;
 }
 
+/* Cartao branco central onde ficam os formularios de login e cadastro */
 .cartao {
     background-color: #ffffff;
     width: 440px;
@@ -24,23 +27,27 @@ body {
     box-shadow: 0 4px 15px rgba(30, 50, 90, 0.04);
 }
 
+/* Bloco de topo do cartao (logo, titulo e subtitulo) */
 .cabecalho {
     text-align: center;
     margin-bottom: 25px;
 }
 
+/* Texto da marca usado quando nao ha imagem de logo */
 .logo {
     color: #2563eb;
     font-size: 26px;
     font-weight: bold;
 }
 
+/* Titulo da tela */
 .cabecalho h1 {
     color: #1f4e79;
     font-size: 22px;
     margin: 10px 0 4px;
 }
 
+/* Subtitulo da tela */
 .cabecalho p {
     color: #555555;
     font-size: 14px;
@@ -48,10 +55,12 @@ body {
 }
 
 
+/* Grupo de um campo do formulario (rotulo, entrada e mensagem de erro) */
 .campo {
     margin-bottom: 18px;
 }
 
+/* Rotulo acima de cada campo */
 .campo label {
     display: block;
     color: #333333;
@@ -60,6 +69,7 @@ body {
     margin-bottom: 6px;
 }
 
+/* Caixa de texto padrao dos formularios */
 .campo input {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
@@ -71,20 +81,24 @@ body {
     color: #333333;
 }
 
+/* Destaque azul quando o campo esta selecionado */
 .campo input:focus {
     outline: 2px solid #93c5fd;
     border-color: #2563eb;
 }
 
+/* Campo com erro de validacao: fundo e borda vermelhos */
 .campo.invalido input {
     background-color: #fdecea;
     border: 1px solid #c0392b;
 }
 
+/* Campo preenchido corretamente: borda verde */
 .campo.valido input {
     border: 1px solid #239b56;
 }
 
+/* Mensagem de erro do campo, escondida ate haver erro */
 .mensagem-erro {
     display: none;
     color: #c0392b;
@@ -92,16 +106,19 @@ body {
     margin: 5px 0 0;
 }
 
+/* Mostra a mensagem de erro quando o campo esta invalido */
 .campo.invalido .mensagem-erro {
     display: block;
 }
 
+/* Linha de opcoes extras, como o link "Esqueceu a senha?" */
 .linha-opcoes {
     font-size: 14px;
     text-align: right;
     margin-bottom: 20px;
 }
 
+/* Botao principal azul dos formularios */
 .botao {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
@@ -115,11 +132,13 @@ body {
     cursor: pointer;
 }
 
+/* Azul mais escuro ao passar o mouse */
 .botao:hover {
     background-color: #1d4ed8;
     border-color: #1d4ed8;
 }
 
+/* Botao cinza e bloqueado durante o envio do formulario */
 .botao:disabled {
     color: #777777;
     background-color: #e5e7eb;
@@ -127,17 +146,20 @@ body {
     cursor: not-allowed;
 }
 
+/* Estilo padrao dos links */
 a {
     color: #1d4ed8;
     text-decoration: none;
     font-weight: bold;
 }
 
+/* Sublinha o link ao passar o mouse */
 a:hover {
     text-decoration: underline;
 }
 
 
+/* Rodape do cartao, separado por uma linha (ex.: link para criar conta) */
 .rodape-form {
     color: #555555;
     font-size: 14px;
@@ -147,6 +169,7 @@ a:hover {
     border-top: 1px solid #cccccc;
 }
 
+/* Caixa de alerta geral, escondida por padrao */
 .alerta {
     display: none;
     font-size: 14px;
@@ -155,22 +178,26 @@ a:hover {
     border-radius: 5px;
 }
 
+/* Mostra o alerta quando o JavaScript adiciona esta classe */
 .alerta.visivel {
     display: block;
 }
 
+/* Alerta vermelho de erro */
 .alerta-erro {
     color: #922b21;
     background-color: #fdecea;
     border: 1px solid #c0392b;
 }
 
+/* Alerta verde de sucesso */
 .alerta-sucesso {
     color: #145a32;
     background-color: #e6f6ec;
     border: 1px solid #239b56;
 }
 
+/* Ajuste para celulares: cartao ocupa quase toda a largura da tela */
 @media (max-width: 480px) {
     .cartao {
         width: 90%;

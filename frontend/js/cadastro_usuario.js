@@ -3,10 +3,13 @@
   Descricao: Validacao e integracao da tela de cadastro de novos usuarios (Reuniao 5 / PI-II)
 */
 
+// Ao enviar o formulario: valida os campos e, se tudo estiver certo, envia o cadastro ao servidor
 document.getElementById('form-cadastro').addEventListener('submit', async function (evento) {
+  // Impede o recarregamento da pagina
   evento.preventDefault();
   ocultarAlerta();
 
+  // Busca os campos e o botao do formulario
   const nome = document.getElementById('nome');
   const email = document.getElementById('email');
   const perfil = document.getElementById('perfil');
@@ -14,12 +17,14 @@ document.getElementById('form-cadastro').addEventListener('submit', async functi
   const confirmarSenha = document.getElementById('confirmar-senha');
   const botaoCadastrar = document.querySelector('#form-cadastro button[type="submit"]');
 
+  // Le os valores digitados (nome e e-mail sem espacos extras, e-mail em minusculo)
   const nomeValor = nome.value.trim();
   const emailValor = email.value.trim().toLowerCase();
   const perfilValor = perfil.value;
   const senhaValor = senha.value;
   const confirmarSenhaValor = confirmarSenha.value;
 
+  // Formato basico de e-mail: texto, arroba e dominio
   const regexEmail = /^[^\s@]+@[^\s@]+$/;
   let valido = true;
 
@@ -63,16 +68,19 @@ document.getElementById('form-cadastro').addEventListener('submit', async functi
     confirmarSenhaValor === '' ? 'Confirme sua senha.' : 'As senhas não coincidem.'
   ) && valido;
 
+  // Se algum campo estiver invalido, para aqui e mostra os erros
   if (!valido) {
     return;
   }
 
+  // Bloqueia o botao durante o envio para evitar cliques repetidos
   if (botaoCadastrar) {
     botaoCadastrar.disabled = true;
     botaoCadastrar.textContent = 'Cadastrando...';
   }
 
   try {
+    // Envia os dados do novo usuario para a API (POST /usuarios)
     const resposta = await fetch('/usuarios', {
       method: 'POST',
       headers: {
@@ -86,20 +94,25 @@ document.getElementById('form-cadastro').addEventListener('submit', async functi
       })
     });
 
+    // Le a resposta em JSON; se vier invalida, usa um objeto vazio
     const dados = await resposta.json().catch(function () {
       return {};
     });
 
+    // Cadastro feito: mostra sucesso e leva o usuario para o login
     if (resposta.ok) {
       mostrarAlerta(dados.mensagem || 'Conta criada com sucesso! Redirecionando para o login...', true);
       setTimeout(function () {
         window.location.href = 'login.html';
       }, 1800);
     } else {
+      // Erro retornado pela API, como e-mail ja cadastrado
       mostrarAlerta(dados.mensagem || 'Erro ao realizar cadastro.', false);
     }
+  // Falha de rede ou servidor fora do ar
   } catch (erro) {
     mostrarAlerta('Não foi possível conectar ao servidor. Tente novamente mais tarde.', false);
+  // Sempre reabilita o botao ao terminar, com sucesso ou erro
   } finally {
     if (botaoCadastrar) {
       botaoCadastrar.disabled = false;
@@ -108,6 +121,10 @@ document.getElementById('form-cadastro').addEventListener('submit', async functi
   }
 });
 
+/*
+  Marca o campo como valido ou invalido e mostra a mensagem de erro.
+  Retorna true quando a condicao e verdadeira.
+*/
 function validarCampo(input, condicao, idErro, mensagem) {
   const campo = input.closest('.campo');
   if (campo) {
@@ -120,6 +137,7 @@ function validarCampo(input, condicao, idErro, mensagem) {
   return condicao;
 }
 
+// Mostra o alerta geral do formulario (verde se for sucesso, vermelho se for erro)
 function mostrarAlerta(mensagem, sucesso = false) {
   const alerta = document.getElementById('alerta');
   if (alerta) {
@@ -128,6 +146,7 @@ function mostrarAlerta(mensagem, sucesso = false) {
   }
 }
 
+// Esconde e limpa o alerta geral do formulario
 function ocultarAlerta() {
   const alerta = document.getElementById('alerta');
   if (alerta) {
